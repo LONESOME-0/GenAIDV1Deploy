@@ -87,7 +87,7 @@ const Login = () => {
         <Nav back />
 
 
-    <div className="  flex flex-col items-center justify-center min-h-screen ">
+    <div className=" flex flex-col items-center justify-center min-h-screen ">
       <section className="flex justify-center items-center mb-4">
         <img src={logo} alt="logo" className="w-[60%]" />
       </section>

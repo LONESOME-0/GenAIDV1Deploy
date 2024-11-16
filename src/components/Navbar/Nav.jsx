@@ -13,7 +13,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
         <>
 
             {(logo || back || search || title || cart) && (
-                <nav className=" nav lg:hidden flex justify-between items-center h-[60px] p-3 space-x-6 bg-white fixed top-0 w-full">
+                <nav className=" nav lg:hidden flex justify-between items-center h-[60px] p-3 space-x-6 bg-white fixed top-0 w-full z-50">
                     {back && <button className="nav-back"><IoMdArrowRoundBack className='text-2xl' /></button>}
                     {logo && <div className="nav-logo"><img src="/src/assets/img/logo-genaid.png" alt="" className='max-h-10' /></div>}
                     <div className="flex-grow flex justify-center">
@@ -37,7 +37,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
 
             
 
-                    <nav className="hidden lg:block bg-white shadow-xl w-full fixed top-0">
+                    <nav className="hidden lg:block bg-white shadow-xl w-full fixed top-0 z-50">
                         <div className="container mx-auto">
                             {/* Top Section */}
                             <div className="flex items-center justify-between p-4">
