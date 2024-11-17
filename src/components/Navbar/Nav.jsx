@@ -15,7 +15,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
             {(logo || back || search || title || cart) && (
                 <nav className=" nav lg:hidden flex justify-between items-center h-[60px] p-3 space-x-6 bg-white fixed top-0 w-full z-50">
                     {back && <button className="nav-back"><IoMdArrowRoundBack className='text-2xl' /></button>}
-                    {logo && <div className="nav-logo"><img src="public/img/logo-genaid.png" alt="" className='max-h-10' /></div>}
+                    {logo && <div className="nav-logo"><img src="img/logo-genaid.png" alt="" className='max-h-10' /></div>}
                     <div className="flex-grow flex justify-center">
 
                         {title && <div className="nav-title">{title}</div>}
