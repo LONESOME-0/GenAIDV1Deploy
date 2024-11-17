@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import logo from "../assets/img/logo-genaid.png";
+import logo from "/public/img/logo-genaid.png";
 import { FaFacebookF } from "react-icons/fa6";
 import { FaApple } from "react-icons/fa6";
 import { IoLogoGoogle } from "react-icons/io";
@@ -96,7 +96,7 @@ const Login = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6  shadow-xl w-[80%] max-w-sm rounded-3xl lg:mr-10 "
+        className="bg-white p-6  shadow-xl w-[80%]  max-w-sm rounded-3xl  lg:mr-24 "
         autoComplete="off"
       >
         <h1 className="mb-4 text-3xl font-bold  ">Login Details</h1>
