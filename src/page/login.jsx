@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import logo from "../assets/img/logo-genaid.png";
+import logo from "/public/img/logo-genaid.png";
 import { FaFacebookF } from "react-icons/fa6";
 import { FaApple } from "react-icons/fa6";
 import { IoLogoGoogle } from "react-icons/io";
@@ -83,22 +83,23 @@ const Login = () => {
   }
 
   return (
-    <>
+    <div >
         <Nav back />
 
+    <div className=" flex flex-col items-center justify-center min-h-screen lg:flex lg:flex-row  lg:gap-1  ">
 
-    <div className="  flex flex-col items-center justify-center min-h-screen ">
-      <section className="flex justify-center items-center mb-4">
-        <img src={logo} alt="logo" className="w-[60%]" />
+      <section className="flex justify-center items-center mb-4 ">
+        <img src={logo} alt="logo" className="w-[60%] lg:w-[80%]" />
       </section>
 
-      <h1 className="mb-4 text-3xl font-bold  ">Login Details</h1>
+      
 
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6  shadow-xl w-full max-w-sm rounded-lg"
+        className="bg-white p-6  shadow-xl w-[80%]  max-w-sm rounded-3xl  lg:mr-24 "
         autoComplete="off"
       >
+        <h1 className="mb-4 text-3xl font-bold  ">Login Details</h1>
         <div className="  mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Email
@@ -165,11 +166,11 @@ const Login = () => {
           <FaFacebookF />
           <FaApple />
         </div>
+        <p className="m-4">Don't have an account ? Register Now</p>
       </form>
-
-      <p className="m-4">Don't have an account ? Register Now</p>
+      
     </div>
-    </>
+    </div>
   );
 };
 
