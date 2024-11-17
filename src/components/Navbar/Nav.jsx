@@ -42,7 +42,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
                             {/* Top Section */}
                             <div className="flex items-center justify-between p-4">
                                 <div className="nav-logo">
-                                    <img src="public/img/logo-genaid.png" alt="" className="h-12" />
+                                    <img src="img/logo-genaid.png" alt="" className="h-12" />
                                 </div>
 
                                 <div className="flex-1 mx-8">
