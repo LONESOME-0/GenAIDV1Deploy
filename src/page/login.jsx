@@ -83,93 +83,91 @@ const Login = () => {
   }
 
   return (
-    <div >
-        <Nav back />
+    <div>
+      <Nav back />
 
-    <div className=" flex flex-col items-center justify-center min-h-screen lg:flex lg:flex-row  lg:gap-1  ">
+      <div className=" flex flex-col items-center justify-center min-h-screen lg:flex lg:flex-row  lg:gap-1  ">
+        <section className="flex justify-center items-center mb-4 ">
+          <img src={logo} alt="logo" className="w-[60%] lg:w-[80%]" />
+        </section>
 
-      <section className="flex justify-center items-center mb-4 ">
-        <img src={logo} alt="logo" className="w-[60%] lg:w-[80%]" />
-      </section>
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white p-6  shadow-xl w-[80%]  max-w-sm rounded-3xl  lg:mr-24 "
+          autoComplete="off"
+        >
+          <h1 className="mb-4 text-3xl font-bold  ">Login Details</h1>
+          <div className="  mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Email
+            </label>
+            <input
+              type="email"
+              value={email}
+              placeholder="Enter your email"
+              onChange={(e) => setEmail(e.target.value)}
+              onFocus={() => setEmailTouched(true)}
+              autoComplete="chrome-off"
+              className={`shadow appearance-none border  rounded w-full py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                emailError ? "border-orange-400" : ""
+              }`}
+            />
 
-      
-
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6  shadow-xl w-[80%]  max-w-sm rounded-3xl  lg:mr-24 "
-        autoComplete="off"
-      >
-        <h1 className="mb-4 text-3xl font-bold  ">Login Details</h1>
-        <div className="  mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Email
-          </label>
-          <input
-            type="email"
-            value={email}
-            placeholder="Enter your email"
-            onChange={(e) => setEmail(e.target.value)}
-            onFocus={() => setEmailTouched(true)}
-            autoComplete="chrome-off"
-            className={`shadow appearance-none border  rounded w-full py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-              emailError ? "border-orange-400" : ""
-            }`}
-          />
-
-          {emailError && emailTouched && (
-            <p className="text-red-500 text-xs italic mt-2">{emailError}</p>
-          )}
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Password
-          </label>
-          <input
-            type={hidePassword ? "password" : "text"}
-            value={password}
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            onFocus={() => setPasswordTouched(true)} // Set passwordTouched to true on focus
-            autoComplete="new-password"
-            className={`shadow appearance-none border rounded w-full py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-              passwordError ? "border-orange-400" : ""
-            }`}
-          />
-          <div className="flex items-center mt-2 gap-28 ">
-            <button
-              onClick={handleHidePassword}
-              className="text-sm text-blue-500 hover:underline focus:outline-none"
-            >
-              {hidePassword ? "Show Password" : "Hide Password"}
-            </button>
-            <button className=" text-sm"> Foget password ?</button>
+            {emailError && emailTouched && (
+              <p className="text-red-500 text-xs italic mt-2">{emailError}</p>
+            )}
           </div>
-          {passwordError && passwordTouched && (
-            <p className="text-red-500 text-xs italic mt-2">{passwordError}</p>
-          )}
-        </div>
 
-        <div className="flex items-center justify-between">
-          <button
-            type="submit"
-            className="w-full bg-ga-primary
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Password
+            </label>
+            <input
+              type={hidePassword ? "password" : "text"}
+              value={password}
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              onFocus={() => setPasswordTouched(true)} // Set passwordTouched to true on focus
+              autoComplete="new-password"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                passwordError ? "border-orange-400" : ""
+              }`}
+            />
+            <div className="flex items-center mt-2 gap-28 ">
+              <button
+                onClick={handleHidePassword}
+                className="text-sm text-blue-500 hover:underline focus:outline-none"
+              >
+                {hidePassword ? "Show Password" : "Hide Password"}
+              </button>
+              <button className=" text-sm"> Foget password ?</button>
+            </div>
+            {passwordError && passwordTouched && (
+              <p className="text-red-500 text-xs italic mt-2">
+                {passwordError}
+              </p>
+            )}
+          </div>
+
+          <div className="flex items-center justify-between">
+            <button
+              type="submit"
+              className="w-full bg-ga-primary
            hover:bg-blue-700 text-white font-bold py-2 px-4  focus:outline-none focus:shadow-outline rounded-md text-2xl  h-16"
-          >
-            Login
-          </button>
-        </div>
-        <p className="m-4 text-center">Or Sign in With</p>
+            >
+              Login
+            </button>
+          </div>
+          <p className="m-4 text-center">Or Sign in With</p>
 
-        <div className=" flex justify-center gap-6 text-3xl ">
-          <IoLogoGoogle />
-          <FaFacebookF />
-          <FaApple />
-        </div>
-        <p className="m-4">Don't have an account ? Register Now</p>
-      </form>
-      
-    </div>
+          <div className=" flex justify-center gap-6 text-3xl ">
+            <IoLogoGoogle />
+            <FaFacebookF />
+            <FaApple />
+          </div>
+          <p className="m-4">Don't have an account ? Register Now</p>
+        </form>
+      </div>
     </div>
   );
 };

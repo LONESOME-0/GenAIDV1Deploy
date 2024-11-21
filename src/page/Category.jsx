@@ -10,9 +10,9 @@ const Category = () => {
   };
   return (
     <>
-    <div>
-      <div className="text-2xl pt-6 ">
     <Nav  back title ="หมวดหมู่ทั้งหมด" />
+    <div>
+      <div className="text-lg pt-6 ">
     </div>
       <div className="  my-16 lg:my-40 flex flex-wrap justify-center mt-10 gap-4">
         <CardCategry />
