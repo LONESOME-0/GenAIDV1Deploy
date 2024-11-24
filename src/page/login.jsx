@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import logo from "/public/img/logo-genaid.png";
 import { FaFacebookF } from "react-icons/fa6";
 import { FaApple } from "react-icons/fa6";
-import { IoLogoGoogle } from "react-icons/io";
+import { IoLogoGoogle, IoIosMail } from "react-icons/io";
+import { FaUser,FaLock  } from "react-icons/fa";
 import Nav from "../components/Navbar/Nav";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -97,10 +99,11 @@ const Login = () => {
           autoComplete="off"
         >
           <h1 className="mb-4 text-3xl font-bold  ">Login Details</h1>
-          <div className="  mb-4">
+          <div className=" mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Email
             </label>
+            <div className=" relative mb-4">
             <input
               type="email"
               value={email}
@@ -108,31 +111,36 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               onFocus={() => setEmailTouched(true)}
               autoComplete="chrome-off"
-              className={`shadow appearance-none border  rounded w-full py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+              className={`shadow appearance-none border  rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                 emailError ? "border-orange-400" : ""
               }`}
             />
-
+            <FaUser className="absolute right-3 bottom-2 text-2xl opacity-30 "  />
+            </div>
             {emailError && emailTouched && (
               <p className="text-red-500 text-xs italic mt-2">{emailError}</p>
             )}
           </div>
-
+            
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Password
             </label>
-            <input
+            <div className=" relative mb-4">
+            <input 
               type={hidePassword ? "password" : "text"}
               value={password}
-              placeholder="Password"
+              placeholder="password"
               onChange={(e) => setPassword(e.target.value)}
               onFocus={() => setPasswordTouched(true)} // Set passwordTouched to true on focus
               autoComplete="new-password"
-              className={`shadow appearance-none border rounded w-full py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+              className={`shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                 passwordError ? "border-orange-400" : ""
               }`}
             />
+            < FaLock className=" absolute right-3 bottom-2 text-2xl opacity-30" />
+            </div>
+
             <div className="flex items-center mt-2 gap-28 ">
               <button
                 onClick={handleHidePassword}
@@ -153,7 +161,7 @@ const Login = () => {
             <button
               type="submit"
               className="w-full bg-ga-primary
-           hover:bg-blue-700 text-white font-bold py-2 px-4  focus:outline-none focus:shadow-outline rounded-md text-2xl  h-16"
+           hover:bg-ga-secondary text-white font-bold py-2 px-4  focus:outline-none focus:shadow-outline rounded-md text-2xl  h-16"
             >
               Login
             </button>
@@ -165,7 +173,10 @@ const Login = () => {
             <FaFacebookF />
             <FaApple />
           </div>
-          <p className="m-4">Don't have an account ? Register Now</p>
+          <div className="flex">
+          <p className="m-4">Don't have an account? <Link to ="/register"className="text-blue-700">Register Now</Link></p>
+          {/* <button className="text-sky-600">Register Now</button> */}
+          </div>
         </form>
       </div>
     </div>
