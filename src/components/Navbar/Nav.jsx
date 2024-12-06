@@ -9,6 +9,8 @@ import { RiDiscountPercentFill } from "react-icons/ri";
 import { PiPillFill } from "react-icons/pi";
 import { Link } from "react-router-dom";
 
+
+
 const Nav = ({ logo, back, search, title, cart }) => {
   const iconSize = "2.3rem";
   return (
@@ -55,6 +57,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
                 {cart && <button className="nav-cart"><FaCartShopping size={24} /></button>}
             </nav> */}
 
+
       <nav className="hidden lg:block bg-white shadow-xl w-full fixed top-0 z-50">
         <div className="container mx-auto">
           {/* Top Section */}
@@ -62,6 +65,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
             <div className="nav-logo">
               <img src="img/logo-genaid.png" alt="" className="h-12" />
             </div>
+
 
             <div className="flex-1 mx-8">
               <input
