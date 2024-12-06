@@ -68,9 +68,9 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "/search",
+    path: "/search/:categoryName", // Dynamic route for category search
     element: <Search />,
-  }
+  },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
