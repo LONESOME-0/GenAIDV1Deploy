@@ -7,7 +7,8 @@ import CheckOut from './page/CheckOut'
 function App() {
   return (
     <>
-    <Cart />
+    
+    <Register />
     </>
   );
 }
