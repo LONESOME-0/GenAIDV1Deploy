@@ -1,6 +1,7 @@
 export default function card() {
   return (
     <>
+
       <div className="h-40 w-[40%]  lg:w-auto relative max-w-xs overflow-hidden rounded-2xl shadow-lg group ml-2 m-1 flex flex-col flex-shrink-0 snap-start ">
         <img
           src="public/ImgsCategory/01householddrugs.jpg"
@@ -11,6 +12,7 @@ export default function card() {
           <h2 className="p-4 text-white font-bold">ยาสามัญประจำบ้าน</h2>
         </div>
       </div>
+
     </>
   );
 }
