@@ -8,6 +8,7 @@ import { FaFire } from "react-icons/fa6";
 import { RiDiscountPercentFill } from "react-icons/ri";
 import { PiPillFill } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import AnchorLink from "react-anchor-link-smooth-scroll";
 
 
 
@@ -62,9 +63,11 @@ const Nav = ({ logo, back, search, title, cart }) => {
         <div className="container mx-auto">
           {/* Top Section */}
           <div className="flex items-center justify-between p-4">
+            <Link to="/">
             <div className="nav-logo">
               <img src="img/logo-genaid.png" alt="" className="h-12" />
             </div>
+            </Link>
 
 
             <div className="flex-1 mx-8">
@@ -77,8 +80,10 @@ const Nav = ({ logo, back, search, title, cart }) => {
 
             <div className="flex items-center space-x-6">
               <div className="flex flex-col items-center cursor-pointer hover:text-ga-primary">
-                <FaCartShopping className="text-2xl mb-1" />
-                <span className="text-sm">รถเข็น</span>
+                <Link to="/cart" >
+                  <FaCartShopping className="text-2xl mb-1" />
+                  <span className="text-sm">รถเข็น</span>
+                </Link>
               </div>
 
               <div className="flex flex-col items-center cursor-pointer hover:text-ga-primary">
@@ -106,15 +111,15 @@ const Nav = ({ logo, back, search, title, cart }) => {
             </Link>
             <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
               <FaFire className="text-lg" />
-              <span>สินค้าขายดี</span>
+              <AnchorLink offset='200' href="#bestselling"> สินค้าขายดี</AnchorLink>
             </div>
             <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
               <RiDiscountPercentFill className="text-lg" />
-              <span>สินค้าลดราคา</span>
+              <AnchorLink offset='200' href="#discounted">สินค้าลดราคา</AnchorLink>
             </div>
             <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
               <PiPillFill className="text-lg" />
-              <span>เกี่ยวกับเรา</span>
+              <AnchorLink offset='200' href="#about">เกี่ยวกับเรา</AnchorLink>
             </div>
           </div>
         </div>
