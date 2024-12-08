@@ -95,6 +95,7 @@ const Login = () => {
       setPasswordError("");
       setEmailTouched(false);
       setPasswordTouched(false);
+
     } else {
       alert("Please fill in all required fields and fix any errors.");
     }
