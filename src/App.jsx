@@ -7,8 +7,7 @@ import Category from './page/Category'
 function App() {
   return (
     <>
-    
-    <Register />
+    <Home />
     </>
   );
 }
