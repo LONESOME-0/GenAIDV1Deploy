@@ -85,6 +85,7 @@ function Register() {
               value={fromData.email}
               placeholder="Valid email"
               className="shadow appearance-none border  rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={handleChange}
             />
             <IoIosMail className=" absolute right-3 bottom-2 text-2xl opacity-30" />
           </div>
@@ -98,6 +99,7 @@ function Register() {
               // onInput={(e) => {
               //   e.target.value = e.target.value.replace(/[^0-9]/g, "");
               // }}
+              onChange={handleChange}
             />
             <IoIosPhonePortrait className=" absolute right-3 bottom-2 text-2xl opacity-30" />
           </div>
@@ -108,6 +110,7 @@ function Register() {
               value={fromData.password}
               placeholder=" Password"
               className="shadow appearance-none border  rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={handleChange}
             />
             <FaLock className=" absolute right-3 bottom-2 text-2xl opacity-30" />
           </div>
@@ -118,6 +121,7 @@ function Register() {
               value={fromData.repassword}
               placeholder=" Re Password "
               className="shadow appearance-none border  rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={handleChange}
             />
             <FaLock className=" absolute right-3 bottom-2 text-2xl opacity-30" />
           </div>
