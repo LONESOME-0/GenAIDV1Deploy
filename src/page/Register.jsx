@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Nav from '../components/Navbar/Nav';
 import logo from '/public/img/logo-genaid.png';
 import { IoIosMail, IoIosPhonePortrait } from 'react-icons/io';
@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-function Register() {
+const Register =()=> {
   const [formData, setFormData] = useState({
     fullname: '',
     email: '',
@@ -15,8 +15,9 @@ function Register() {
     password: '',
     repassword: '',
   });
-
   const [errors, setErrors] = useState({});
+  const [email, setEmail] = useState("");
+
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -33,6 +34,7 @@ function Register() {
         email: formData.email,
         phone: formData.phone,
         password: formData.password,
+       
       });
       if (response.data) {
         // setToken(response.data.token);
@@ -44,6 +46,9 @@ function Register() {
     }
   };
 
+  useEffect(() => {
+    
+  })
   const validateForm = (data) => {
     let errors = {};
     if (!data.fullname) {
@@ -61,14 +66,20 @@ function Register() {
     if (!data.repassword) {
       errors.repassword = 'Confirm password is required';
     }
+    if (data.password !== data.repassword) {
+      errors.repassword = 'Passwords do not match';
+    }
     return errors;
   };
+
+
+
 
   return (
     <>
       <Nav back title="" />
-      <div className="flex flex-col items-center justify-center min-h-screen lg:flex lg:flex-row lg:gap-1">
-        <section className="flex justify-center items-center mb-4">
+      <div className="flex flex-col items-center justify-center min-h-screen lg:flex lg:flex-row lg:gap-1 lg:my-40">
+        <section className="flex justify-center items-center my-5">
           <img src={logo} alt="logo" className="w-[60%] lg:w-[80%]" />
         </section>
 
@@ -91,8 +102,9 @@ function Register() {
               className="shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={handleChange}
             />
-            {errors.fullname && <span>{errors.fullname}</span>}
-            <FaUser className="absolute right-3 bottom-2 text-2xl" />
+            {errors.fullname && <p style={{ color: 'red' }}>{errors.fullname}</p>}
+      
+            <FaUser className="absolute right-3 bottom-2 text-2xl opacity-30" />
           </div>
 
           <div className="relative mb-5">
@@ -104,8 +116,8 @@ function Register() {
               className="shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={handleChange}
             />
-            {errors.email && <span>{errors.email}</span>}
-            <IoIosMail className="absolute right-3 bottom-2 text-2xl" />
+             {errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
+            <IoIosMail className="absolute right-3 bottom-2 text-2xl opacity-30" />
           </div>
 
           <div className="relative mb-5">
@@ -117,8 +129,8 @@ function Register() {
               className="shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={handleChange}
             />
-            {errors.phone && <span>{errors.phone}</span>}
-            <IoIosPhonePortrait className="absolute right-3 bottom-2 text-2xl"
+             {errors.phone && <p style={{ color: 'red' }}>{errors.phone}</p>}
+            <IoIosPhonePortrait className="absolute right-3 bottom-2 text-2xl opacity-30"
             />
           </div>
 
@@ -131,8 +143,8 @@ function Register() {
               className="shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={handleChange}
             />
-            {errors.password && <span>{errors.password}</span>}
-            <FaLock className="absolute right-3 bottom-2 text-2xl" />
+            {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
+            <FaLock className="absolute right-3 bottom-2 text-2xl opacity-30" />
           </div>
 
           <div className="relative mb-5">
@@ -144,13 +156,14 @@ function Register() {
               className="shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={handleChange}
             />
-            {errors.repassword && <span>{errors.repassword}</span>}
-            <FaLock className="absolute right-3 bottom-2 text-2xl" />
+           {errors.repassword && <p style={{ color: 'red' }}>{errors.repassword}</p>}
+            <FaLock className="absolute right-3 bottom-2 text-2xl opacity-30" />
           </div>
 
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="w-full bg-ga-primary
+           hover:bg-ga-secondary text-white font-bold py-2 px-4  focus:outline-none focus:shadow-outline rounded-md text-2xl  h-16"
           >
             Register
           </button>

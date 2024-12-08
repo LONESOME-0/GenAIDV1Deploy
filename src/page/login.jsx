@@ -116,14 +116,15 @@ const Login = () => {
     <div>
       <Nav back />
 
-      <div className=" flex flex-col items-center justify-center min-h-screen lg:flex lg:flex-row  lg:gap-1  ">
-        <section className="flex justify-center items-center mb-4 ">
+      <div className=" flex flex-col items-center justify-center min-h-screen lg:flex lg:flex-row  lg:gap-1 lg:my-40 ">
+        <section className="flex justify-center items-center mb-5 ">
           <img src={logo} alt="logo" className="w-[60%] lg:w-[80%]" />
         </section>
 
         <form
-          onSubmit={handleSubmit}
-          className="bg-white p-6  shadow-xl w-[80%]  max-w-sm rounded-3xl  lg:mr-24 "
+           className="bg-white p-6  shadow-xl w-[80%]  max-w-sm rounded-3xl  lg:mr-24 "
+           onSubmit={handleSubmit}
+         
           autoComplete="off"
         >
           <h1 className="mb-4 text-3xl font-bold  ">Login Details</h1>
