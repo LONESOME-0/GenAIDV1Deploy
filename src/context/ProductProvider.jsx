@@ -1,20 +1,18 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
-
+import { AuthContext } from "./AuthProvider";
 export const ProductContext = createContext();
 
 const ProductProvider = ({ children }) => {
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const { backendUrl } = useContext(AuthContext);
   const productData = async () => {
     try {
-      const fetchData = await axios.get(
-        "https://api.jsonbin.io/v3/b/673a2a59e41b4d34e455da2d?meta=false"
-      );
+      const fetchData = await axios.get(backendUrl + "/api/products");
       setProduct(fetchData.data);
       setLoading(false);
-      // console.log(fetchData.data)
+      // console.log("provider", product);
     } catch (error) {
       console.log(error);
       setLoading(false);
