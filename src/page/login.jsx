@@ -1,12 +1,19 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import logo from "/public/img/logo-genaid.png";
 import { FaFacebookF } from "react-icons/fa6";
 import { FaApple } from "react-icons/fa6";
-import { IoLogoGoogle, IoIosMail } from "react-icons/io";
+import { IoLogoGoogle } from "react-icons/io";
 import { FaUser,FaLock  } from "react-icons/fa";
 import Nav from "../components/Navbar/Nav";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
+import axios from "axios";
+
+
+
+
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,6 +24,8 @@ const Login = () => {
   const [submittedData, setSubmittedData] = useState([]);
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
+  const [token, setToken] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const validateEmail = () => {
@@ -48,7 +57,7 @@ const Login = () => {
     validatePassword();
   }, [email, password, emailTouched, passwordTouched]);
 
-  function handleSubmit(e) {
+  async function  handleSubmit(e) {
     e.preventDefault();
 
     if (!email) {
@@ -66,7 +75,19 @@ const Login = () => {
       alert(
         `Form submitted successfully! Your email ${email} has been submitted.`
       );
-      console.log(email, password);
+     
+
+  const response = await axios.post(`${backendUrl}/api/user/login`, {
+    email,
+    password,
+  })
+  if (response.data) {
+    setToken(response.data.token);
+    localStorage.setItem("token", response.data.token)
+    console.log(response.data);
+  };
+
+  
 
       setEmail("");
       setPassword("");
@@ -78,6 +99,13 @@ const Login = () => {
       alert("Please fill in all required fields and fix any errors.");
     }
   }
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token]);
+
 
   function handleHidePassword(e) {
     e.preventDefault();

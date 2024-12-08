@@ -1,137 +1,160 @@
-import { useState } from "react";
-import Nav from "../components/Navbar/Nav";
-import logo from "/public/img/logo-genaid.png";
-import { IoIosMail, IoIosPhonePortrait } from "react-icons/io";
-import { FaUser, FaLock } from "react-icons/fa";
+import React, { useState } from 'react';
+import Nav from '../components/Navbar/Nav';
+import logo from '/public/img/logo-genaid.png';
+import { IoIosMail, IoIosPhonePortrait } from 'react-icons/io';
+import { FaUser, FaLock } from 'react-icons/fa';
+import axios from 'axios';
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 function Register() {
-  const [fromData, setFormData] = useState({
-    fullname: "",
-    email: "",
-    phone: "",
-    password: "",
-    repassword: "",
+  const [formData, setFormData] = useState({
+    fullname: '',
+    email: '',
+    phone: '',
+    password: '',
+    repassword: '',
   });
 
-  const [errors ,setErrors] =useState({});
+  const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const ValidationError = validateFrom(fromData)
-    setErrors(ValidationError);
+    const validationErrors = validateForm(formData);
+    setErrors(validationErrors);
+    console.log(formData);
+    try {
+      const response = await axios.post(`${backendUrl}/api/user/register`, {
+        fullname: formData.fullname,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+      });
+      if (response.data) {
+        // setToken(response.data.token);
+        // localStorage.setItem("token", response.data.token)
+        console.log(response.data);
+      };
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({...fromData, [name]: value });
-  };
-
-  const validateFrom = (data) => {
+  const validateForm = (data) => {
     let errors = {};
-    if(!data.fullname){
-      errors.fullname = "Full name is required"
+    if (!data.fullname) {
+      errors.fullname = 'Full name is required';
     }
-    if(!data.email){
-      errors.email = "Email is required"
+    if (!data.email) {
+      errors.email = 'Email is required';
     }
-    if(!data.phone){
-      errors.phone = "Phaone number is required"
+    if (!data.phone) {
+      errors.phone = 'Phone number is required';
     }
-    if(!data.password){
-      errors.password = "Password is required"
+    if (!data.password) {
+      errors.password = 'Password is required';
     }
-    if(!data.repassword){
-      errors.repassword = "Repassword is required"
+    if (!data.repassword) {
+      errors.repassword = 'Confirm password is required';
     }
     return errors;
-  }
-  
-
+  };
 
   return (
     <>
       <Nav back title="" />
-      <div className="  flex flex-col items-center justify-center min-h-screen lg:flex lg:flex-row  lg:gap-1  ">
-        <section className="   flex justify-center items-center mb-4 ">
+      <div className="flex flex-col items-center justify-center min-h-screen lg:flex lg:flex-row lg:gap-1">
+        <section className="flex justify-center items-center mb-4">
           <img src={logo} alt="logo" className="w-[60%] lg:w-[80%]" />
         </section>
 
-        <from className="bg-white p-6  shadow-xl w-[80%]  max-w-sm rounded-3xl  lg:mr-24"
-         onSubmit={handleSubmit}>
-          <h1 className="mb-1 text-3xl font-bold  ">Lets Register Account</h1>
+        <form
+          className="bg-white p-6 shadow-xl w-[80%] max-w-sm rounded-3xl lg:mr-24"
+          onSubmit={handleSubmit}
+        >
+          <h1 className="mb-1 text-3xl font-bold">Lets Register Account</h1>
           <p className="mb-1 text-2xl font-medium text-center">
-  
             Hello User, you have a greatful journey
           </p>
           <h1 className="m-7 font-bold text-2xl ml-2">Register</h1>
 
-
-          <div className="  relative mb-5">
+          <div className="relative mb-5">
             <input
               type="text"
               name="fullname"
-              value={fromData.fullname}
+              value={formData.fullname}
               placeholder="Fullname"
-              className="shadow appearance-none border  rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={handleChange}
             />
             {errors.fullname && <span>{errors.fullname}</span>}
-            <FaUser className="absolute right-3 bottom-2 text-2xl opacity-30 " />
+            <FaUser className="absolute right-3 bottom-2 text-2xl" />
           </div>
-          <div className=" relative mb-5">
+
+          <div className="relative mb-5">
             <input
               type="email"
               name="email"
-              value={fromData.email}
-              placeholder="Valid email"
-              className="shadow appearance-none border  rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={formData.email}
+              placeholder="Email"
+              className="shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={handleChange}
             />
-            <IoIosMail className=" absolute right-3 bottom-2 text-2xl opacity-30" />
+            {errors.email && <span>{errors.email}</span>}
+            <IoIosMail className="absolute right-3 bottom-2 text-2xl" />
           </div>
-          <div className=" relative mb-5">
+
+          <div className="relative mb-5">
             <input
-              type="phone"
+              type="text"
               name="phone"
-              value={fromData.phone}
-              placeholder=" Phone number"
-              className="shadow appearance-none border  rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              // onInput={(e) => {
-              //   e.target.value = e.target.value.replace(/[^0-9]/g, "");
-              // }}
+              value={formData.phone}
+              placeholder="Phone Number"
+              className="shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={handleChange}
             />
-            <IoIosPhonePortrait className=" absolute right-3 bottom-2 text-2xl opacity-30" />
+            {errors.phone && <span>{errors.phone}</span>}
+            <IoIosPhonePortrait className="absolute right-3 bottom-2 text-2xl"
+            />
           </div>
-          <div className=" relative mb-5">
+
+          <div className="relative mb-5">
             <input
               type="password"
               name="password"
-              value={fromData.password}
-              placeholder=" Password"
-              className="shadow appearance-none border  rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={formData.password}
+              placeholder="Password"
+              className="shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={handleChange}
             />
-            <FaLock className=" absolute right-3 bottom-2 text-2xl opacity-30" />
+            {errors.password && <span>{errors.password}</span>}
+            <FaLock className="absolute right-3 bottom-2 text-2xl" />
           </div>
-          <div className=" relative mb-5">
+
+          <div className="relative mb-5">
             <input
               type="password"
               name="repassword"
-              value={fromData.repassword}
-              placeholder=" Re Password "
-              className="shadow appearance-none border  rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={formData.repassword}
+              placeholder="Confirm Password"
+              className="shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              onChange={handleChange}
             />
-            <FaLock className=" absolute right-3 bottom-2 text-2xl opacity-30" />
+            {errors.repassword && <span>{errors.repassword}</span>}
+            <FaLock className="absolute right-3 bottom-2 text-2xl" />
           </div>
 
-          <div className="flex items-center justify-between">
-            <button
-              type="submit"
-              className="w-full bg-ga-primary
-           hover:bg-ga-secondary text-white font-bold py-2 px-4  focus:outline-none focus:shadow-outline rounded-md text-2xl  h-16"
-            >
-              Register
-            </button>
-          </div>
-        </from>
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Register
+          </button>
+        </form>
       </div>
     </>
   );
