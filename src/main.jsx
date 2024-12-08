@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import ProductProvider from "./context/ProductProvider";
-import AuthProvider from "./context/AuthProvider";
+import AuthProvider,{AuthContext} from "./context/AuthProvider";
 import Home from "./page/Home";
 import Cart from "./page/Cart";
 import Category from "./page/Category";
@@ -19,8 +19,7 @@ import Profile from "./page/Profile";
 import Register from "./page/Register";
 import Search from "./page/Search";
 
-const {token} = AuthProvider();
-const routePublic=[
+const routePublic = [
   {
     path: "/",
     element: <Home />,
@@ -46,7 +45,7 @@ const routePublic=[
     path: "/productdetail",
     element: <ProductDetail />,
   },
-  
+
   {
     path: "/register",
     element: <Register />,
@@ -55,8 +54,8 @@ const routePublic=[
     path: "/search",
     element: <Search />,
   },
-]
-const routeAuthen=[
+];
+const routeAuthen = [
   {
     path: "/orderhistory",
     element: <OrderHistory />,
@@ -73,10 +72,21 @@ const routeAuthen=[
     path: "/checkout",
     element: <CheckOut />,
   },
-]
+];
 
-const router = createBrowserRouter([...routePublic,...token?routeAuthen:[]]);
+function RouteWithAuth() {
+  const { backendUrl, token } = useContext(AuthContext);
+  const router = createBrowserRouter([
+    ...routePublic,
+    ...(token ? routeAuthen : []),
+  ]);
 
+  console.log("token is ",token)
+
+  return <RouterProvider router={router} />;
+}
+
+//const router = createBrowserRouter([...routePublic,...token?routeAuthen:[]]);
 
 // const router = createBrowserRouter([
 //   {
@@ -130,8 +140,11 @@ const router = createBrowserRouter([...routePublic,...token?routeAuthen:[]]);
 // ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ProductProvider>
-      <RouterProvider router={router} />
-    </ProductProvider>
+    <AuthProvider>
+      <ProductProvider>
+        {/* <RouterProvider router={router} /> */}
+        <RouteWithAuth />
+      </ProductProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
