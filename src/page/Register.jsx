@@ -94,7 +94,7 @@ const Register = () => {
     e.preventDefault();
 
     if (!name || !email || !phoneNumber || !password || !repassword) {
-      alert("Please fill in all required fields and fix any errors.");
+      alert("Please fill in all required fields ");
       return;
     }
 
@@ -114,6 +114,7 @@ const Register = () => {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
         console.log(response.data);
+        alert("Registration successful.");
       }
     } catch (error) {
       console.error(error);
