@@ -7,7 +7,7 @@ import { BiSolidCategory } from "react-icons/bi";
 import { FaFire } from "react-icons/fa6";
 import { RiDiscountPercentFill } from "react-icons/ri";
 import { PiPillFill } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { Link, NavLink  } from "react-router-dom";
 
 
 
@@ -92,18 +92,20 @@ const Nav = ({ logo, back, search, title, cart }) => {
 
           {/* Bottom Section */}
           <div className="flex items-center justify-center space-x-8 py-2 border-t">
-            <Link to="/">
+            <NavLink to="/">
               <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
                 <FaHome className="text-lg" />
                 <span>หน้าหลัก</span>
               </div>
-            </Link>
-            <Link to="/category">
-              <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
+            </NavLink>
+
+            <NavLink to="/category" className={({ isActive }) => isActive ? 'flex items-center space-x-2 cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}  >
+              <div className=" flex  space-x-2">
                 <BiSolidCategory className="text-lg " />
                 <span>หมวดหมู่ทั้งหมด</span>
               </div>
-            </Link>
+            </NavLink>
+
             <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
               <FaFire className="text-lg" />
               <span>สินค้าขายดี</span>

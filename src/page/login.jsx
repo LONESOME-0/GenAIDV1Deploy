@@ -1,12 +1,19 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import logo from "/public/img/logo-genaid.png";
 import { FaFacebookF } from "react-icons/fa6";
 import { FaApple } from "react-icons/fa6";
-import { IoLogoGoogle, IoIosMail } from "react-icons/io";
+import { IoLogoGoogle } from "react-icons/io";
 import { FaUser,FaLock  } from "react-icons/fa";
 import Nav from "../components/Navbar/Nav";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
+import axios from "axios";
+
+
+
+
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,6 +24,8 @@ const Login = () => {
   const [submittedData, setSubmittedData] = useState([]);
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
+  const [token, setToken] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const validateEmail = () => {
@@ -48,7 +57,7 @@ const Login = () => {
     validatePassword();
   }, [email, password, emailTouched, passwordTouched]);
 
-  function handleSubmit(e) {
+  async function  handleSubmit(e) {
     e.preventDefault();
 
     if (!email) {
@@ -66,17 +75,19 @@ const Login = () => {
       alert(
         `Form submitted successfully! Your email ${email} has been submitted.`
       );
-      console.log(email, password);
-//ยิง api login
-//จะได้ token เก็บไว้ใน localstorage ไมจำเป็นต้องผ่าน context 
-//หลังจากนี้ที่ยิง api ต้องแนบ token ใน header ของ axios hrtp req
-// axios interceptor ก่อนยิวไปหลังบ้าน จะ ผ่าน func intercep 
-// ถ้าแนบ head auth ไม่ต้องเีขนนซ้ำ ๆ ทุก ๆ api
-// s
-// s
-// s
-// s
-// s
+     
+
+  const response = await axios.post(`${backendUrl}/api/user/login`, {
+    email,
+    password,
+  })
+  if (response.data) {
+    setToken(response.data.token);
+    localStorage.setItem("token", response.data.token)
+    console.log(response.data);
+  };
+
+  
 
       setEmail("");
       setPassword("");
@@ -90,6 +101,13 @@ const Login = () => {
     }
   }
 
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token]);
+
+
   function handleHidePassword(e) {
     e.preventDefault();
     setHidePassword(!hidePassword);
@@ -99,14 +117,15 @@ const Login = () => {
     <div>
       <Nav back />
 
-      <div className=" flex flex-col items-center justify-center min-h-screen lg:flex lg:flex-row  lg:gap-1  ">
-        <section className="flex justify-center items-center mb-4 ">
+      <div className=" flex flex-col items-center justify-center min-h-screen lg:flex lg:flex-row  lg:gap-1 lg:my-40 ">
+        <section className="flex justify-center items-center mb-5 ">
           <img src={logo} alt="logo" className="w-[60%] lg:w-[80%]" />
         </section>
 
         <form
-          onSubmit={handleSubmit}
-          className="bg-white p-6  shadow-xl w-[80%]  max-w-sm rounded-3xl  lg:mr-24 "
+           className="bg-white p-6  shadow-xl w-[80%]  max-w-sm rounded-3xl  lg:mr-24 "
+           onSubmit={handleSubmit}
+         
           autoComplete="off"
         >
           <h1 className="mb-4 text-3xl font-bold  ">Login Details</h1>
