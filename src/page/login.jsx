@@ -67,6 +67,16 @@ const Login = () => {
         `Form submitted successfully! Your email ${email} has been submitted.`
       );
       console.log(email, password);
+//ยิง api login
+//จะได้ token เก็บไว้ใน localstorage ไมจำเป็นต้องผ่าน context 
+//หลังจากนี้ที่ยิง api ต้องแนบ token ใน header ของ axios hrtp req
+// axios interceptor ก่อนยิวไปหลังบ้าน จะ ผ่าน func intercep 
+// ถ้าแนบ head auth ไม่ต้องเีขนนซ้ำ ๆ ทุก ๆ api
+// s
+// s
+// s
+// s
+// s
 
       setEmail("");
       setPassword("");
@@ -74,6 +84,7 @@ const Login = () => {
       setPasswordError("");
       setEmailTouched(false);
       setPasswordTouched(false);
+
     } else {
       alert("Please fill in all required fields and fix any errors.");
     }
