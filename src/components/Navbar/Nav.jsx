@@ -25,13 +25,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
     }
   }, []);
 
-  const handleMouseEnter = () => {
-    setShowDropdown(true);
-  };
 
-  const handleMouseLeave = () => {
-    setShowDropdown(false);
-  };
 
   const handleLogout = () => {
     // ทำการลบ token หรือข้อมูลผู้ใช้ที่เก็บไว้ และนำไปยังหน้า login
@@ -102,7 +96,6 @@ const Nav = ({ logo, back, search, title, cart }) => {
                 placeholder="ค้นหา สินค้า ประเภทสินค้า อาการ แท็ก"
               />
             </div>
-
             <div className="flex items-center space-x-6">
               <NavLink to="/cart" className={({ isActive }) => isActive ? ' cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}>
                 <div className="flex flex-col items-center cursor-pointer hover:text-ga-primary">
@@ -113,13 +106,11 @@ const Nav = ({ logo, back, search, title, cart }) => {
                 </div>
               </NavLink>
 
-
               {/* Dropdown Menu */}
               <NavLink to="/login"
-             className={({ isActive }) => isActive ? ' cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}> 
+              className={({ isActive }) => isActive ? ' cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}> 
                 <div
                   className=" group relative  "
-            
                 >
                   <div className="flex flex-col items-center cursor-pointer hover:text-ga-primary">
                     <FaUser className="text-2xl  " />
@@ -131,7 +122,6 @@ const Nav = ({ logo, back, search, title, cart }) => {
                         className=" cursor-pointer  rounded-md text-gray-800 hover:bg-neutral-400 block px-4 py-2 "
                       > My Profile
                       </Link>
-                       
                       <Link
                         to="/orders"
                         className="block px-4 py-2 rounded-md text-gray-800 hover:bg-neutral-400"
