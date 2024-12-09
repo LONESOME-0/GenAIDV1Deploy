@@ -7,13 +7,18 @@ import { BiSolidCategory } from "react-icons/bi";
 import { FaFire } from "react-icons/fa6";
 import { RiDiscountPercentFill } from "react-icons/ri";
 import { PiPillFill } from "react-icons/pi";
+
 import { Link } from "react-router-dom";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
 
 
+
 const Nav = ({ logo, back, search, title, cart }) => {
   const iconSize = "2.3rem";
+
+
+  
   return (
     <>
       {(logo || back || search || title || cart) && (
@@ -77,38 +82,42 @@ const Nav = ({ logo, back, search, title, cart }) => {
                 placeholder="ค้นหา สินค้า ประเภทสินค้า อาการ แท็ก"
               />
             </div>
-
+            
             <div className="flex items-center space-x-6">
+              <NavLink to="/cart" className={({ isActive }) => isActive ? ' cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}>
               <div className="flex flex-col items-center cursor-pointer hover:text-ga-primary">
                 <Link to="/cart" >
                   <FaCartShopping className="text-2xl mb-1" />
                   <span className="text-sm">รถเข็น</span>
                 </Link>
               </div>
-
+            </NavLink>
+              <NavLink to="/login" className={({ isActive }) => isActive ? ' cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}>
               <div className="flex flex-col items-center cursor-pointer hover:text-ga-primary">
-                <Link to="/login">
                   <FaUser className="text-2xl mb-1" />
                   <span className="text-sm">บัญชี</span>
-                </Link>
               </div>
+              </NavLink>
+
             </div>
           </div>
 
           {/* Bottom Section */}
           <div className="flex items-center justify-center space-x-8 py-2 border-t">
-            <Link to="/">
+            <NavLink to="/">
               <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
                 <FaHome className="text-lg" />
                 <span>หน้าหลัก</span>
               </div>
-            </Link>
-            <Link to="/category">
-              <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
-                <BiSolidCategory className="text-lg " />
+            </NavLink>
+
+            <NavLink to="/category" className={({ isActive }) => isActive ? 'flex items-center space-x-2 cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}  >
+              <div className=" flex  space-x-2">
+                <BiSolidCategory className="text-lg mt-1 " />
                 <span>หมวดหมู่ทั้งหมด</span>
               </div>
-            </Link>
+            </NavLink>
+
             <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
               <FaFire className="text-lg" />
               <AnchorLink offset='200' href="#bestselling"> สินค้าขายดี</AnchorLink>
