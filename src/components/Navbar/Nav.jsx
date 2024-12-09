@@ -13,6 +13,9 @@ import { Link, NavLink  } from "react-router-dom";
 
 const Nav = ({ logo, back, search, title, cart }) => {
   const iconSize = "2.3rem";
+
+
+  
   return (
     <>
       {(logo || back || search || title || cart) && (
@@ -74,19 +77,21 @@ const Nav = ({ logo, back, search, title, cart }) => {
                 placeholder="ค้นหา สินค้า ประเภทสินค้า อาการ แท็ก"
               />
             </div>
-
+            
             <div className="flex items-center space-x-6">
+              <NavLink to="/cart" className={({ isActive }) => isActive ? ' cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}>
               <div className="flex flex-col items-center cursor-pointer hover:text-ga-primary">
                 <FaCartShopping className="text-2xl mb-1" />
                 <span className="text-sm">รถเข็น</span>
               </div>
-
+            </NavLink>
+              <NavLink to="/login" className={({ isActive }) => isActive ? ' cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}>
               <div className="flex flex-col items-center cursor-pointer hover:text-ga-primary">
-                <Link to="/login">
                   <FaUser className="text-2xl mb-1" />
                   <span className="text-sm">บัญชี</span>
-                </Link>
               </div>
+              </NavLink>
+
             </div>
           </div>
 
@@ -101,7 +106,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
 
             <NavLink to="/category" className={({ isActive }) => isActive ? 'flex items-center space-x-2 cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}  >
               <div className=" flex  space-x-2">
-                <BiSolidCategory className="text-lg " />
+                <BiSolidCategory className="text-lg mt-1 " />
                 <span>หมวดหมู่ทั้งหมด</span>
               </div>
             </NavLink>
