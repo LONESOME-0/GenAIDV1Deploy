@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "/public/img/logo-genaid.png";
-import { FaFacebookF, FaApple, FaUser, FaLock } from "react-icons/fa";
-import { IoLogoGoogle } from "react-icons/io";
+import {  FaUser, FaLock } from "react-icons/fa";
+import { IoIosMail,  } from "react-icons/io";
+import { MdOutlinePhoneIphone } from "react-icons/md";
+
 import Nav from "../components/Navbar/Nav";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -92,7 +94,7 @@ const Register = () => {
     e.preventDefault();
 
     if (!name || !email || !phoneNumber || !password || !repassword) {
-      alert("Please fill in all required fields and fix any errors.");
+      alert("Please fill in all required fields ");
       return;
     }
 
@@ -112,6 +114,7 @@ const Register = () => {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
         console.log(response.data);
+        alert("Registration successful.");
       }
     } catch (error) {
       console.error(error);
@@ -209,7 +212,7 @@ const Register = () => {
                   emailError ? "border-orange-400" : ""
                 }`}
               />
-              <FaUser className="absolute right-3 bottom-2 text-2xl opacity-30" />
+              <IoIosMail className="absolute right-3 bottom-2 text-2xl opacity-30" />
             </div>
             {emailError && emailTouched && (
               <p className="text-red-500 text-xs italic mt-2">{emailError}</p>
@@ -231,7 +234,7 @@ const Register = () => {
                   phoneNumberError ? "border-orange-400" : ""
                 }`}
               />
-              <FaUser className="absolute right-3 bottom-2 text-2xl opacity-30" />
+              <MdOutlinePhoneIphone  className="absolute right-3 bottom-2 text-2xl opacity-30" />
             </div>
             {phoneNumberError && phoneNumberTouched && (
               <p className="text-red-500 text-xs italic mt-2">
