@@ -12,16 +12,9 @@ const Category = () => {
     <>
       <Nav back title="หมวดหมู่ทั้งหมด" />
       <div>
-        <div className="text-lg p-5 "></div>
-        <div className=" my-16 lg:my-40   flex flex-wrap justify-center  gap-4">
-          <CardCategry />
-          <CardCategry />
-          <CardCategry />
-          <CardCategry />
-          <CardCategry />
-          <CardCategry />
-          <CardCategry />
-          <CardCategry />
+
+        <div className="text-lg p-3 "></div>
+        <div className="  my-16 lg:my-40 flex flex-wrap justify-center mt-10 gap-4">
           <CardCategry />
           <CardCategry />
           <CardCategry />

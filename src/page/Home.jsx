@@ -16,7 +16,9 @@ const Home = () => {
       <CardCategry /><CardCategry /><CardCategry /><CardCategry /><CardCategry /><CardCategry />    
       </div>
       <div className='p-3 flex justify-between'>
-      <p>สินค้าแนะนำ</p>
+      <section id='bestselling'>
+      <p>สินค้าขายดี</p>
+      </section>
       <Link to='#' className='underline'>เพิ่มเติม</Link>
     </div>
     <div className='p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:gap-3 '>
@@ -26,6 +28,30 @@ const Home = () => {
       <CardProduct /><CardProduct />
       <CardProduct /><CardProduct />
     </div>
+    
+    </div>
+      <section id='discounted'>
+      <p>สินค้าลดราคา</p>
+      </section>
+    <div>
+    <div className='p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:gap-3 '>
+      <CardProduct /><CardProduct />
+      <CardProduct /><CardProduct />
+      <CardProduct /><CardProduct />
+      <CardProduct /><CardProduct />
+      <CardProduct /><CardProduct />
+    </div>
+
+    </div>
+      <section id='about'>
+      <p>เกี่ยวกับเรา</p>
+      </section>
+      <div className='p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:gap-3 '>
+      <CardProduct /><CardProduct />
+      <CardProduct /><CardProduct />
+      <CardProduct /><CardProduct />
+      <CardProduct /><CardProduct />
+      <CardProduct /><CardProduct />
     </div>
       
    
