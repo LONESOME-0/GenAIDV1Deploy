@@ -8,7 +8,7 @@ import { FaUser,FaLock  } from "react-icons/fa";
 import Nav from "../components/Navbar/Nav";
 import { Link , useNavigate} from "react-router-dom";
 import axios from "axios";
-
+import AuthProvider from "../context/AuthProvider.jsx";
 
 
 
