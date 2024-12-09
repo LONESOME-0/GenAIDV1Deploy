@@ -12,7 +12,6 @@ import AuthProvider from "../context/AuthProvider.jsx";
 
 
 
-
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const Login = () => {

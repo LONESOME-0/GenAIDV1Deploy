@@ -5,7 +5,6 @@ import logo from "/public/img/logo-genaid.png";
 import {  FaUser, FaLock } from "react-icons/fa";
 import { IoIosMail,  } from "react-icons/io";
 import { MdOutlinePhoneIphone } from "react-icons/md";
-
 import Nav from "../components/Navbar/Nav";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;

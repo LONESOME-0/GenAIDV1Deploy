@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link , useNavigate} from "react-router-dom";
 
 export const AuthContext = createContext();
-const navigate = useNavigate();
+
 const AuthProvider = ({ children }) => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [token, setToken] = useState(localStorage.getItem("token"));
