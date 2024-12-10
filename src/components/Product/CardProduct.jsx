@@ -16,6 +16,7 @@ const CardProduct = ({ product }) => {
     }
     return stars;
   };
+  console.log("Card",product)
 
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden max-h-full max-w-[250px] flex-shrink-0 snap-start mx-4 hover:shadow-xl transition-shadow duration-200">

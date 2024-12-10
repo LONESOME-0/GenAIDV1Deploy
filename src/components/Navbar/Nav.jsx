@@ -8,7 +8,7 @@ import { FaFire } from "react-icons/fa6";
 import { RiDiscountPercentFill } from "react-icons/ri";
 import { PiPillFill } from "react-icons/pi";
 
-import { Link } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
 

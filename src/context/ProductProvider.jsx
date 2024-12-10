@@ -12,7 +12,7 @@ const ProductProvider = ({ children }) => {
       const fetchData = await axios.get(backendUrl + "/api/products");
       setProduct(fetchData.data);
       setLoading(false);
-      // console.log("provider", product);
+      console.log("provider", product);
     } catch (error) {
       console.log(error);
       setLoading(false);
