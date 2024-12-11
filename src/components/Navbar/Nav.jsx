@@ -14,7 +14,6 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 
 const Nav = ({ logo, back, search, title, cart }) => {
   const iconSize = "2.3rem";
-  const [showDropdown, setShowDropdown] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
@@ -32,11 +31,6 @@ const Nav = ({ logo, back, search, title, cart }) => {
     localStorage.removeItem("token");
     navigate("/login");
     // <Link to="/login"></Link>;
-
-
-
-
-    
   }
 
   return (
