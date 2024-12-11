@@ -31,6 +31,12 @@ const Nav = ({ logo, back, search, title, cart }) => {
     // ทำการลบ token หรือข้อมูลผู้ใช้ที่เก็บไว้ และนำไปยังหน้า login
     localStorage.removeItem("token");
     navigate("/login");
+    // <Link to="/login"></Link>;
+
+
+
+
+    
   }
 
   return (
@@ -96,7 +102,9 @@ const Nav = ({ logo, back, search, title, cart }) => {
                 placeholder="ค้นหา สินค้า ประเภทสินค้า อาการ แท็ก"
               />
             </div>
+
             <div className="flex items-center space-x-6">
+              
               <NavLink to="/cart" className={({ isActive }) => isActive ? ' cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}>
                 <div className="flex flex-col items-center cursor-pointer hover:text-ga-primary">
                   <Link to="/cart" >
@@ -107,15 +115,16 @@ const Nav = ({ logo, back, search, title, cart }) => {
               </NavLink>
 
               {/* Dropdown Menu */}
-              <NavLink to="/login"
-              className={({ isActive }) => isActive ? ' cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}> 
+              <NavLink to={isLoggedIn ? null: "/login"}
+              className={({ isActive }) => `flex items-center space-x-2 cursor-pointer hover:text-ga-primary ${isLoggedIn ? "" : (isActive ? 'text-ga-primary' : '')}` }> 
                 <div
                   className=" group relative  "
                 >
                   <div className="flex flex-col items-center cursor-pointer hover:text-ga-primary">
-                    <FaUser className="text-2xl  " />
+                    <FaUser className="text-2xl mb-1 " />
                     <span className="text-sm">บัญชี</span>
                   </div>
+
                   {isLoggedIn && (
                     <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4 w-32 bg-slate-50 rounded-lg ">
                       <Link to="/profile"
@@ -123,7 +132,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
                       > My Profile
                       </Link>
                       <Link
-                        to="/orders"
+                        to="/orderhistory"
                         className="block px-4 py-2 rounded-md text-gray-800 hover:bg-neutral-400"
                       >My Orders
                       </Link>
