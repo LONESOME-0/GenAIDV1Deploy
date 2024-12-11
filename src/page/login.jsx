@@ -1,16 +1,14 @@
 import React from "react";
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import logo from "/public/img/logo-genaid.png";
 import { FaFacebookF } from "react-icons/fa6";
 import { FaApple } from "react-icons/fa6";
 import { IoLogoGoogle } from "react-icons/io";
-import { FaUser,FaLock  } from "react-icons/fa";
+import { FaUser, FaLock } from "react-icons/fa";
 import Nav from "../components/Navbar/Nav";
-import { Link , useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AuthProvider from "../context/AuthProvider.jsx";
-
-
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -56,9 +54,9 @@ const Login = () => {
     validatePassword();
   }, [email, password, emailTouched, passwordTouched]);
 
-  async function  handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-
+  
     if (!email) {
       setEmailError("Email is required");
       setEmailTouched(true);
@@ -71,32 +69,27 @@ const Login = () => {
     if (!emailError && !passwordError && email && password) {
       const newEntry = { email, password };
       setSubmittedData([...submittedData, newEntry]);
-      alert(
-        `Form submitted successfully! Your email ${email} has been submitted.`
-      );
-     
+      // alert(`"Login successful." Your email ${email} has been submitted.`);
 
-  const response = await axios.post(`${backendUrl}/api/user/login`, {
-    email,
-    password,
-  })
-  if (response.data) {
-    setToken(response.data.token);
-    localStorage.setItem("token", response.data.token)
-    console.log(response.data);
-  };
-
-  
-
+      const response = await axios.post(`${backendUrl}/api/user/login`, {
+        email,
+        password,
+      });
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+       alert(response.data.message);
+      } else {
+        alert(response.data.message);
+      }
       setEmail("");
       setPassword("");
       setEmailError("");
       setPasswordError("");
       setEmailTouched(false);
       setPasswordTouched(false);
-
     } else {
-      alert("Please fill in all required fields and fix any errors.");
+      alert("Please fill in all required fields .");
     }
   }
 
@@ -105,7 +98,6 @@ const Login = () => {
       navigate("/");
     }
   }, [token]);
-
 
   function handleHidePassword(e) {
     e.preventDefault();
@@ -122,9 +114,8 @@ const Login = () => {
         </section>
 
         <form
-           className="bg-white p-6  shadow-xl w-[80%]  max-w-sm rounded-3xl  lg:mr-24 "
-           onSubmit={handleSubmit}
-         
+          className="bg-white p-6  shadow-xl w-[80%]  max-w-sm rounded-3xl  lg:mr-24 "
+          onSubmit={handleSubmit}
           autoComplete="off"
         >
           <h1 className="mb-4 text-3xl font-bold  ">Login Details</h1>
@@ -133,41 +124,41 @@ const Login = () => {
               Email
             </label>
             <div className=" relative mb-4">
-            <input
-              type="email"
-              value={email}
-              placeholder="Enter your email"
-              onChange={(e) => setEmail(e.target.value)}
-              onFocus={() => setEmailTouched(true)}
-              autoComplete="chrome-off"
-              className={`shadow appearance-none border  rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                emailError ? "border-orange-400" : ""
-              }`}
-            />
-            <FaUser className="absolute right-3 bottom-2 text-2xl opacity-30 "  />
+              <input
+                type="email"
+                value={email}
+                placeholder="Enter your email"
+                onChange={(e) => setEmail(e.target.value)}
+                onFocus={() => setEmailTouched(true)}
+                autoComplete="chrome-off"
+                className={`shadow appearance-none border  rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  emailError ? "border-orange-400" : ""
+                }`}
+              />
+              <FaUser className="absolute right-3 bottom-2 text-2xl opacity-30 " />
             </div>
             {emailError && emailTouched && (
               <p className="text-red-500 text-xs italic mt-2">{emailError}</p>
             )}
           </div>
-            
+
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Password
             </label>
             <div className=" relative mb-4">
-            <input 
-              type={hidePassword ? "password" : "text"}
-              value={password}
-              placeholder="password"
-              onChange={(e) => setPassword(e.target.value)}
-              onFocus={() => setPasswordTouched(true)} // Set passwordTouched to true on focus
-              autoComplete="new-password"
-              className={`shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                passwordError ? "border-orange-400" : ""
-              }`}
-            />
-            < FaLock className=" absolute right-3 bottom-2 text-2xl opacity-30" />
+              <input
+                type={hidePassword ? "password" : "text"}
+                value={password}
+                placeholder="password"
+                onChange={(e) => setPassword(e.target.value)}
+                onFocus={() => setPasswordTouched(true)} // Set passwordTouched to true on focus
+                autoComplete="new-password"
+                className={`shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  passwordError ? "border-orange-400" : ""
+                }`}
+              />
+              <FaLock className=" absolute right-3 bottom-2 text-2xl opacity-30" />
             </div>
 
             <div className="flex items-center mt-2 gap-28 ">
@@ -203,8 +194,13 @@ const Login = () => {
             <FaApple />
           </div>
           <div className="flex">
-          <p className="m-4">Don't have an account? <Link to ="/register"className="text-blue-700">Register Now</Link></p>
-          {/* <button className="text-sky-600">Register Now</button> */}
+            <p className="m-4">
+              Don't have an account?{" "}
+              <Link to="/register" className="text-blue-700">
+                Register Now
+              </Link>
+            </p>
+            {/* <button className="text-sky-600">Register Now</button> */}
           </div>
         </form>
       </div>

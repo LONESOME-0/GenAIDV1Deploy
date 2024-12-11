@@ -1,8 +1,12 @@
-import React from "react";
+
 import { FaChevronRight } from "react-icons/fa";
 import { FcMoneyTransfer } from "react-icons/fc";
 import { FaTruckFast } from "react-icons/fa6";
+
+
+
 const CardOrder = () => {
+
   return (
     <>
       <div
