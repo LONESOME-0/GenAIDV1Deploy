@@ -1,9 +1,22 @@
+
 import React, { useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { useSearchProduct } from "../../context/SearchProductProvider";
+import { useContext, useEffect, useState } from "react";
+import { FaCartShopping } from "react-icons/fa6";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { FaUser } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
+import { BiSolidCategory } from "react-icons/bi";
+import { FaFire } from "react-icons/fa6";
+import { RiDiscountPercentFill } from "react-icons/ri";
+import { PiPillFill } from "react-icons/pi";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import AnchorLink from "react-anchor-link-smooth-scroll";
+
 
 const Nav = ({ logo, back, search, title, cart }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,13 +26,37 @@ const Nav = ({ logo, back, search, title, cart }) => {
     const term = e.target.value;
     setSearchTerm(term);
 
+
     if (term.trim()) {
       // Perform search only if the term is not empty
       searchProducts({ search: term });
     }
   };
 
+
+const Nav = ({ logo, back, search, title, cart }) => {
+
   const iconSize = "2.3rem";
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+
+
+
+  const handleLogout = () => {
+    // ทำการลบ token หรือข้อมูลผู้ใช้ที่เก็บไว้ และนำไปยังหน้า login
+    localStorage.removeItem("token");
+    navigate("/login");
+    // <Link to="/login"></Link>;
+  }
+
 
   return (
     <>
@@ -118,6 +155,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
                 </div>
               )}
             </div>
+
             <div className="flex items-center space-x-6">
               <NavLink
                 to="/cart"
@@ -145,6 +183,82 @@ const Nav = ({ logo, back, search, title, cart }) => {
                   <span className="text-sm">บัญชี</span>
                 </div>
               </NavLink>
+
+
+            <div className="flex items-center space-x-6">
+              
+              <NavLink to="/cart" className={({ isActive }) => isActive ? ' cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}>
+                <div className="flex flex-col items-center cursor-pointer hover:text-ga-primary">
+                  <Link to="/cart" >
+                    <FaCartShopping className="text-2xl " />
+                    <span className="text-sm">รถเข็น</span>
+                  </Link>
+                </div>
+              </NavLink>
+
+              {/* Dropdown Menu */}
+              <NavLink to={isLoggedIn ? null: "/login"}
+              className={({ isActive }) => `flex items-center space-x-2 cursor-pointer hover:text-ga-primary ${isLoggedIn ? "" : (isActive ? 'text-ga-primary' : '')}` }> 
+                <div
+                  className=" group relative  "
+                >
+                  <div className="flex flex-col items-center cursor-pointer hover:text-ga-primary">
+                    <FaUser className="text-2xl mb-1 " />
+                    <span className="text-sm">บัญชี</span>
+                  </div>
+
+                  {isLoggedIn && (
+                    <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4 w-32 bg-slate-50 rounded-lg ">
+                      <Link to="/profile"
+                        className=" cursor-pointer  rounded-md text-gray-800 hover:bg-neutral-400 block px-4 py-2 "
+                      > My Profile
+                      </Link>
+                      <Link
+                        to="/orderhistory"
+                        className="block px-4 py-2 rounded-md text-gray-800 hover:bg-neutral-400"
+                      >My Orders
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full text-left px-4 py-2 rounded-md text-gray-800 hover:bg-neutral-400"
+                      >Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </NavLink>
+
+
+            </div>
+          </div>
+          {/* Bottom Section */}
+          <div className="flex items-center justify-center space-x-8 py-2 border-t">
+            <NavLink to="/">
+              <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
+                <FaHome className="text-lg" />
+                <span>หน้าหลัก</span>
+              </div>
+            </NavLink>
+
+            <NavLink to="/category" className={({ isActive }) => isActive ? 'flex items-center space-x-2 cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}  >
+              <div className=" flex  space-x-2">
+                <BiSolidCategory className="text-lg mt-1 " />
+                <span>หมวดหมู่ทั้งหมด</span>
+              </div>
+            </NavLink>
+
+            <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
+              <FaFire className="text-lg" />
+              <AnchorLink offset='200' href="#bestselling"> สินค้าขายดี</AnchorLink>
+            </div>
+            <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
+              <RiDiscountPercentFill className="text-lg" />
+              <AnchorLink offset='200' href="#discounted">สินค้าลดราคา</AnchorLink>
+            </div>
+            <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
+              <PiPillFill className="text-lg" />
+              <AnchorLink offset='200' href="#about">เกี่ยวกับเรา</AnchorLink>
+
             </div>
           </div>
         </div>

@@ -1,15 +1,29 @@
-import React from "react";
+import {useState,useEffect} from "react";
 import { FaHome } from "react-icons/fa";
 import { BiSolidCategory } from "react-icons/bi";
 import { IoChatbubbleEllipses } from "react-icons/io5";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+
+
 
 const NavMobile = ({ product, checkout }) => {
   const iconSize = "1.6rem";
   const iConColor = "ga-primary";
   // const iConColor='#00A4B6'
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+
+
   return (
     <div>
       {/* main nav */}
@@ -32,10 +46,15 @@ const NavMobile = ({ product, checkout }) => {
               <FaCartShopping size={iconSize} />
               รถเข็น
             </div>
+
+            <NavLink to = {isLoggedIn ? "/profile": "/login"}
+            className={({ isActive }) => isActive ? ' cursor-pointer text-ga-primary' : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'}>
             <div className="place-items-center hover:text-ga-primary">
               <FaUser size={iconSize} />
               บัญชี
             </div>
+              </NavLink>
+
           </div>
         </div>
       )}

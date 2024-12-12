@@ -5,7 +5,6 @@ import logo from "/public/img/logo-genaid.png";
 import {  FaUser, FaLock } from "react-icons/fa";
 import { IoIosMail,  } from "react-icons/io";
 import { MdOutlinePhoneIphone } from "react-icons/md";
-
 import Nav from "../components/Navbar/Nav";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -158,35 +157,38 @@ const Register = () => {
     <div>
       <Nav back />
 
-      <div className="flex flex-col items-center justify-center min-h-screen lg:flex lg:flex-row lg:gap-1 lg:my-40">
+      <div className="flex flex-col items-center justify-center min-h-screen lg:flex lg:flex-row lg:gap-1 lg:my-40  ">
         <section className="flex justify-center items-center mb-5">
           <img src={logo} alt="logo" className="w-[60%] lg:w-[80%]" />
         </section>
+        
+  
 
         <form
-          className="bg-white p-6 shadow-xl w-[80%] max-w-sm rounded-3xl lg:mr-24"
+          className="bg-white p-16 shadow-xl w-screen  rounded-3xl lg:mr-24 max-w-xl" 
           onSubmit={handleSubmit}
           autoComplete="off"
         >
-         <h1 className="mb-1 text-3xl font-bold">Lets Register Account</h1>
+           <h1 className="mb-2 text-3xl font-bold text-center ">Lets Register Account</h1>
           <p className="mb-1 text-2xl font-medium text-center">
             Hello User, you have a greatful journey
           </p>
+
           <h1 className="m-7 font-bold text-2xl ml-2">Register</h1>
 
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2 ml-6">
               Name
             </label>
-            <div className="relative mb-4">
+            <div className="relative mb-4 w-[85%] mx-auto">
               <input
                 type="text"
                 value={name}
                 placeholder="Enter your name"
                 onChange={(e) => setName(e.target.value)}
                 onFocus={() => setNameTouched(true)}
-                className={`shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                className={`shadow appearance-none border rounded   w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                   nameError ? "border-orange-400" : ""
                 }`}
               />
@@ -197,11 +199,11 @@ const Register = () => {
             )}
           </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+          <div className="mb-4 ">
+            <label className="block text-gray-700 text-sm font-bold mb-2 ml-6">
               Email
             </label>
-            <div className="relative mb-4">
+            <div className="relative w-[85%] mx-auto">
               <input
                 type="email"
                 value={email}
@@ -220,10 +222,10 @@ const Register = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2 ml-6">
               Phone Number
             </label>
-            <div className="relative mb-4">
+            <div className="relative w-[85%] mx-auto">
               <input
                 type="text"
                 value={phoneNumber}
@@ -244,11 +246,12 @@ const Register = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-sm font-bold mb-2 ml-6 ">
               Password
             </label>
-            <div className="relative mb-4">
-              <input               type={hidePassword ? "password" : "text"}
+            <div className="relative w-[85%] mx-auto">
+              <input        
+              type={hidePassword ? "password" : "text"}
               value={password}
               placeholder="Enter your password"
               onChange={(e) => setPassword(e.target.value)}
@@ -262,7 +265,7 @@ const Register = () => {
           <div className="flex items-center mt-2 gap-28">
             <button
               onClick={handleHidePassword}
-              className="text-sm text-blue-500 hover:underline focus:outline-none"
+              className="text-sm text-blue-500 hover:underline focus:outline-none ml-6"
             >
               {hidePassword ? "Show Password" : "Hide Password"}
             </button>
@@ -273,17 +276,17 @@ const Register = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="block text-gray-700 text-sm font-bold mb-2 ml-6">
             Confirm Password
           </label>
-          <div className="relative mb-4">
+          <div className="relative w-[85%] mx-auto">
             <input
               type={hideRePassword ? "password" : "text"}
               value={repassword}
               placeholder="Confirm your password"
               onChange={(e) => setRepassword(e.target.value)}
               onFocus={() => setRepasswordTouched(true)}
-              className={`shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+              className={` shadow appearance-none border rounded w-full pr-10 py-2 px-3 bg-gray-200 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                 repasswordError ? "border-orange-400" : ""
               }`}
             />
@@ -292,7 +295,7 @@ const Register = () => {
           <div className="flex items-center mt-2 gap-28">
             <button
               onClick={handleHideRePassword}
-              className="text-sm text-blue-500 hover:underline focus:outline-none"
+              className="text-sm text-blue-500 hover:underline focus:outline-none ml-6"
             >
               {hideRePassword ? "Show Password" : "Hide Password"}
             </button>
