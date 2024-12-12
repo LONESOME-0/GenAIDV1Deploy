@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import QuantityInput from "./QuantityInput";
-import { FaStar } from "react-icons/fa";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { AuthContext } from "../../context/AuthProvider";
 import axios from "axios";
 const CardDetail = ({ product }) => {
@@ -34,6 +34,21 @@ const CardDetail = ({ product }) => {
     }
   };
 
+
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        i <= rating ? (
+          <AiFillStar key={i} className="text-yellow-400" />
+        ) : (
+          <AiOutlineStar key={i} className="text-gray-300" />
+        )
+      );
+    }
+    return stars;
+  };
+
   return (
     <div>
       <div
@@ -57,8 +72,8 @@ const CardDetail = ({ product }) => {
               <span className="text-2xl">{product.productname}</span>
             </div>
             <div id="productId">รหัสสินค้า: {product.id}</div>
-            <div id="productRating" className="flex">
-              {product.rating}
+            <div id="productRating" className="flex  items-center ">
+            {renderStars(product.rating || 0)}&nbsp;&nbsp;&nbsp;{product.rating || 0}/5
             </div>
           </div>
           <div className=" justify-items-end space-y-3 justify-center lg:flex flex-col-reverse lg:my-10 ">

@@ -17,7 +17,7 @@ const CardProduct = ({ product }) => {
     }
     return stars;
   };
-  console.log("Card", product);
+  //console.log("Card", product);
 
   return (
     <>
