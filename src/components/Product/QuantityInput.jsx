@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function QuantityInput() {
   const [quantity, setQuantity] = useState(1);
-
+  
   const increaseQuantity = () => setQuantity(prevQuantity => prevQuantity + 1);
   const decreaseQuantity = () => setQuantity(prevQuantity => Math.max(1, prevQuantity - 1));
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useContext} from "react";
 import Nav from "../components/Navbar/Nav";
 import NavMobile from "../components/Navbar/NavMobile";
 import CardCart from "../components/Product/CardCart";
@@ -7,12 +7,8 @@ import { Link } from "react-router-dom";
 import {AuthContext} from '../context/AuthProvider'
 import {ProductContext} from '../context/ProductProvider'
 const Cart = () => {
-  
-  try {
-    
-  } catch (error) {
-    
-  }
+  const {backendUrl,token} = useContext(AuthContext);
+console.log(num)
   return (
     <>
       <Nav back title="รถเข็น" />
@@ -22,7 +18,7 @@ const Cart = () => {
           <CardCart />
         </div>
         <div className="hidden lg:block lg:w-[30%]  lg:pt-6 text-center">
-          <CardSum />
+          <CardSum num={qnum} />
           <Link to = "/checkout">
           <button className="bg-ga-primary text-white rounded-md p-2 w-40 text-xl mt-7">
             สั่งสินค้า
