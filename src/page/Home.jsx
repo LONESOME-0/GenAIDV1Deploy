@@ -30,9 +30,11 @@ const Home = () => {
       <Link to='#' className='underline'>เพิ่มเติม</Link>
     </div>
     <div className='p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:gap-3 '>
-      {product.map((items)=>{
-        <CardProduct product={items}/>
-      })}
+    {
+        product.map((product) => (
+          <CardProduct key={product.id} product={product} />
+        ))
+      }
     </div>
     
     </div>
