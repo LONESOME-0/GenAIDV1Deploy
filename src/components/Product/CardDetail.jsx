@@ -2,6 +2,14 @@ import React from 'react'
 import QuantityInput from './QuantityInput'
 import { FaStar } from "react-icons/fa";
 const CardDetail = ({product}) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+
+
+
     return (
         <div>
             <div id='#product' className='flex flex-col w-full  flex-1 lg:w-auto lg:mx-10 p-3 bg-white lg:flex-row '>

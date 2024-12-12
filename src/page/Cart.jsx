@@ -8,7 +8,7 @@ import {AuthContext} from '../context/AuthProvider'
 import {ProductContext} from '../context/ProductProvider'
 const Cart = () => {
   const {backendUrl,token} = useContext(AuthContext);
-console.log(num)
+
   return (
     <>
       <Nav back title="รถเข็น" />
@@ -18,7 +18,7 @@ console.log(num)
           <CardCart />
         </div>
         <div className="hidden lg:block lg:w-[30%]  lg:pt-6 text-center">
-          <CardSum num={qnum} />
+          <CardSum />
           <Link to = "/checkout">
           <button className="bg-ga-primary text-white rounded-md p-2 w-40 text-xl mt-7">
             สั่งสินค้า
