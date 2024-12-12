@@ -2,7 +2,7 @@
 import { FaCartShopping } from "react-icons/fa6";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useSearchProduct } from "../../context/SearchProductProvider";
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { BiSolidCategory } from "react-icons/bi";
@@ -10,7 +10,7 @@ import { RiDiscountPercentFill } from "react-icons/ri";
 import { PiPillFill } from "react-icons/pi";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import AnchorLink from "react-anchor-link-smooth-scroll";
-import { useSearchProduct } from "../../context/SearchProductProvider";
+import { useSearchProduct } from "../../context/SearchProductProvider.jsx";
 
 const Nav = ({ logo, back, search, title, cart }) => {
   const [searchTerm, setSearchTerm] = useState("");
