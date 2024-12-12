@@ -23,16 +23,17 @@ const OrderHistory = () => {
       );
       if (response.data.success) {
         let allOrdersItem = [];
-        response.data.orders.map((order) => {
-          order.items.map((item) => {
-            item["status"] = order.status;
-            item["payment"] = order.payment;
-            item["paymentMethod"] = order.paymentMethod;
-            item["date"] = order.date;
-            allOrdersItem.push(item);
-          });
-        });
-        setOrderData(allOrdersItem.reverse());
+        // response.data.order.map((order) => {
+        //   order.items.map((item) => {
+        //     item["status"] = order.status;
+        //     item["payment"] = order.payment;
+        //     item["paymentMethod"] = order.paymentMethod;
+        //     item["date"] = order.date;
+        //     allOrdersItem.push(item);
+        //   });
+        // });
+        setOrderData(response.data.order);
+        console.log(response.data.order);
       }
     } catch (error) {
       console.log(error);
@@ -51,7 +52,12 @@ const OrderHistory = () => {
         
         <div className="my-16 lg:my-40 lg:w-[80%] lg:place-self-center">
           <DropdownStatus />
-          <CardOrder />
+          {/* <CardOrder /> */}
+        
+          {orderData.map((order) => (
+            <CardOrder key={order._id} order={order} />
+          ))}
+
         </div>
         <NavMobile />
       </div>
