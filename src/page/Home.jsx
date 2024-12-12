@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Nav from '../components/Navbar/Nav'
 import NavMobile from '../components/Navbar/NavMobile'
 import CardCategry from '../components/Category/CardCategry'
 import CardProduct from '../components/Product/CardProduct'
 import { Link } from 'react-router-dom'
+import { ProductContext } from '../context/ProductProvider'
 
 const Home = () => {
+    const {product,loading} = useContext(ProductContext)
+    console.log("Home",product)
+    // if (loading) {
+    //   return <p>Loading products...</p>;
+    // }
+
+
   return (
     <>
     <Nav logo search/>
@@ -22,11 +30,11 @@ const Home = () => {
       <Link to='#' className='underline'>เพิ่มเติม</Link>
     </div>
     <div className='p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:gap-3 '>
-      <CardProduct /><CardProduct />
-      <CardProduct /><CardProduct />
-      <CardProduct /><CardProduct />
-      <CardProduct /><CardProduct />
-      <CardProduct /><CardProduct />
+    {
+        product.map((product) => (
+          <CardProduct key={product.id} product={product} />
+        ))
+      }
     </div>
     
     </div>
@@ -35,11 +43,8 @@ const Home = () => {
       </section>
     <div>
     <div className='p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:gap-3 '>
-      <CardProduct /><CardProduct />
-      <CardProduct /><CardProduct />
-      <CardProduct /><CardProduct />
-      <CardProduct /><CardProduct />
-      <CardProduct /><CardProduct />
+      {/* <CardProduct /> */}
+
     </div>
 
     </div>
@@ -47,11 +52,8 @@ const Home = () => {
       <p>เกี่ยวกับเรา</p>
       </section>
       <div className='p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:gap-3 '>
-      <CardProduct /><CardProduct />
-      <CardProduct /><CardProduct />
-      <CardProduct /><CardProduct />
-      <CardProduct /><CardProduct />
-      <CardProduct /><CardProduct />
+      {/* <CardProduct /> */}
+
     </div>
       
    
