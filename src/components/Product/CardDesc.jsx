@@ -1,17 +1,19 @@
 import React from "react";
 import Tag from "../Tag/Tag";
 
-const CardDesc = () => {
+const CardDesc = ({ product }) => {
   return (
     <div className="bg-white my-8 min-h-96 p-4 lg:mx-10">
-      <p>ยาธาตุน้ำขาวตรากระต่ายบิน</p>
-      <p>หมวดหมู่: ยาระบบทางเดินอาหาร</p>
-      <p>บรรจุภัณฑ์: ขวด</p>
-      <p>ปริมาตร: 200 มล.</p>
-      <p>บรรเทาอาการท้องเสีย ปวดท้อง จุกเสียด ขับลม แก้ท้องอืด ท้องเฟ้อ</p>
+      <p>{product.productname}</p>
+      <p>หมวดหมู่: {product.categoriesname}</p>
+      <p>บรรจุภัณฑ์: {product.form}</p>
+      <p>ปริมาตร: {product.quantity}</p>
+      <p>{product.description}</p>
 
-      <div id="section-tag" className="justify-self-end">
-        <Tag />
+      <div id="section-tag" className="justify-self-end flex">
+        {product.tags[0].split(', ').map((tag, index) => (
+          <Tag key={index} tag={tag} />
+        ))}
       </div>
     </div>
   );
