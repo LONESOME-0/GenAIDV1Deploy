@@ -86,7 +86,7 @@ function RouteWithAuth() {
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+
     <AuthProvider>
     <SearchProductProvider>
       <CategoryProvider>
@@ -96,5 +96,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </CategoryProvider>
     </SearchProductProvider>
     </AuthProvider>
-  </React.StrictMode>
+
 );
