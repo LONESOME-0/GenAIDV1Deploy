@@ -4,17 +4,23 @@ import NavMobile from '../components/Navbar/NavMobile'
 import CardCategry from '../components/Category/CardCategry'
 import CardProduct from '../components/Product/CardProduct'
 import { Link } from 'react-router-dom'
+import { CategoryContext } from '../context/CategoryProvider'
+import { useContext } from 'react'
 import { ProductContext } from '../context/ProductProvider'
 
 const Home = () => {
+  const {category} = useContext(CategoryContext);
+  //console.log("cate1",category);
     const {product,loading} = useContext(ProductContext)
-    console.log("Home",product)
+    //console.log("Home",product)
     // if (loading) {
     //   return <p>Loading products...</p>;
     // }
 
 
+
   return (
+    
     <>
     <Nav logo search/>
     <div className='my-16 p-3 lg:my-40'>

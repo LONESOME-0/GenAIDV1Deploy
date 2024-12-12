@@ -4,8 +4,15 @@ import NavMobile from "../components/Navbar/NavMobile";
 import CardCart from "../components/Product/CardCart";
 import CardSum from "../components/Checkout/CardSum";
 import { Link } from "react-router-dom";
-
+import {Authcontext} from '../context/AuthProvider'
+import {Prodductcontext} from '../context/ProductProvider'
 const Cart = () => {
+  
+  try {
+    
+  } catch (error) {
+    
+  }
   return (
     <>
       <Nav back title="รถเข็น" />
