@@ -5,7 +5,7 @@ import CardCategry from '../components/Category/CardCategry'
 import CardProduct from '../components/Product/CardProduct'
 import { Link } from 'react-router-dom'
 import { CategoryContext } from '../context/CategoryProvider'
-import { useContext } from 'react'
+
 import { ProductContext } from '../context/ProductProvider'
 
 const Home = () => {

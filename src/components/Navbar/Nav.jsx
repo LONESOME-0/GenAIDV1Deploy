@@ -1,12 +1,11 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { useSearchProduct } from "../../context/SearchProductProvider";
 import { useContext, useEffect, useState } from "react";
-import { FaCartShopping } from "react-icons/fa6";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
