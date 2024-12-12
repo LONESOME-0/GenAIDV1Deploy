@@ -1,13 +1,8 @@
 
-import React, { useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { FaUser } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
 import { useSearchProduct } from "../../context/SearchProductProvider";
 import { useContext, useEffect, useState } from "react";
-import { FaCartShopping } from "react-icons/fa6";
-import { IoMdArrowRoundBack } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 import { BiSolidCategory } from "react-icons/bi";
@@ -46,7 +41,6 @@ const Nav = ({ logo, back, search, title, cart }) => {
       setIsLoggedIn(true);
     }
   }, []);
-
 
 
 
@@ -258,7 +252,6 @@ const Nav = ({ logo, back, search, title, cart }) => {
             <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
               <PiPillFill className="text-lg" />
               <AnchorLink offset='200' href="#about">เกี่ยวกับเรา</AnchorLink>
-
             </div>
           </div>
         </div>
