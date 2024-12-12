@@ -4,8 +4,8 @@ import NavMobile from "../components/Navbar/NavMobile";
 import CardCart from "../components/Product/CardCart";
 import CardSum from "../components/Checkout/CardSum";
 import { Link } from "react-router-dom";
-import {Authcontext} from '../context/AuthProvider'
-import {Prodductcontext} from '../context/ProductProvider'
+import {AuthContext} from '../context/AuthProvider'
+import {ProductContext} from '../context/ProductProvider'
 const Cart = () => {
   
   try {
