@@ -5,7 +5,8 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import ProductProvider from "./context/ProductProvider";
-import AuthProvider,{AuthContext} from "./context/AuthProvider";
+import AuthProvider, { AuthContext } from "./context/AuthProvider";
+import CategoryProvider from "./context/CategoryProvider";
 import Home from "./page/Home";
 import Cart from "./page/Cart";
 import Category from "./page/Category";
@@ -81,7 +82,7 @@ function RouteWithAuth() {
     ...(token ? routeAuthen : []),
   ]);
 
-  console.log("token is ",token)
+  console.log("token is ", token);
 
   return <RouterProvider router={router} />;
 }
@@ -138,13 +139,17 @@ function RouteWithAuth() {
 //     element: <Search />,
 //   },
 // ]);
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <ProductProvider>
-        {/* <RouterProvider router={router} /> */}
-        <RouteWithAuth />
-      </ProductProvider>
+      <CategoryProvider>
+        <ProductProvider>
+          {/* <RouterProvider router={router} /> */}
+
+          <RouteWithAuth />
+        </ProductProvider>
+      </CategoryProvider>
     </AuthProvider>
   </React.StrictMode>
 );
