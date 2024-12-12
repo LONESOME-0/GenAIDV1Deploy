@@ -42,7 +42,7 @@ const routePublic = [
     element: <Login />,
   },
   {
-    path: "/productdetail",
+    path: "/productdetail/:id",
     element: <ProductDetail />,
   },
   {
