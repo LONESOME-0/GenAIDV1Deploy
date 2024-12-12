@@ -1,4 +1,5 @@
 import React from "react";
+
 import { AuthContext } from "../context/AuthProvider";
 import { useEffect, useState, useContext } from "react";
 import logo from "/public/img/logo-genaid.png";
@@ -9,6 +10,9 @@ import { FaUser, FaLock } from "react-icons/fa";
 import Nav from "../components/Navbar/Nav";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import AuthProvider from "../context/AuthProvider.jsx";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -55,7 +59,7 @@ const Login = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
+  
     if (!email) {
       setEmailError("Email is required");
       setEmailTouched(true);
@@ -68,18 +72,21 @@ const Login = () => {
     if (!emailError && !passwordError && email && password) {
       const newEntry = { email, password };
       setSubmittedData([...submittedData, newEntry]);
-      alert(
-        `Form submitted successfully! Your email ${email} has been submitted.`
-      );
+
+      // alert(`"Login successful." Your email ${email} has been submitted.`);
+
 
       const response = await axios.post(`${backendUrl}/api/user/login`, {
         email,
         password,
       });
-      if (response.data) {
+
+      if (response.data.success) {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
-        console.log(response.data);
+       alert(response.data.message);
+      } else {
+        alert(response.data.message);
       }
 
       setEmail("");
@@ -89,7 +96,7 @@ const Login = () => {
       setEmailTouched(false);
       setPasswordTouched(false);
     } else {
-      alert("Please fill in all required fields and fix any errors.");
+      alert("Please fill in all required fields .");
     }
   }
 
@@ -97,7 +104,9 @@ const Login = () => {
     if (token) {
       navigate("/");
     }
-  }, [token, navigate]);
+
+  }, [token]);
+
 
   function handleHidePassword(e) {
     e.preventDefault();

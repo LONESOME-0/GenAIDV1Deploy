@@ -1,8 +1,12 @@
-import React from "react";
+
 import { FaChevronRight } from "react-icons/fa";
 import { FcMoneyTransfer } from "react-icons/fc";
 import { FaTruckFast } from "react-icons/fa6";
-const CardOrder = () => {
+
+
+
+const CardOrder = ({order}) => {
+
   return (
     <>
       <div
@@ -10,15 +14,16 @@ const CardOrder = () => {
         className="flex h-28 justify-between items-center p-6  bg-white m-3"
       >
         <div className="flex flex-col items-center">
-          <FcMoneyTransfer size={30} /> รอชำระ
-        </div>
-        <div>คำสั่งซื้อ : 00001</div>
+          <FcMoneyTransfer size={30} /> {order.status}</div>
+        <div>{order.orderID}</div>
+        <div>{order.paymentMethod}</div>
+
         <div>
           <FaChevronRight />
         </div>
       </div>
 
-      <div
+      {/* <div
         id="orderCard2"
         className="flex h-28 justify-between items-center p-6  bg-white m-3"
       >
@@ -29,7 +34,7 @@ const CardOrder = () => {
         <div>
           <FaChevronRight />
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
