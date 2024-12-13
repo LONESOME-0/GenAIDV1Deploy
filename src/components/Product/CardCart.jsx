@@ -1,13 +1,13 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import QuantityInput from "./QuantityInput";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthProvider";
 import { CartContext } from "../../context/CartProvider";
-const CardCart = ({ cartData }) => {
+const CardCart = ({ cartData, isCheckOut }) => {
   const { backendUrl, token } = useContext(AuthContext);
   const [quantity, setQuantity] = useState();
-  const { cartItems, loading, addToCart,delCart } = useContext(CartContext);
+  const { cartItems, loading, addToCart, delCart } = useContext(CartContext);
   // const handleQuantityChange = (newQuantity) => {
   //   setQuantity(newQuantity);
   //   addToCart(cartData, quantity);
@@ -15,7 +15,7 @@ const CardCart = ({ cartData }) => {
   // };
 
   const [previousQuantity, setPreviousQuantity] = useState(quantity);
-  
+
   const handleQuantityChange = (newQuantity) => {
     if (newQuantity !== previousQuantity) {
       setQuantity(newQuantity);
@@ -32,12 +32,16 @@ const CardCart = ({ cartData }) => {
         <div className="flex items-center">
           {" "}
           {/* Checkbox container */}
-          <input
-            type="checkbox"
-            name="check"
-            id="check"
-            className="m-auto w-4 h-4"
-          />{" "}
+          {isCheckOut ? (
+            ""
+          ) : (
+            <input
+              type="checkbox"
+              name="check"
+              id="check"
+              className="m-auto w-4 h-4"
+            />
+          )}{" "}
           {/* Added margin top */}
         </div>
         <div className="h-full">
@@ -61,15 +65,27 @@ const CardCart = ({ cartData }) => {
         </div>
         <div className="flex justify-end lg:justify-start">
           {" "}
-          <QuantityInput
-            onChange={handleQuantityChange}
-            value={cartData.quantity}
-          />
+          {isCheckOut ? (
+            ""
+          ) : (
+            <QuantityInput
+              onChange={handleQuantityChange}
+              value={cartData.quantity}
+            />
+          )}
         </div>
       </div>
 
       <div className="self-start m-3 lg:self-center">
-        <RiDeleteBin6Fill color="red" size={25} onClick={() => delCart(cartData.productid)} />
+       {isCheckOut ? (
+         <span className="text-neutral-400 flex self-center">X {cartData.quantity}</span>
+       ) : (
+         <RiDeleteBin6Fill
+           color="red"
+           size={25}
+           onClick={() => delCart(cartData.productid)}
+         />
+       )}
       </div>
     </div>
   );

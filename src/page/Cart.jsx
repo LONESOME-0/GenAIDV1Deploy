@@ -10,45 +10,12 @@ import { ProductContext } from "../context/ProductProvider";
 import { CartContext } from "../context/CartProvider";
 const Cart = () => {
   const { cartItems } = useContext(CartContext);
-  console.log(cartItems);
-  // const { backendUrl, token } = useContext(AuthContext);
-  // const [cartData, setCartData] = useState([]);
-  // const [loading, setLoading] = useState(true);
-  // const cartItems = Object.values(cartData);
-  // console.log("cart", token);
-  // const getCart = async () => {
-  //   try {
-  //     // const response = await axios.get(`${backendUrl}/api/cart/get`, {
-  //     //   headers: {
-  //     //     Authorization: `Bearer ${token}`, // Custom header for authentication
-  //     //     'Custom-Header': 'CustomValue',   // Example of another custom header
-  //     //   },
-  //     // });
-  //     const cusH = {
-  //       token,
-  //     };
-  //     const response = await axios.post(`${backendUrl}/api/cart/get`, {
-  //       userId: "6755e5e1ed1cfa4d6d2bfc31",
-  //     });
+  const [total, setTotal] = useState(0);
+  console.log(total);
 
-  //     //const response = await axios.get(`${backendUrl}/api/cart/get`, {body: { userId: "6755e5e1ed1cfa4d6d2bfc31" }},{ headers: { token } });
-  //     setCartData(response.data.cartData);
-  //     //console.log(response.data);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     setLoading(false);
-  //     console.error(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getCart();
-  // }, []);
-
-  // if (loading) {
-  //   return <p>Loading...</p>;
-  // }
-
+  const updateTotal = (newTotal) => {
+    setTotal(newTotal);
+  };
   return (
     <>
       <Nav back title="รถเข็น" />
@@ -58,15 +25,9 @@ const Cart = () => {
           {cartItems.map((item) => (
             <CardCart key={item.productid} cartData={item} />
           ))}
-
-          {/* {
-          cartData.map((item) => (
-            <CardCart key={item.id} cartData={item} />
-          ))
-         } */}
         </div>
         <div className="hidden lg:block lg:w-[30%]  lg:pt-6 text-center">
-          <CardSum />
+          <CardSum onTotalUpdate={updateTotal} />
           <Link to="/checkout">
             <button className="bg-ga-primary text-white rounded-md p-2 w-40 text-xl mt-7">
               สั่งสินค้า
