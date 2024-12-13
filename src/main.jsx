@@ -6,7 +6,7 @@ import ProductProvider from "./context/ProductProvider";
 import AuthProvider, { AuthContext } from "./context/AuthProvider";
 import CategoryProvider from "./context/CategoryProvider";
 import SearchProductProvider from "./context/SearchProductProvider";
-
+import CartProvider from "./context/CartProvider";
 import Home from "./page/Home";
 import Cart from "./page/Cart";
 import Category from "./page/Category";
@@ -86,15 +86,15 @@ function RouteWithAuth() {
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <AuthProvider>
+  <AuthProvider>
     <SearchProductProvider>
       <CategoryProvider>
-        <ProductProvider>
-         <RouteWithAuth />
-        </ProductProvider>
+        <CartProvider>
+          <ProductProvider>
+            <RouteWithAuth />
+          </ProductProvider>
+          </CartProvider>
       </CategoryProvider>
     </SearchProductProvider>
-    </AuthProvider>
-  </React.StrictMode>
+  </AuthProvider>
 );

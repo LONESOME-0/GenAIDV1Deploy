@@ -12,7 +12,7 @@ const CategoryProvider = ({ children }) => {
           const fetchData = await axios.get(backendUrl + "/api/category");
           setCategory(fetchData.data);
           setLoading(false);
-          console.log("cate", fetchData);
+          // console.log("cate", fetchData);
         } catch (error) {
           console.log(error);
           setLoading(false);

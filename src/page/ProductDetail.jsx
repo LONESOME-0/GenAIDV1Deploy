@@ -13,7 +13,7 @@ const ProductDetail = () => {
     const {product,loading} = useContext(ProductContext)
     const productDetail = product.find((product) => product.id === Number(id));
 
-    console.log(productDetail);
+    // console.log(productDetail);
     if(loading){
         return (<p>Loading</p>)
     }

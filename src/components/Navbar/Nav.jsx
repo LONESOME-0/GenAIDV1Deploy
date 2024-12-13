@@ -71,7 +71,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
           )}
           {logo && (
             <div className="nav-logo">
-              <img src="img/logo-genaid.png" alt="" className="max-h-10" />
+              <img src="/public/img/logo-genaid.png" alt="" className="max-h-10" />
             </div>
           )}
           <div className="flex-grow flex justify-center relative">
@@ -105,7 +105,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
           <div className="flex items-center justify-between p-4">
             <Link to="/">
               <div className="nav-logo">
-                <img src="img/logo-genaid.png" alt="" className="h-12" />
+                <img src="/public/img/logo-genaid.png" alt="" className="h-12" />
               </div>
             </Link>
             <div className="flex-1 mx-8 relative">
