@@ -29,11 +29,11 @@ const Home = () => {
       <CardCategry /> <CardCategry /> <CardCategry /> <CardCategry /> <CardCategry />
       <CardCategry /><CardCategry /><CardCategry /><CardCategry /><CardCategry /><CardCategry />    
       </div>
-      <div className='flex p-3 pl-24 justify-between '>
+      <div className='grid grid-flow-col justify-items-stretch '>
       <section id='bestselling'>
-      <p className='text-3xl px-5 py-2 justify-self-center'>สินค้าขายดี</p>
+      <p className='flex text-3xl px-5 py-3 justify-self-end'>สินค้าแนะนำ</p>
       </section>
-      <Link to='#' className='underline justify-self-end'>เพิ่มเติม</Link>
+      <Link to='#' className='flex px-5 underline justify-self-end items-center'>เพิ่มเติม</Link>
     </div>
     <div className='p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:grid-rows-2 lg:gap-3'>
   {
