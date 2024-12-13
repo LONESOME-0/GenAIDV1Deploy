@@ -21,6 +21,7 @@ const OrderHistory = () => {
         {},
         {headers: {token}}
       );
+      console.log(token);
       if (response.data.success) {
         let allOrdersItem = [];
         // response.data.order.map((order) => {
@@ -50,7 +51,7 @@ const OrderHistory = () => {
       <div>
         <Nav back title="ประวัติการสั่งซื้อ" />
         
-        <div className="my-16 lg:my-40 lg:w-[80%] lg:place-self-center">
+        <div className="my-16 lg:my-40 lg:w-[80%] lg:place-self-center ">
           <DropdownStatus />
           {/* <CardOrder /> */}
         

@@ -1,9 +1,8 @@
 
-import { FaCartShopping } from "react-icons/fa6";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { useSearchProduct } from "../../context/SearchProductProvider";
 import {  useEffect, useState } from "react";
-import { FaUser } from "react-icons/fa";
+import { FaCartShopping, FaFire, FaUser } from "react-icons/fa6";
+
 import { FaHome } from "react-icons/fa";
 import { BiSolidCategory } from "react-icons/bi";
 import { RiDiscountPercentFill } from "react-icons/ri";
@@ -26,7 +25,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
-
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -222,6 +221,6 @@ const Nav = ({ logo, back, search, title, cart }) => {
       </nav>
     </>
   );
-}};
+};
 
 export default Nav;
