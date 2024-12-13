@@ -44,7 +44,9 @@ const Home = () => {
         <CardProduct key={product.id} product={product} />
       ))
   }
+
     </div>
+
     
     </div>
       <section id='discounted'>

@@ -11,30 +11,19 @@ const CardOrder = ({order}) => {
     <>
       <div
         id="orderCard1"
-        className="flex h-28 justify-between items-center p-6  bg-white m-3"
+        className="flex h-28 justify-between items-center p-6  bg-white m-3 rounded-3xl"
       >
         <div className="flex flex-col items-center">
-          <FcMoneyTransfer size={30} /> {order.status}</div>
-        <div>{order.orderID}</div>
-        <div>{order.paymentMethod}</div>
-
+          <FcMoneyTransfer size={30}  /> {order.status}</div>
+        <div>รหัสคำสั่งซื้อ: {order.orderId}</div>
+        <div> วิธีชําระ: {order.paymentMethod}</div>
+        <div className="flex flex-col items-center">
+        <FaTruckFast size={30} />{order.status} </div>
         <div>
           <FaChevronRight />
         </div>
       </div>
 
-      {/* <div
-        id="orderCard2"
-        className="flex h-28 justify-between items-center p-6  bg-white m-3"
-      >
-        <div className="flex flex-col items-center">
-          <FaTruckFast size={30} /> จัดส่งแล้ว
-        </div>
-        <div>คำสั่งซื้อ : 00002</div>
-        <div>
-          <FaChevronRight />
-        </div>
-      </div> */}
     </>
   );
 };
