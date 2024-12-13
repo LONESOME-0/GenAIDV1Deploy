@@ -27,11 +27,11 @@ const CardProduct = ({ product }) => {
           <img
             src={product.image || "https://via.placeholder.com/150"}
             alt={product.productname || "Product Image"}
-            className="w-full h-48 object-contain bg-gray-100"
+            className="w-full h-48 object-contain bg-white"
           />
 
           {/* Product Details */}
-          <div className="p-4 flex flex-col">
+          <div className="p-4 flex flex-col ">
             {/* Product Name */}
             <h2 className="text-lg font-semibold text-gray-800 truncate">
               {product.productname || "Unknown Product"}

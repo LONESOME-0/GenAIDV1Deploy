@@ -24,23 +24,26 @@ const Home = () => {
     <>
     <Nav logo search/>
     <div className='my-16 p-3 lg:my-40'>
-      <p>หมวดหมู่</p>
+      <p className='text-3xl px-5 pb-2'>หมวดหมู่สินค้า</p>
       <div className='flex items-center overflow-x-auto snap-x snap-mandatory mx-4 space-x-7'>
       <CardCategry /> <CardCategry /> <CardCategry /> <CardCategry /> <CardCategry />
       <CardCategry /><CardCategry /><CardCategry /><CardCategry /><CardCategry /><CardCategry />    
       </div>
-      <div className='p-3 flex justify-between'>
+      <div className='flex p-3 pl-24 justify-between '>
       <section id='bestselling'>
-      <p>สินค้าขายดี</p>
+      <p className='text-3xl px-5 py-2 justify-self-center'>สินค้าขายดี</p>
       </section>
-      <Link to='#' className='underline'>เพิ่มเติม</Link>
+      <Link to='#' className='underline justify-self-end'>เพิ่มเติม</Link>
     </div>
-    <div className='p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:gap-3 '>
-    {
-        product.map((product) => (
-          <CardProduct key={product.id} product={product} />
-        ))
-      }
+    <div className='p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:grid-rows-2 lg:gap-3'>
+  {
+    product
+      .filter(product => product.rating >= 4)
+      .slice(0, 12)
+      .map(product => (
+        <CardProduct key={product.id} product={product} />
+      ))
+  }
     </div>
     
     </div>
