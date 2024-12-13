@@ -24,16 +24,16 @@ const Home = () => {
     <>
     <Nav logo search/>
     <div className='my-16 p-3 lg:my-40'>
-      <p>หมวดหมู่</p>
+      <p className='text-3xl px-5 pb-2'>หมวดหมู่สินค้า</p>
       <div className='flex items-center overflow-x-auto snap-x snap-mandatory mx-4 space-x-7'>
       <CardCategry /> <CardCategry /> <CardCategry /> <CardCategry /> <CardCategry />
       <CardCategry /><CardCategry /><CardCategry /><CardCategry /><CardCategry /><CardCategry />    
       </div>
-      <div className='p-3 flex justify-between'>
+      <div className='grid grid-flow-col justify-items-stretch '>
       <section id='bestselling'>
-      <p>สินค้าขายดี</p>
+      <p className='flex text-3xl px-5 py-3 justify-self-end'>สินค้าแนะนำ</p>
       </section>
-      <Link to='#' className='underline'>เพิ่มเติม</Link>
+      <Link to='#' className='flex px-5 underline justify-self-end items-center'>เพิ่มเติม</Link>
     </div>
     <div className='p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:grid-rows-2 lg:gap-3'>
   {
@@ -44,8 +44,8 @@ const Home = () => {
         <CardProduct key={product.id} product={product} />
       ))
   }
-</div>
 
+    </div>
 
     
     </div>
