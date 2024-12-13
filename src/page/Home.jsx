@@ -35,13 +35,18 @@ const Home = () => {
       </section>
       <Link to='#' className='underline'>เพิ่มเติม</Link>
     </div>
-    <div className='p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:gap-3 '>
-    {
-        product.map((product) => (
-          <CardProduct key={product.id} product={product} />
-        ))
-      }
-    </div>
+    <div className='p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:grid-rows-2 lg:gap-3'>
+  {
+    product
+      .filter(product => product.rating >= 4)
+      .slice(0, 12)
+      .map(product => (
+        <CardProduct key={product.id} product={product} />
+      ))
+  }
+</div>
+
+
     
     </div>
       <section id='discounted'>
