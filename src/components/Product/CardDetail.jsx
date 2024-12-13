@@ -2,39 +2,19 @@ import React, { useState, useContext } from "react";
 import QuantityInput from "./QuantityInput";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { AuthContext } from "../../context/AuthProvider";
+import { CartContext } from "../../context/CartProvider";
 import axios from "axios";
 const CardDetail = ({ product }) => {
   const { backendUrl, token } = useContext(AuthContext);
+  const { cartItems, loading, addToCart } = useContext(CartContext);
   const [quantity, setQuantity] = useState(1);
 
   // Callback function to handle quantity change
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
   };
-
-  const addToCart = async () => {
-    try {
-      const totalPrice = quantity * product.price;
-      const prodCart = {
-        userId: "6755e5e1ed1cfa4d6d2bfc31",
-        productid: product.id,
-        productname: product.productname,
-        image: product.image,
-        price: product.price,
-        quantity: quantity,
-        totalPrice: totalPrice,
-      };
-      //console.log(prodCart);
-      const response = await axios.post(backendUrl + "/api/cart/add", {
-        prodCart,
-      });
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
+ 
+ 
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -73,7 +53,8 @@ const CardDetail = ({ product }) => {
             </div>
             <div id="productId">รหัสสินค้า: {product.id}</div>
             <div id="productRating" className="flex  items-center ">
-            {renderStars(product.rating || 0)}&nbsp;&nbsp;&nbsp;{product.rating || 0}/5
+              {renderStars(product.rating || 0)}&nbsp;&nbsp;&nbsp;
+              {product.rating || 0}/5
             </div>
           </div>
           <div className=" justify-items-end space-y-3 justify-center lg:flex flex-col-reverse lg:my-10 ">
@@ -88,7 +69,7 @@ const CardDetail = ({ product }) => {
           </div>
           <div className="hidden lg:flex mt-3 space-x-4">
             <button
-              onClick={addToCart}
+              onClick={() => addToCart(product, quantity)}
               className="bg-ga-primary text-white rounded-md p-2 w-40 text-xl"
             >
               เพิ่มลงรถเข็น
