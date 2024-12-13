@@ -17,8 +17,7 @@ const CardOrder = ({order}) => {
           <FcMoneyTransfer size={30}  /> {order.status}</div>
         <div>รหัสคำสั่งซื้อ: {order.orderId}</div>
         <div> วิธีชําระ: {order.paymentMethod}</div>
-        <div className="flex flex-col items-center">
-        <FaTruckFast size={30} />{order.status} </div>
+        
         <div>
           <FaChevronRight />
         </div>

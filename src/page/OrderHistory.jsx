@@ -9,35 +9,25 @@ import { AuthContext } from "../context/AuthProvider.jsx";
 const OrderHistory = () => {
   const { backendUrl, token } = useContext(AuthContext);
   const [orderData, setOrderData] = useState([]);
-  
+  const [selectedStatus, setSelectedStatus] = useState(null);
+
+  // โหลดข้อมูลคำสั่งซื้อ
   const loadOrderData = async () => {
     try {
-      if (!token) {
-        return null;
-      }
+      if (!token) return;
 
       const response = await axios.post(
-        backendUrl+"/api/order/orders",
+        `${backendUrl}/api/order/orders`,
         {},
-        {headers: {token}}
+        { headers: { token } }
       );
-      console.log(token);
+
       if (response.data.success) {
-        let allOrdersItem = [];
-        // response.data.order.map((order) => {
-        //   order.items.map((item) => {
-        //     item["status"] = order.status;
-        //     item["payment"] = order.payment;
-        //     item["paymentMethod"] = order.paymentMethod;
-        //     item["date"] = order.date;
-        //     allOrdersItem.push(item);
-        //   });
-        // });
         setOrderData(response.data.order);
-        console.log(response.data.order);
       }
+      
     } catch (error) {
-      console.log(error);
+      console.error("Error loading orders:", error);
     }
   };
 
@@ -45,24 +35,40 @@ const OrderHistory = () => {
     loadOrderData();
   }, [token]);
 
+  // เปลี่ยนสถานะที่เลือก
+  const handleStatusChange = (statusLabel) => {
+    setSelectedStatus(statusLabel);
+  console.log(statusLabel);
+  };
+     
+  // กรองคำสั่งซื้อ
+  const displayedOrders =
+    selectedStatus === "สถานะทั้งหมด" || !selectedStatus
+      ? orderData
+      : orderData.filter((order) => order.status === selectedStatus);
 
   return (
-    <>
-      <div>
-        <Nav back title="ประวัติการสั่งซื้อ" />
-        
-        <div className="my-16 lg:my-40 lg:w-[80%] lg:place-self-center ">
-          <DropdownStatus />
-          {/* <CardOrder /> */}
-        
-          {orderData.map((order) => (
-            <CardOrder key={order._id} order={order} />
-          ))}
+    <div>
+      <Nav back title="ประวัติการสั่งซื้อ" />
 
-        </div>
-        <NavMobile />
+      <div className="my-16 lg:my-40 lg:w-[80%] lg:place-self-center">
+        <DropdownStatus onStatusChange={handleStatusChange} />
+
+        {displayedOrders.length > 0 ? (
+          displayedOrders.map((order) => (
+            <CardOrder key={order._id} order={order} />
+          ))
+        ) : (
+          <p className="text-center text-gray-500">
+            {selectedStatus
+              ? "ไม่พบคำสั่งซื้อในสถานะนี้"
+              : "กำลังโหลดข้อมูล..."}
+          </p>
+        )}
       </div>
-    </>
+
+      <NavMobile />
+    </div>
   );
 };
 
