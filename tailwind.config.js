@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require('tailwindcss/defaultTheme');
+// const defaultTheme = require('tailwindcss/defaultTheme');
 export default {
   content: [
     "./index.html",
@@ -7,8 +7,8 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: { sans: ['Noto Sans Thai', ...defaultTheme.fontFamily.sans], 
-
+      // fontFamily: { sans: ['Noto Sans Thai', ...defaultTheme.fontFamily.sans], 
+        fontFamily: { sans: ['Noto Sans Thai'], 
       },
       colors: {
         'ga-primary': '#00A4B6',
