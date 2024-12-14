@@ -1,3 +1,5 @@
+// main.jsx
+
 import React, { useContext } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -5,6 +7,7 @@ import "./index.css";
 import ProductProvider from "./context/ProductProvider";
 import AuthProvider, { AuthContext } from "./context/AuthProvider";
 import SearchProductProvider from "./context/SearchProductProvider";
+import ProductsByCategoryProvider from "./context/ProductsByCategoryProvider"; // Import ใหม่
 import Home from "./page/Home";
 import Cart from "./page/Cart";
 import Category from "./page/Category";
@@ -48,8 +51,12 @@ const routePublic = [
     element: <Register />,
   },
   {
-    path: "/search",
-    element: <Search />,
+    path: "/search/:categoryName",
+    element: (
+      <ProductsByCategoryProvider>
+        <Search />
+      </ProductsByCategoryProvider>
+    ),
   },
 ];
 const routeAuthen = [
@@ -88,7 +95,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <AuthProvider>
       <SearchProductProvider>
         <ProductProvider>
-          <RouteWithAuth />
+          
+            <RouteWithAuth />
+          
         </ProductProvider>
       </SearchProductProvider>
     </AuthProvider>

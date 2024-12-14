@@ -7,7 +7,7 @@ import CheckOut from './page/CheckOut'
 function App() {
   return (
     <>
-    <Home />
+      <Home />
     </>
   );
 }
