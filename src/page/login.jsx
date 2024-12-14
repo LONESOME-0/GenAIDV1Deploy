@@ -1,4 +1,6 @@
 import React from "react";
+
+import { AuthContext } from "../context/AuthProvider";
 import { useEffect, useState, useContext } from "react";
 import logo from "/public/img/logo-genaid.png";
 import { FaFacebookF } from "react-icons/fa6";
@@ -9,8 +11,8 @@ import Nav from "../components/Navbar/Nav";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import AuthProvider from "../context/AuthProvider.jsx";
-
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -23,6 +25,7 @@ const Login = () => {
   const [passwordTouched, setPasswordTouched] = useState(false);
   const [token, setToken] = useState(null);
   const navigate = useNavigate();
+  const { backendUrl } = useContext(AuthContext);
 
   useEffect(() => {
     const validateEmail = () => {
@@ -69,12 +72,15 @@ const Login = () => {
     if (!emailError && !passwordError && email && password) {
       const newEntry = { email, password };
       setSubmittedData([...submittedData, newEntry]);
+
       // alert(`"Login successful." Your email ${email} has been submitted.`);
+
 
       const response = await axios.post(`${backendUrl}/api/user/login`, {
         email,
         password,
       });
+
       if (response.data.success) {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
@@ -82,6 +88,7 @@ const Login = () => {
       } else {
         alert(response.data.message);
       }
+
       setEmail("");
       setPassword("");
       setEmailError("");
@@ -97,7 +104,9 @@ const Login = () => {
     if (token) {
       navigate("/");
     }
+
   }, [token]);
+
 
   function handleHidePassword(e) {
     e.preventDefault();

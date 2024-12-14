@@ -6,8 +6,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import ProductProvider from "./context/ProductProvider";
 import AuthProvider, { AuthContext } from "./context/AuthProvider";
+import CategoryProvider from "./context/CategoryProvider";
 import SearchProductProvider from "./context/SearchProductProvider";
+<<<<<<< HEAD
 import ProductsByCategoryProvider from "./context/ProductsByCategoryProvider"; // Import ใหม่
+=======
+
+>>>>>>> 727398b8ed2c6afa671cd335234615b4cf0bbd42
 import Home from "./page/Home";
 import Cart from "./page/Cart";
 import Category from "./page/Category";
@@ -93,13 +98,19 @@ function RouteWithAuth() {
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <SearchProductProvider>
+    <SearchProductProvider>
+      <CategoryProvider>
         <ProductProvider>
+<<<<<<< HEAD
           
             <RouteWithAuth />
           
+=======
+         <RouteWithAuth />
+>>>>>>> 727398b8ed2c6afa671cd335234615b4cf0bbd42
         </ProductProvider>
-      </SearchProductProvider>
+      </CategoryProvider>
+    </SearchProductProvider>
     </AuthProvider>
   </React.StrictMode>
 );
