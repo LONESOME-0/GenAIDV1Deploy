@@ -1,5 +1,3 @@
-// main.jsx
-
 import React, { useContext } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -8,11 +6,8 @@ import ProductProvider from "./context/ProductProvider";
 import AuthProvider, { AuthContext } from "./context/AuthProvider";
 import CategoryProvider from "./context/CategoryProvider";
 import SearchProductProvider from "./context/SearchProductProvider";
-<<<<<<< HEAD
 import ProductsByCategoryProvider from "./context/ProductsByCategoryProvider"; // Import ใหม่
-=======
 
->>>>>>> 727398b8ed2c6afa671cd335234615b4cf0bbd42
 import Home from "./page/Home";
 import Cart from "./page/Cart";
 import Category from "./page/Category";
@@ -56,6 +51,14 @@ const routePublic = [
     element: <Register />,
   },
   {
+    path: "/search",
+    element: (
+      <ProductsByCategoryProvider>
+        <Search />
+      </ProductsByCategoryProvider>
+    ),
+  },
+  {
     path: "/search/:categoryName",
     element: (
       <ProductsByCategoryProvider>
@@ -84,13 +87,13 @@ const routeAuthen = [
 ];
 
 function RouteWithAuth() {
-  const { backendUrl, token } = useContext(AuthContext);
+  const { backendUrl, token } = useContext(AuthContext); // Ensure token and backendUrl are available
   const router = createBrowserRouter([
     ...routePublic,
     ...(token ? routeAuthen : []),
   ]);
 
-  console.log("token is ", token);
+  console.log("Token is:", token);
 
   return <RouterProvider router={router} />;
 }
@@ -98,19 +101,13 @@ function RouteWithAuth() {
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-    <SearchProductProvider>
-      <CategoryProvider>
-        <ProductProvider>
-<<<<<<< HEAD
-          
+      <SearchProductProvider>
+        <CategoryProvider>
+          <ProductProvider>
             <RouteWithAuth />
-          
-=======
-         <RouteWithAuth />
->>>>>>> 727398b8ed2c6afa671cd335234615b4cf0bbd42
-        </ProductProvider>
-      </CategoryProvider>
-    </SearchProductProvider>
+          </ProductProvider>
+        </CategoryProvider>
+      </SearchProductProvider>
     </AuthProvider>
   </React.StrictMode>
 );

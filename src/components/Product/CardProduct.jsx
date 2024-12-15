@@ -24,7 +24,7 @@ const CardProduct = ({ product }) => {
       <img
         src={product.image || "https://via.placeholder.com/150"}
         alt={product.productname || "Product Image"}
-        className="w-full h-48 object-contain bg-gray-100"
+        className="w-full h-48 object-contain bg-white"
       />
       
       {/* Product Details */}

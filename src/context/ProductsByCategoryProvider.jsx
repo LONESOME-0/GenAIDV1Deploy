@@ -1,38 +1,86 @@
-import React, { createContext, useState, useContext, useCallback } from "react";
+import React, { createContext, useState, useContext, useCallback, useRef, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "./AuthProvider";
 
 export const ProductsByCategoryContext = createContext();
 
 const ProductsByCategoryProvider = ({ children }) => {
-  const [productCategories, setProductCategories] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const { backendUrl } = useContext(AuthContext); // URL ของ backend
+  const [categories, setCategories] = useState([]); // Store all categories
+  const [products, setProducts] = useState([]); // Store products by category
+  const [loading, setLoading] = useState(false); // Generic loading state
+  const [error, setError] = useState(null); // Store error messages
+  const { backendUrl } = useContext(AuthContext); // Backend URL from AuthContext
 
-  // ฟังก์ชันสำหรับเรียกข้อมูลหมวดหมู่และสินค้าทั้งหมด
+  const isFetchingCategories = useRef(false); // To prevent concurrent fetches for categories
+
+  // Fetch all categories
   const fetchCategoriesWithProducts = useCallback(async () => {
-    if (loading) return; // Prevent re-fetching if already loading
+    if (isFetchingCategories.current || categories.length > 0) return; // Prevent re-fetching if already loading or data exists
+    isFetchingCategories.current = true;
 
     setLoading(true);
     setError(null);
+
     try {
+      if (!backendUrl) throw new Error("Backend URL is missing");
       const response = await axios.get(`${backendUrl}/api/categories`);
-      setProductCategories(response.data);
+      if (Array.isArray(response.data)) {
+        setCategories(response.data);
+      } else {
+        throw new Error("Invalid data structure received from API");
+      }
     } catch (err) {
-      setError(err.response?.data?.message || "An error occurred");
+      console.error("Error fetching categories:", err.message);
+      setError(err.response?.data?.message || "Error fetching categories");
     } finally {
       setLoading(false);
+      isFetchingCategories.current = false;
     }
-  }, [backendUrl, loading]);
+  }, [backendUrl, categories.length]);
+
+  // Fetch products by category
+  const fetchProductsByCategory = useCallback(
+    async (category, filters = {}) => {
+      setLoading(true);
+      setError(null);
+      console.log("Hello" )
+      try {
+        if (!backendUrl) throw new Error("Backend URL is missing");
+        const response = await axios.get(
+          `${backendUrl}/api/categories/filter-by-category`,
+          { params: { category, ...filters } }
+        );
+        
+        if (Array.isArray(response.data)) {
+          setProducts(response.data);
+        } else {
+          throw new Error("Invalid data structure received from API");
+        }
+      } catch (err) {
+        console.error("Error fetching products by category:", err.message);
+        setError(err.response?.data?.message || "Error fetching products");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [backendUrl]
+  );
+
+  // Fetch categories on mount
+  useEffect(() => {
+    fetchCategoriesWithProducts();
+    fetchProductsByCategory()
+  }, [fetchCategoriesWithProducts]);
 
   return (
     <ProductsByCategoryContext.Provider
       value={{
-        productCategories,
-        fetchCategoriesWithProducts,
-        loading,
-        error,
+        categories, // Expose categories
+        products, // Expose products
+        fetchCategoriesWithProducts, // Expose function to fetch categories
+        fetchProductsByCategory, // Expose function to fetch products
+        loading, // Loading state
+        error, // Error state
       }}
     >
       {children}
@@ -40,7 +88,7 @@ const ProductsByCategoryProvider = ({ children }) => {
   );
 };
 
-// Custom Hook สำหรับใช้งาน Context
+// Custom Hook for easier access
 export const useProductsByCategory = () => {
   const context = useContext(ProductsByCategoryContext);
   if (!context) {
