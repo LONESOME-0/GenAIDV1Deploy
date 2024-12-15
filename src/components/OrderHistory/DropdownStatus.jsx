@@ -18,8 +18,8 @@ function DropDownAddr({ onStatusChange }) {
   }
 
   return (
-    <div className="flex m-2">
-      <div className="p-3 border rounded w-full bg-white">
+    <div className="flex m-2 rounded-2xl ">
+      <div className="p-3 border rounded-2xl w-full bg-white">
         <select
           className="form-select w-full"
           value={value}
