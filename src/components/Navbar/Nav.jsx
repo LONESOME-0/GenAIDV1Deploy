@@ -75,7 +75,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
             </div>
           )}
           <div className="flex-grow flex justify-center relative">
-            {title && <div className="nav-title">{title}</div>}
+            {title && <div className="nav-title font-bold text-2xl">{title}</div>}
             {search && (
               <div className="w-full relative">
                 <input
