@@ -23,13 +23,13 @@ const CardOrder = ({ order }) => {
           {statusIcon}{statusText}
         </div>
 
-        <div className="flex  items-center  gap-32 text-nowrap text-center m-10  w-2/4">
-          <div>รหัสคำสั่งซื้อ: {order.orderId}</div>
-          <div className="hidden sm:block"> วิธีชําระ: {order.paymentMethod}</div>
+        <div className="flex  items-center  gap-28  text-nowrap text-center m-10  w-2/4">
+          <div>รหัสคำสั่งซื้อ : {order.orderId}</div>
+          <div className="hidden sm:block"> วิธีชําระ : {order.paymentMethod}</div>
         </div>
 
-        <div>
-          <FaChevronRight />
+        <div className="  p-3 flex justify-end ">
+          <FaChevronRight  size={25} />
         </div>
       </div>
     </div>
