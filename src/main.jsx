@@ -6,8 +6,7 @@ import ProductProvider from "./context/ProductProvider";
 import AuthProvider, { AuthContext } from "./context/AuthProvider";
 import CategoryProvider from "./context/CategoryProvider";
 import SearchProductProvider from "./context/SearchProductProvider";
-import ProductsByCategoryProvider from "./context/ProductsByCategoryProvider"; // Import ใหม่
-
+import CartProvider from "./context/CartProvider";
 import Home from "./page/Home";
 import Cart from "./page/Cart";
 import Category from "./page/Category";
@@ -43,7 +42,7 @@ const routePublic = [
     element: <Login />,
   },
   {
-    path: "/productdetail",
+    path: "/productdetail/:id",
     element: <ProductDetail />,
   },
   {

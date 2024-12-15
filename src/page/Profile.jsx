@@ -11,6 +11,7 @@ function Profile() {
     <Navbar/>
     <NavMobile/>
     <div className='flex'>
+    
     <BoxMenu/>
     <BoxDataUser/>
     </div>

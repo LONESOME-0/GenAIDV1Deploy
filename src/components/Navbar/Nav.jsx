@@ -1,14 +1,15 @@
 
-import React, { useState, useEffect } from "react";
-import { FaCartShopping, FaFire, FaUser } from "react-icons/fa6";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import {  useEffect, useState } from "react";
+import { FaCartShopping, FaFire, FaUser } from "react-icons/fa6";
+
 import { FaHome } from "react-icons/fa";
 import { BiSolidCategory } from "react-icons/bi";
 import { RiDiscountPercentFill } from "react-icons/ri";
 import { PiPillFill } from "react-icons/pi";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import AnchorLink from "react-anchor-link-smooth-scroll";
-import { useSearchProduct } from "../../context/SearchProductProvider";
+import { useSearchProduct } from "../../context/SearchProductProvider.jsx";
 
 const Nav = ({ logo, back, search, title, cart }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,10 +25,6 @@ const Nav = ({ logo, back, search, title, cart }) => {
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
-
-    if (term.trim()) {
-      searchProducts({ search: term });
-    }
   };
 
   const handleLogout = () => {
@@ -74,11 +71,11 @@ const Nav = ({ logo, back, search, title, cart }) => {
           )}
           {logo && (
             <div className="nav-logo">
-              <img src="img/logo-genaid.png" alt="" className="max-h-10" />
+              <img src="/public/img/logo-genaid.png" alt="" className="max-h-10" />
             </div>
           )}
           <div className="flex-grow flex justify-center relative">
-            {title && <div className="nav-title">{title}</div>}
+            {title && <div className="nav-title font-bold text-2xl">{title}</div>}
             {search && (
               <div className="w-full relative">
                 <input
@@ -108,7 +105,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
           <div className="flex items-center justify-between p-4">
             <Link to="/">
               <div className="nav-logo">
-                <img src="img/logo-genaid.png" alt="" className="h-12" />
+                <img src="/public/img/logo-genaid.png" alt="" className="h-12" />
               </div>
             </Link>
             <div className="flex-1 mx-8 relative">
@@ -217,9 +214,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
 
             <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
               <PiPillFill className="text-lg" />
-              <AnchorLink offset="200" href="#about">
-                เกี่ยวกับเรา
-              </AnchorLink>
+              <AnchorLink offset='200' href="#about">เกี่ยวกับเรา</AnchorLink>
             </div>
           </div>
         </div>

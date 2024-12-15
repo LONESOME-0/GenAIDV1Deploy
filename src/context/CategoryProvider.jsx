@@ -5,6 +5,7 @@ import { AuthContext } from "./AuthProvider";
 export const CategoryContext = createContext();
 
 const CategoryProvider = ({ children }) => {
+<<<<<<< HEAD
   const [categories, setCategories] = useState([]); // เก็บข้อมูลหมวดหมู่
   const [products, setProducts] = useState([]); // เก็บข้อมูลสินค้า
   const [error, setError] = useState(null);
@@ -36,6 +37,24 @@ const CategoryProvider = ({ children }) => {
 
   useEffect(() => {
     fetchCategories();
+=======
+    const [category, setCategory] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const { backendUrl } = useContext(AuthContext);
+    const categoryData = async () => {
+        try {
+          const fetchData = await axios.get(backendUrl + "/api/category");
+          setCategory(fetchData.data);
+          setLoading(false);
+          // console.log("cate", fetchData);
+        } catch (error) {
+          console.log(error);
+          setLoading(false);
+        }
+      };
+useEffect(() => {
+    categoryData();
+>>>>>>> b250142935bb83eb70380beb324aa3bd604e7564
   }, []);
 
   return (
