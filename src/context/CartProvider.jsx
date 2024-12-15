@@ -10,6 +10,7 @@ const CartProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const cartItems = Object.values(cartData);
   const [update, setUpdate] = useState(false);
+  const [addresses, setAddresses] = useState({});
 
   const getCart = async () => {
     try {
@@ -33,10 +34,6 @@ const CartProvider = ({ children }) => {
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    getCart();
-  }, [token]);
 
   useEffect(() => {
     if (update) {
@@ -108,12 +105,44 @@ const CartProvider = ({ children }) => {
     }
   };
 
+  const getAddress = async () => {
+    try {
+      const response = await axios.get(`${backendUrl}/api/user/address`, {
+        headers: { token },
+      });
+      console.log("Response from getAddress:", response.data);
+
+      if (response.data.success) {
+        setAddresses(response.data.addresses);
+        console.log("Addresses:",addresses);
+      } else {
+        console.error("Error message from getAddress:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching addresses:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      console.log("Token is valid, calling getCart and getAddress");
+      getCart();
+      getAddress();
+    } else {
+      console.log("Token is missing or invalid");
+    }
+  }, [token]);
+
+  useEffect(() => {
+    console.log("Updated addresses state:", addresses);
+  }, [addresses]);
+
   if (loading) {
     return <div>Loading...</div>; // Return a loading indicator when loading is true
   }
   return (
     <CartContext.Provider
-      value={{ cartItems, loading, getCart, addToCart, delCart }}
+      value={{ cartItems, loading, getCart, addToCart, delCart,addresses }}
     >
       {children}
     </CartContext.Provider>
