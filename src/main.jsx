@@ -6,7 +6,8 @@ import ProductProvider from "./context/ProductProvider";
 import AuthProvider, { AuthContext } from "./context/AuthProvider";
 import CategoryProvider from "./context/CategoryProvider";
 import SearchProductProvider from "./context/SearchProductProvider";
-import CartProvider from "./context/CartProvider";
+import CartProvider from "./context/CartProvider"; // Import CartProvider
+import ProductsByCategoryProvider from "./context/ProductsByCategoryProvider";
 import Home from "./page/Home";
 import Cart from "./page/Cart";
 import Category from "./page/Category";
@@ -51,7 +52,15 @@ const routePublic = [
   },
   {
     path: "/search",
-    element: <Search />,
+    element: (
+        <Search />
+    ),
+  },
+  {
+    path: "/search/:categoryName",
+    element: (
+        <Search />
+    ),
   },
 ];
 const routeAuthen = [
@@ -74,27 +83,31 @@ const routeAuthen = [
 ];
 
 function RouteWithAuth() {
-  const { backendUrl, token } = useContext(AuthContext);
+  const { backendUrl, token } = useContext(AuthContext); // Ensure token and backendUrl are available
   const router = createBrowserRouter([
     ...routePublic,
     ...(token ? routeAuthen : []),
   ]);
 
-  console.log("token is ", token);
+  console.log("Token is:", token);
 
   return <RouterProvider router={router} />;
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
   <AuthProvider>
     <SearchProductProvider>
       <CategoryProvider>
-        <CartProvider>
-          <ProductProvider>
-            <RouteWithAuth />
-          </ProductProvider>
-          </CartProvider>
+        <ProductProvider>
+          <ProductsByCategoryProvider>
+            <CartProvider> 
+              <RouteWithAuth />
+            </CartProvider>
+          </ProductsByCategoryProvider>
+        </ProductProvider>
       </CategoryProvider>
     </SearchProductProvider>
   </AuthProvider>
+</React.StrictMode>
 );

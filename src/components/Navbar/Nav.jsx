@@ -2,7 +2,6 @@
 import { IoMdArrowRoundBack } from "react-icons/io";
 import {  useEffect, useState } from "react";
 import { FaCartShopping, FaFire, FaUser } from "react-icons/fa6";
-
 import { FaHome } from "react-icons/fa";
 import { BiSolidCategory } from "react-icons/bi";
 import { RiDiscountPercentFill } from "react-icons/ri";
@@ -23,8 +22,12 @@ const Nav = ({ logo, back, search, title, cart }) => {
   }, []);
 
   const handleSearchChange = (e) => {
-    const term = e.target.value;
+    const term = e.target.value.trim();
     setSearchTerm(term);
+  
+    if (term) {
+      searchProducts({ search: term }); // ส่งเป็น 'search' แทน 'query'
+    }
   };
 
   const handleLogout = () => {
@@ -34,29 +37,49 @@ const Nav = ({ logo, back, search, title, cart }) => {
   };
 
   const renderSearchResults = () => {
-    if (!searchTerm.trim() || searchResults.length === 0) return null;
-
+    if (!searchTerm.trim()) return null;
+  
+    if (loading) {
+      return <p className="p-2 text-gray-600"></p>;
+    }
+  
+    if (error) {
+      return <p className="p-2 text-red-500">{error}</p>;
+    }
+  
+    if (searchResults.length === 0) {
+      return <p className="p-2 text-gray-600">No results found.</p>;
+    }
+  
     return (
-      <div className="absolute top-full  left-0 right-0 bg-white shadow-lg border mt-1 max-h-60 overflow-y-auto z-10">
+      <div className="absolute top-full left-0 right-0 bg-white shadow-lg border mt-1 max-h-60 overflow-y-auto z-10 rounded-lg">
         {searchResults.map((item) => (
           <div
             key={item._id}
-            className="p-2 flex items-center hover:bg-gray-100 cursor-pointer"
+            className="flex items-center p-2 hover:bg-blue-50 cursor-pointer transition duration-200"
+            //onClick={() => navigate(`/search?search=${encodeURIComponent(item.productname)}`)} // Update path
+            onClick={() => navigate(`/productdetail/${encodeURIComponent(item.id)}`)} // Update path
           >
             <img
               src={item.image || "https://via.placeholder.com/150"}
               alt={item.productname}
-              className="w-10 h-10 object-cover mr-3"
+              className="w-12 h-12 object-cover mr-3 rounded"
             />
-            <span className="text-sm font-medium text-gray-800">
-              {item.productname}
-            </span>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-gray-800 truncate">
+                {item.productname}
+              </p>
+              <p className="text-xs text-gray-500">
+                {item.description?.slice(0, 50) || "No description available."}...
+              </p>
+            </div>
           </div>
         ))}
       </div>
     );
   };
-
+  
+  
   return (
     <>
       {/* Mobile Navigation */}
