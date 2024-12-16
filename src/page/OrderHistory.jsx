@@ -54,8 +54,8 @@ const OrderHistory = () => {
     <div>
       
       <Nav back title="ประวัติการสั่งซื้อ" />
-
-      <div className="my-16 lg:my-40 lg:w-[80%] lg:place-self-center">
+      <div className="">
+      <div className=" py-16 lg:py-40 lg:w-[80%] lg:place-self-center">
         <DropdownStatus  onStatusChange={handleStatusChange} />
         {displayedOrders.length > 0 ? (
           displayedOrders.map((order) => (
@@ -72,6 +72,7 @@ const OrderHistory = () => {
               : "กำลังโหลดข้อมูล..."}
           </p>
         )}
+      </div>
       </div>
       <NavMobile />
     </div>
