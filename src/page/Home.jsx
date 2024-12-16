@@ -16,9 +16,6 @@ const Home = () => {
     // if (loading) {
     //   return <p>Loading products...</p>;
     // }
-
-
-
   return (
     
     <>
