@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCategoryContext } from "../context/CategoryProvider"; // Import Category Context
-import { useProductsByCategory } from "../context/ProductsByCategoryProvider"; // Import Product Context
+import { ProductContext } from "../context/ProductProvider"; // Import Product Context for All Products
 import Nav from "../components/Navbar/Nav.jsx";
 import CardProduct from "../components/Product/CardProduct.jsx";
 
@@ -13,27 +13,34 @@ const Search = () => {
   const { categories, loading: loadingCategories, error: categoryError } =
     useCategoryContext();
 
-  // ดึงข้อมูลสินค้าในหมวดหมู่จาก ProductsByCategoryProvider
-  const {
-    products = [],
-    error: productError,
-    fetchProductsByCategory,
-  } = useProductsByCategory();
+  // ดึงข้อมูลสินค้าทั้งหมดจาก ProductProvider
+  const { product: allProducts, loading: loadingProducts, error: productError } =
+    useContext(ProductContext);
 
-  // Fetch products เมื่อเปลี่ยนหมวดหมู่
+  // State สำหรับสินค้าตามหมวดหมู่
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  // Filter สินค้าตามหมวดหมู่
   useEffect(() => {
-    if (categoryName) {
-      fetchProductsByCategory(categoryName);
+    if (!categoryName) {
+      setFilteredProducts(allProducts); // แสดงสินค้าทั้งหมด
+    } else {
+      const filtered = allProducts.filter(
+        (product) =>
+          product.categoriesname &&
+          product.categoriesname.toLowerCase() === categoryName.toLowerCase()
+      );
+      setFilteredProducts(filtered);
     }
-  }, [categoryName, fetchProductsByCategory]);
+  }, [categoryName, allProducts]);
 
   // เปลี่ยนหมวดหมู่ใน URL
-  const handleCategoryChange = (categoryName) => {
-    navigate(`/search/${encodeURIComponent(categoryName)}`);
-  };
-
-  const handlePriceFilter = (min, max) => {
-    fetchProductsByCategory(categoryName, { minPrice: min, maxPrice: max });
+  const handleCategoryChange = (category) => {
+    if (category === "all") {
+      navigate(`/search`); // สำหรับสินค้าทั้งหมด
+    } else {
+      navigate(`/search/${encodeURIComponent(category)}`);
+    }
   };
 
   return (
@@ -49,7 +56,7 @@ const Search = () => {
           <a href="/" className="text-blue-500 hover:underline">
             Home
           </a>{" "}
-          / {categoryName || "Category"}
+          / {categoryName || "All Products"}
         </span>
       </div>
 
@@ -64,6 +71,17 @@ const Search = () => {
             <p className="text-red-500">{categoryError}</p>
           ) : (
             <ul className="text-gray-600 text-sm space-y-2">
+              <li>
+                <input
+                  type="radio"
+                  name="category"
+                  id="all-products"
+                  className="mr-2"
+                  checked={!categoryName} // ถ้าไม่มี categoryName แสดงว่าสินค้าทั้งหมดถูกเลือก
+                  onChange={() => handleCategoryChange("all")}
+                />
+                <label htmlFor="all-products">All Products</label>
+              </li>
               {categories.map((category) => (
                 <li key={category.id}>
                   <input
@@ -79,74 +97,22 @@ const Search = () => {
               ))}
             </ul>
           )}
-
-          <h3 className="text-lg font-semibold text-gray-700 mt-6 mb-4">Price</h3>
-          <ul className="text-gray-600 text-sm space-y-2">
-            <li>
-              <input
-                type="radio"
-                name="price"
-                id="all-prices"
-                className="mr-2"
-                onChange={() => handlePriceFilter(0, 10000)}
-              />
-              <label htmlFor="all-prices">All</label>
-            </li>
-            <li>
-              <input
-                type="radio"
-                name="price"
-                id="0-50"
-                className="mr-2"
-                onChange={() => handlePriceFilter(0, 50)}
-              />
-              <label htmlFor="0-50">฿0 - ฿99</label>
-            </li>
-            <li>
-              <input
-                type="radio"
-                name="price"
-                id="50-100"
-                className="mr-2"
-                onChange={() => handlePriceFilter(50, 100)}
-              />
-              <label htmlFor="50-100">฿100 - ฿499</label>
-            </li>
-            <li>
-              <input
-                type="radio"
-                name="price"
-                id="100-150"
-                className="mr-2"
-                onChange={() => handlePriceFilter(100, 150)}
-              />
-              <label htmlFor="100-150">฿500 - ฿999</label>
-            </li>
-            <li>
-              <input
-                type="radio"
-                name="price"
-                id="over-150"
-                className="mr-2"
-                onChange={() => handlePriceFilter(150, 10000)}
-              />
-              <label htmlFor="over-150">Over ฿1000</label>
-            </li>
-          </ul>
         </div>
 
         {/* Main Content */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 w-full p-3 md:ml-auto">
-          {productError ? (
+          {loadingProducts ? (
+            <p className="text-gray-600">Loading products...</p>
+          ) : productError ? (
             <p className="text-red-500">{productError}</p>
-          ) : products.length > 0 ? (
-            products.map((product) => (
+          ) : filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
               <div key={product._id} className="w-full max-w-[500px] mx-auto">
                 <CardProduct product={product} />
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-600">No products found for this category.</p>
+            <p className="text-center text-gray-600">No products found.</p>
           )}
         </div>
       </div>
