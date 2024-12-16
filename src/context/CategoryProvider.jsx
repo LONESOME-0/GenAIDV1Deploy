@@ -25,8 +25,8 @@ const CategoryProvider = ({ children }) => {
       setCategories(response.data); // เซ็ตข้อมูลหมวดหมู่
       setError(null); // ลบ Error หากเคยเกิดขึ้น
     } catch (err) {
-      console.error("Error fetching categories:", err.message);
-      setError("Failed to fetch categories. Please try again.");
+      //console.error("Error fetching categories:", err.message);
+      setError("");
     } finally {
       setLoading(false); // ปิด Loading เสมอไม่ว่าจะสำเร็จหรือไม่
     }
