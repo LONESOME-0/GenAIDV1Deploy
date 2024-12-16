@@ -36,13 +36,13 @@ const CardDetail = ({ product }) => {
         className="flex flex-col w-full  flex-1 lg:w-auto lg:mx-10 p-3 bg-white lg:flex-row "
       >
         <div className="justify-items-center">
-          <div id="productImg">
-            <img
-              src={product.image}
-              alt={product.productname}
-              className="lg:h-96"
-            />
-          </div>
+        <div id="productImg">
+        <img
+          src={product?.image || "https://via.placeholder.com/150"}
+          alt={product?.productname || "No Image"}
+          className="lg:h-96"
+        />
+      </div>
         </div>
         {/* <div id="productName" className='my-3'><span className='text-2xl'>ยาธาตุน้ำขาวตรากระต่ายบิน</span></div> */}
 

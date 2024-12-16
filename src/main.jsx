@@ -6,6 +6,7 @@ import ProductProvider from "./context/ProductProvider";
 import AuthProvider, { AuthContext } from "./context/AuthProvider";
 import CategoryProvider from "./context/CategoryProvider";
 import SearchProductProvider from "./context/SearchProductProvider";
+import CartProvider from "./context/CartProvider"; // Import CartProvider
 import ProductsByCategoryProvider from "./context/ProductsByCategoryProvider";
 import Home from "./page/Home";
 import Cart from "./page/Cart";
@@ -95,16 +96,18 @@ function RouteWithAuth() {
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-      <SearchProductProvider>
-        <CategoryProvider>
-          <ProductProvider>
-            <ProductsByCategoryProvider>
+  <AuthProvider>
+    <SearchProductProvider>
+      <CategoryProvider>
+        <ProductProvider>
+          <ProductsByCategoryProvider>
+            <CartProvider> 
               <RouteWithAuth />
-            </ProductsByCategoryProvider>
-          </ProductProvider>
-        </CategoryProvider>
-      </SearchProductProvider>
-    </AuthProvider>
-  </React.StrictMode>
+            </CartProvider>
+          </ProductsByCategoryProvider>
+        </ProductProvider>
+      </CategoryProvider>
+    </SearchProductProvider>
+  </AuthProvider>
+</React.StrictMode>
 );
