@@ -5,8 +5,8 @@ import CardCategry from '../components/Category/CardCategry'
 import CardProduct from '../components/Product/CardProduct'
 import { Link } from 'react-router-dom'
 import { CategoryContext } from '../context/CategoryProvider'
-
 import { ProductContext } from '../context/ProductProvider'
+import about from '../components/footer/about'
 
 const Home = () => {
   const {category} = useContext(CategoryContext);
@@ -58,17 +58,11 @@ const Home = () => {
 
     </div>
 
-    </div>
-      <section id='about'>
-      <p>เกี่ยวกับเรา</p>
-      </section>
-      <div className='p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:gap-3 '>
-      {/* <CardProduct /> */}
-
-    </div>
+    <about/>
       
-   
+    </div>
     <NavMobile />
+
     </>
     
   )
