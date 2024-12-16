@@ -15,17 +15,31 @@ const ProductsByCategoryProvider = ({ children }) => {
 
   // Fetch all categories
   const fetchCategoriesWithProducts = useCallback(async () => {
-    if (isFetchingCategories.current || categories.length > 0) return; // Prevent re-fetching if already loading or data exists
+    console.log("Fetching categories..."); // ตรวจสอบว่าฟังก์ชันถูกเรียก
+  
+    if (isFetchingCategories.current || categories.length > 0) return;
     isFetchingCategories.current = true;
-
+  
     setLoading(true);
     setError(null);
-
+  
     try {
       if (!backendUrl) throw new Error("Backend URL is missing");
+  
       const response = await axios.get(`${backendUrl}/api/categories`);
-      if (Array.isArray(response.data)) {
+      console.log("API Response:", response.data); // ตรวจสอบข้อมูล API
+  
+      if (response.data && Array.isArray(response.data)) {
+        // หาก API ส่งเป็น Array โดยตรง
         setCategories(response.data);
+      } else if (response.data) {
+        // หาก API ส่งเป็น Object แต่มีข้อมูลภายใน
+        const normalizedCategories = response.data.map((item) => ({
+          categoriesname: item.categoriesname,
+          id: item._id,
+        }));
+        setCategories(normalizedCategories);
+        console.log("Categories set successfully:", normalizedCategories);
       } else {
         throw new Error("Invalid data structure received from API");
       }
@@ -40,27 +54,14 @@ const ProductsByCategoryProvider = ({ children }) => {
 
   // Fetch products by category
   const fetchProductsByCategory = useCallback(
-    async (category, filters = {}) => {
-      setLoading(true);
-      setError(null);
-      console.log("Hello" )
+    async (category) => {
       try {
-        if (!backendUrl) throw new Error("Backend URL is missing");
-        const response = await axios.get(
-          `${backendUrl}/api/categories/filter-by-category`,
-          { params: { category, ...filters } }
-        );
-        
-        if (Array.isArray(response.data)) {
-          setProducts(response.data);
-        } else {
-          throw new Error("Invalid data structure received from API");
-        }
+        const response = await axios.get(`${backendUrl}/api/categories/filter-by-category`, {
+          params: { category },
+        });
+        setProducts(response.data); // ดึงข้อมูลสินค้า
       } catch (err) {
-        console.error("Error fetching products by category:", err.message);
-        setError(err.response?.data?.message || "Error fetching products");
-      } finally {
-        setLoading(false);
+        setError("Failed to fetch products.");
       }
     },
     [backendUrl]
@@ -69,18 +70,17 @@ const ProductsByCategoryProvider = ({ children }) => {
   // Fetch categories on mount
   useEffect(() => {
     fetchCategoriesWithProducts();
-    fetchProductsByCategory()
   }, [fetchCategoriesWithProducts]);
 
   return (
     <ProductsByCategoryContext.Provider
       value={{
-        categories, // Expose categories
-        products, // Expose products
-        fetchCategoriesWithProducts, // Expose function to fetch categories
-        fetchProductsByCategory, // Expose function to fetch products
-        loading, // Loading state
-        error, // Error state
+        products,
+        categories,
+        fetchCategoriesWithProducts,
+        fetchProductsByCategory,
+        loading,
+        error,
       }}
     >
       {children}

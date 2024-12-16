@@ -6,7 +6,7 @@ import ProductProvider from "./context/ProductProvider";
 import AuthProvider, { AuthContext } from "./context/AuthProvider";
 import CategoryProvider from "./context/CategoryProvider";
 import SearchProductProvider from "./context/SearchProductProvider";
-import CartProvider from "./context/CartProvider";
+import ProductsByCategoryProvider from "./context/ProductsByCategoryProvider";
 import Home from "./page/Home";
 import Cart from "./page/Cart";
 import Category from "./page/Category";
@@ -52,17 +52,13 @@ const routePublic = [
   {
     path: "/search",
     element: (
-      <ProductsByCategoryProvider>
         <Search />
-      </ProductsByCategoryProvider>
     ),
   },
   {
     path: "/search/:categoryName",
     element: (
-      <ProductsByCategoryProvider>
         <Search />
-      </ProductsByCategoryProvider>
     ),
   },
 ];
@@ -103,7 +99,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <SearchProductProvider>
         <CategoryProvider>
           <ProductProvider>
-            <RouteWithAuth />
+            <ProductsByCategoryProvider>
+              <RouteWithAuth />
+            </ProductsByCategoryProvider>
           </ProductProvider>
         </CategoryProvider>
       </SearchProductProvider>

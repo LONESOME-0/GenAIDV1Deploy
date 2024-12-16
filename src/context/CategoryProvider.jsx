@@ -1,84 +1,55 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { useContext, useState, createContext, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "./AuthProvider";
 
 export const CategoryContext = createContext();
 
 const CategoryProvider = ({ children }) => {
-<<<<<<< HEAD
-  const [categories, setCategories] = useState([]); // เก็บข้อมูลหมวดหมู่
-  const [products, setProducts] = useState([]); // เก็บข้อมูลสินค้า
-  const [error, setError] = useState(null);
+  const [categories, setCategories] = useState([]); // เปลี่ยนชื่อ state ให้ชัดเจน
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // เพิ่ม state สำหรับจัดการ Error
   const { backendUrl } = useContext(AuthContext);
 
-  // Fetch all categories
+  // Fetch categories from API
   const fetchCategories = async () => {
+    if (!backendUrl) {
+      console.error("Backend URL is missing.");
+      setError("Backend URL is missing.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await axios.get(`${backendUrl}/api/categories`);
-      setCategories(response.data);
+      setLoading(true); // ตั้งค่า loading ก่อนเรียก API
+      const response = await axios.get(`${backendUrl}/api/category`);
+      setCategories(response.data); // เซ็ตข้อมูลหมวดหมู่
+      setError(null); // ลบ Error หากเคยเกิดขึ้น
     } catch (err) {
-      setError(err.response?.data?.message || "Error fetching categories");
+      console.error("Error fetching categories:", err.message);
+      setError("Failed to fetch categories. Please try again.");
+    } finally {
+      setLoading(false); // ปิด Loading เสมอไม่ว่าจะสำเร็จหรือไม่
     }
   };
 
-  // Fetch products by category
-  const fetchProductsByCategory = async (category) => {
-    try {
-      const response = await axios.get(
-        `${backendUrl}/api/categories/filter-by-category/`,
-        { params: { category } }
-      );
-      setProducts(response.data);
-      console.log("Context",response.data)
-    } catch (err) {
-      setError(err.response?.data?.message || "Error fetching products");
-    }
-  };
-
+  // เรียก fetchCategories เมื่อ Component ถูก Mount
   useEffect(() => {
     fetchCategories();
-=======
-    const [category, setCategory] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const { backendUrl } = useContext(AuthContext);
-    const categoryData = async () => {
-        try {
-          const fetchData = await axios.get(backendUrl + "/api/category");
-          setCategory(fetchData.data);
-          setLoading(false);
-          // console.log("cate", fetchData);
-        } catch (error) {
-          console.log(error);
-          setLoading(false);
-        }
-      };
-useEffect(() => {
-    categoryData();
->>>>>>> b250142935bb83eb70380beb324aa3bd604e7564
-  }, []);
+  }, [backendUrl]);
 
   return (
-    <CategoryContext.Provider
-      value={{
-        categories,
-        products,
-        error,
-        fetchProductsByCategory,
-      }}
-    >
+    <CategoryContext.Provider value={{ categories, loading, error, fetchCategories }}>
       {children}
     </CategoryContext.Provider>
   );
 };
 
-export default CategoryProvider;
-
 export const useCategoryContext = () => {
   const context = useContext(CategoryContext);
   if (!context) {
-    throw new Error(
-      "useCategoryContext must be used within a CategoryProvider"
-    );
+    throw new Error("useCategoryContext must be used within a CategoryProvider");
   }
   return context;
 };
+
+export default CategoryProvider;

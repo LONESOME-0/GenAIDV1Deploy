@@ -23,8 +23,12 @@ const Nav = ({ logo, back, search, title, cart }) => {
   }, []);
 
   const handleSearchChange = (e) => {
-    const term = e.target.value;
+    const term = e.target.value.trim();
     setSearchTerm(term);
+  
+    if (term) {
+      searchProducts({ search: term }); // ส่งเป็น 'search' แทน 'query'
+    }
   };
 
   const handleLogout = () => {
@@ -34,14 +38,27 @@ const Nav = ({ logo, back, search, title, cart }) => {
   };
 
   const renderSearchResults = () => {
-    if (!searchTerm.trim() || searchResults.length === 0) return null;
-
+    if (!searchTerm.trim()) return null;
+  
+    if (loading) {
+      return <p className="p-2 text-gray-600">Loading...</p>;
+    }
+  
+    if (error) {
+      return <p className="p-2 text-red-500">{error}</p>;
+    }
+  
+    if (searchResults.length === 0) {
+      return <p className="p-2 text-gray-600">No results found.</p>;
+    }
+  
     return (
       <div className="absolute top-full left-0 right-0 bg-white shadow-lg border mt-1 max-h-60 overflow-y-auto z-10">
         {searchResults.map((item) => (
           <div
             key={item._id}
             className="p-2 flex items-center hover:bg-gray-100 cursor-pointer"
+            onClick={() => navigate(`/productdetail/${item._id}`)} // นำไปยังหน้าสินค้า
           >
             <img
               src={item.image || "https://via.placeholder.com/150"}
@@ -56,7 +73,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
       </div>
     );
   };
-
+  
   return (
     <>
       {/* Mobile Navigation */}
