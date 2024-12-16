@@ -5,6 +5,9 @@ import CardOrder from "../components/OrderHistory/CardOrder";
 import DropdownStatus from "../components/OrderHistory/DropdownStatus";
 import axios from "axios";
 import { AuthContext } from "../context/AuthProvider.jsx";
+import OrderHistoryDetail from "./OrderHistoryDetail.jsx";
+import { Link } from "react-router-dom";
+
 
 const OrderHistory = () => {
   const { backendUrl, token } = useContext(AuthContext);
@@ -53,11 +56,14 @@ const OrderHistory = () => {
       <Nav back title="ประวัติการสั่งซื้อ" />
 
       <div className="my-16 lg:my-40 lg:w-[80%] lg:place-self-center">
-        <DropdownStatus onStatusChange={handleStatusChange} />
-
+        <DropdownStatus  onStatusChange={handleStatusChange} />
         {displayedOrders.length > 0 ? (
           displayedOrders.map((order) => (
-            <CardOrder key={order._id} order={order} />
+            <div key={order._id}>
+            <Link to={`/orderhistorydetail/${order.orderId}`}>
+            <CardOrder  order={order} />
+            </Link>
+            </div>
           ))
         ) : (
           <p className="text-center text-gray-500">
@@ -67,9 +73,9 @@ const OrderHistory = () => {
           </p>
         )}
       </div>
-
       <NavMobile />
     </div>
+      
   );
 };
 
