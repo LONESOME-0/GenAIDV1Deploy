@@ -26,16 +26,18 @@ const Cart = () => {
             <CardCart key={item.productid} cartData={item} />
           ))}
         </div>
-        <div className="hidden lg:block lg:w-[30%]  lg:pt-6 text-center">
+        <div className="lg:w-[30%]  lg:pt-6 text-center">
           <CardSum onTotalUpdate={updateTotal} />
+              <div className="hidden lg:block ">
           <Link to="/checkout">
-            <button className="bg-ga-primary text-white rounded-md p-2 w-40 text-xl mt-7">
+            <button className="bg-ga-primary  text-white rounded-md p-2 w-40 text-xl mt-7">
               สั่งสินค้า
             </button>
           </Link>
+              </div>
         </div>
       </div>
-      <NavMobile checkout />
+      <NavMobile checkout total={total} />
     </>
   );
 };

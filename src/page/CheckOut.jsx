@@ -102,7 +102,7 @@ function CheckOut() {
         </div>
       </div>
 
-      <NavMobile checkout />
+      {/* <NavMobile checkout /> */}
     </>
   );
 }
