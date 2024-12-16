@@ -68,7 +68,7 @@ const routeAuthen = [
     element: <OrderHistory />,
   },
   {
-    path: "/orderhistorydetail",
+    path: "/orderhistorydetail/:id",
     element: <OrderHistoryDetail />,
   },
   {
