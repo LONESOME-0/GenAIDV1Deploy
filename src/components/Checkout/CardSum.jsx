@@ -2,11 +2,12 @@ import React, { useContext } from "react";
 import { CartContext } from "../../context/CartProvider";
 
 function CardSum({ onTotalUpdate }) {
-  const { cartItems } = useContext(CartContext);
-  console.log("cartSum : ", cartItems);
+  const { cartItems,toCheckout } = useContext(CartContext);
+  console.log("cartSum : ", toCheckout);
 
   // Calculate the summary of totalPrice
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.totalPrice, 0);
+  //const totalPrice = toCheckout.reduce((sum, item) => sum + item.totalPrice, 0);
+  const totalPrice = toCheckout.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   // Calculate the discount
   const discount = 0; // Replace with your logic to calculate the discount

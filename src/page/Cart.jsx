@@ -9,13 +9,24 @@ import { AuthContext } from "../context/AuthProvider";
 import { ProductContext } from "../context/ProductProvider";
 import { CartContext } from "../context/CartProvider";
 const Cart = () => {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, toCheckout, setToCheckout } = useContext(CartContext);
   const [total, setTotal] = useState(0);
   console.log(total);
 
   const updateTotal = (newTotal) => {
     setTotal(newTotal);
+    console.log("total is ",total)
   };
+
+  useEffect(() => {
+    // setToCheckout(cartItems);
+    updateTotal();
+  }, [toCheckout]);
+
+  // useEffect(() => {
+  //   setToCheckout([]);
+  // }, [total]);
+
   return (
     <>
       <Nav back title="รถเข็น" />
@@ -29,9 +40,12 @@ const Cart = () => {
         <div className="hidden lg:block lg:w-[30%]  lg:pt-6 text-center">
           <CardSum onTotalUpdate={updateTotal} />
           <Link to="/checkout">
-            <button className="bg-ga-primary text-white rounded-md p-2 w-40 text-xl mt-7">
-              สั่งสินค้า
-            </button>
+          <button
+            
+            className="bg-ga-primary text-white rounded-md p-2 w-40 text-xl mt-7"
+          >
+            สั่งสินค้า
+          </button>
           </Link>
         </div>
       </div>

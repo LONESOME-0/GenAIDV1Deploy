@@ -11,10 +11,10 @@ import axios from "axios";
 
 function CheckOut() {
   const { backendUrl, token } = useContext(AuthContext);
-  const { cartItems, addresses } = useContext(CartContext);
+  const { cartItems, addresses, setToCheckout,toCheckout,delCart } = useContext(CartContext);
   const [total, setTotal] = useState(0);
   const [address, setAddress] = useState("");
-
+  console.log("inCO1", toCheckout);
   const navigate = useNavigate(); // Initialize the useNavigate hook
 
   const updateTotal = (newTotal) => {
@@ -25,10 +25,10 @@ function CheckOut() {
     setAddress(address);
   };
 
-  const checkout = async (cartItems) => {
+  const checkout = async () => {
     try {
       const data = {
-        Item: cartItems,
+        Item: toCheckout,
         address,
         paymentMethod: "PromtPay",
         total,
@@ -40,9 +40,17 @@ function CheckOut() {
       );
 
       console.log("Order data:", data);
-      
+
       // Check for a successful response (status code 200 or similar)
       if (response.status === 200) {
+        // Remove each item in toCheckout from the cart
+        for (const item of toCheckout) {
+          await delCart(item.productid);
+        }
+
+        // Clear the toCheckout array
+        setToCheckout([]);
+
         navigate("/orderhistory"); // Redirect to /orderhistory
       }
     } catch (error) {
@@ -55,7 +63,6 @@ function CheckOut() {
       <Nav back title="ยืนยันการสั่งซื้อ" />
 
       <div className="container mx-auto my-16 p-4 lg:my-40 flex flex-col-reverse lg:flex-row-reverse lg:gap-12">
-        
         {/* Right Section: Order Summary */}
         <div className="w-full lg:w-1/3 bg-white p-6 rounded-lg shadow-md">
           <div className="flex justify-center mb-6">
@@ -91,9 +98,13 @@ function CheckOut() {
         <div className="w-full lg:w-2/3">
           <h2 className="text-2xl font-bold mb-4">รายการสินค้าในตะกร้า</h2>
           <div className="space-y-4">
-            {cartItems.length > 0 ? (
-              cartItems.map((item) => (
-                <CardCart key={item.productid} cartData={item} isCheckOut={true} />
+            {toCheckout.length > 0 ? (
+              toCheckout.map((item) => (
+                <CardCart
+                  key={item.productid}
+                  cartData={item}
+                  isCheckOut={true}
+                />
               ))
             ) : (
               <p className="text-gray-500">ไม่มีสินค้าในตะกร้า</p>
