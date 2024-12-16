@@ -32,6 +32,7 @@ const Home = () => {
           แต่ยาดีๆ ไม่ได้อยู่ในร้านเรา
         </div>
       </div>
+
       </div>
 
       <div className=" py-16 p-3 ">
