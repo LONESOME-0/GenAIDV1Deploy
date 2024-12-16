@@ -82,7 +82,7 @@ const CardCart = ({ cartData, isCheckOut }) => {
   };
 
   return (
-    <div className="flex justify-evenly bg-white p-2 h-44 items-center max-w-96 mx-auto rounded-xl my-6 lg:px-10 lg:min-w-full lg:mx-0 lg:justify-between">
+    <div className="flex  justify-evenly bg-white p-2 h-44  items-center max-w-96 mx-auto rounded-xl my-6 lg:px-10 lg:min-w-full lg:mx-0 lg:justify-between">
       <div className="flex gap-2 h-full w-[40%] lg:w-[15%]">
         <div className="flex items-center">
           {isCheckOut ? (
