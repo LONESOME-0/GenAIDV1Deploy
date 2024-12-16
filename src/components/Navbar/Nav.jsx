@@ -52,7 +52,10 @@ const Nav = ({ logo, back, search, title, cart }) => {
     }
   
     return (
+
       <div className="absolute top-full left-0 right-0 bg-white shadow-lg border mt-1 max-h-60 overflow-y-auto z-10 rounded-lg">
+
+  
         {searchResults.map((item) => (
           <div
             key={item._id}
@@ -84,7 +87,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
     <>
       {/* Mobile Navigation */}
       {(logo || back || search || title || cart) && (
-        <nav className="nav lg:hidden flex justify-between items-center h-[60px] p-3 space-x-6 bg-white fixed top-0 w-full z-50">
+        <nav className="nav shadow-lg rounded-b-2xl lg:hidden flex justify-between items-center h-[60px] p-3 space-x-6 bg-white fixed top-0 w-full z-50">
           {back && (
             <Link to={-1}>
               <button className="nav-back">
@@ -97,12 +100,12 @@ const Nav = ({ logo, back, search, title, cart }) => {
               <img src="/public/img/logo-genaid.png" alt="" className="max-h-10" />
             </div>
           )}
-          <div className="flex-grow flex justify-center relative">
-            {title && <div className="nav-title font-bold text-2xl">{title}</div>}
+          <div className="flex-grow flex justify-center   relative">
+            {title && <div className="nav-title font-bold  text-2xl">{title}</div>}
             {search && (
-              <div className="w-full relative">
+              <div className="w-full relative ">
                 <input
-                  className="nav-search w-full rounded-full p-1 border-solid border-[3px] border-ga-primary"
+                  className="nav-search w-[80%] text-center rounded-full p-1 border-solid border-[2px] hover:border-ga-primary focus:outline-none focus:border-blue-500"
                   type="text"
                   placeholder="ค้นหา สินค้า ประเภทสินค้า อาการ แท็ก"
                   value={searchTerm}
@@ -122,7 +125,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
       )}
 
       {/* Desktop Navigation */}
-      <nav className="hidden lg:block bg-white shadow-xl w-full fixed top-0 z-50">
+      <nav className="hidden rounded-b-3xl lg:block bg-white shadow-xl w-full fixed top-0 z-50">
         <div className="container mx-auto">
           {/* Top Section */}
           <div className="flex items-center justify-between p-4">

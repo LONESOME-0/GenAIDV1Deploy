@@ -20,22 +20,25 @@ const Cart = () => {
     <>
       <Nav back title="รถเข็น" />
 
-      <div className="my-16 lg:my-40  lg:w-[80%] lg:place-self-center lg:flex lg:gap-7 ">
+      <div className="py-16 lg:py-40  lg:w-[80%] lg:place-self-center lg:flex lg:gap-7 ">
         <div className="lg:w-[70%] ">
           {cartItems.map((item) => (
             <CardCart key={item.productid} cartData={item} />
           ))}
         </div>
-        <div className="hidden lg:block lg:w-[30%]  lg:pt-6 text-center">
+        <div className="lg:w-[30%] pb-3 lg:pt-6 text-center">
           <CardSum onTotalUpdate={updateTotal} />
+              <div className="hidden lg:block ">
           <Link to="/checkout">
-            <button className="bg-ga-primary text-white rounded-md p-2 w-40 text-xl mt-7">
+            <button className="bg-ga-primary  text-white rounded-md p-2 w-40 text-xl mt-7">
               สั่งสินค้า
             </button>
           </Link>
+              </div>
         </div>
+         <NavMobile checkout total={total} />
       </div>
-      <NavMobile checkout />
+     
     </>
   );
 };
