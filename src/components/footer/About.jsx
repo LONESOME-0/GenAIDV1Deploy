@@ -5,7 +5,7 @@ const about = () => {
     <div>
       <section
         id="about"
-        className=" flex justify-around footer text-lg text-base-content p-10"
+        className=" flex justify-around footer text-lg  text-base-content p-10"
       >
         <nav >
           <h6 className="footer-title ">การบริการ</h6>

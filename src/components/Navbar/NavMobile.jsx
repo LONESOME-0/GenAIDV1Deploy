@@ -36,7 +36,7 @@ const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
       {/* main nav */}
       {!product && !checkout && (
         <div>
-          <div className="bg-white rounded-2xl max-h-16 border-2  fixed bottom-0 w-full m-auto  p-3 px-9  shadow-[0px_-3px_12px_-3px_rgba(0,0,0,0.71)] lg:hidden">
+          <div className="bg-white rounded-t-xl max-h-16 border-2  fixed bottom-0 w-full m-auto  p-3 px-9  shadow-[0px_-3px_12px_-3px_rgba(0,0,0,0.71)] lg:hidden">
             <div className="flex justify-between   w-full">
               <NavLink
                 to="/"
