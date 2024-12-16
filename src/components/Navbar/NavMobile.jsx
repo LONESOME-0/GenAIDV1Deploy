@@ -103,7 +103,7 @@ const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
       )}
 
       {product && (
-        <div className="bg-white p-4 h-24 border-2 m-auto gap-6 flex justify-around fixed bottom-0 w-full  shadow-[0px_-3px_12px_-3px_rgba(0,0,0,0.71)] lg:hidden">
+        <div className="bg-white p-4 h-20 border-2 m-auto rounded-2xl gap-6 flex justify-around fixed bottom-0 w-full  shadow-[0px_-3px_12px_-3px_rgba(0,0,0,0.71)] lg:hidden">
           <button
             onClick={() => addToCart(product, quantity)}
             className="text-white gap-4 bg-ga-primary w-[30%] mb-2 p-5  flex justify-center items-center rounded-lg "
@@ -119,14 +119,14 @@ const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
 
       {checkout && (
         <>
-          <div className="bg-white p-6  border-2 flex justify-around  fixed bottom-0 w-full  shadow-[0px_-3px_12px_-3px_rgba(0,0,0,0.71)] lg:hidden">
-            <div className=" place-items-center ">
-              <span className="text-2xl text-ga-secondary  font-bold ">
+          <div className="bg-white h-20  p-4 rounded-2xl border-2 flex justify-around  fixed bottom-0 w-full  shadow-[0px_-3px_12px_-3px_rgba(0,0,0,0.71)] lg:hidden">
+            <div className=" place-items-center  p-1  ">
+              <span className="text-xl text-ga-secondary  font-bold ">
                 ยอดรวมคำสั่งซื้อ : {total}
               </span>
             </div>
-            <div className=" bg-ga-primary w-[50%] p-1 flex justify-center items-center rounded-lg">
-              <span className="text-white text-3xl">ซื้อเลย</span>
+            <div className=" bg-ga-primary w-[50%]   mb-2 p-5  flex justify-center items-center rounded-lg ">
+              <span className="text-white text-xl">ซื้อเลย</span>
             </div>
           </div>
         </>
