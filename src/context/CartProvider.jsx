@@ -10,6 +10,7 @@ const CartProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [addresses, setAddresses] = useState({});
   const [toCheckout, setToCheckout] = useState([]);
+  // const cartItems = Object.values(cartData);
 
   const getCart = async () => {
     try {
@@ -20,7 +21,8 @@ const CartProvider = ({ children }) => {
         {},
         { headers: { token } }
       );
-      setCartItems(response.data.cartData || []); // Ensure array fallback
+      setCartItems(Object.values(response.data.cartData )|| []); // Ensure array fallback
+      console.log("TEST", response.data.cartData);
     } catch (error) {
       console.error("Error fetching cart:", error.message);
     } finally {
@@ -42,7 +44,11 @@ const CartProvider = ({ children }) => {
         totalPrice,
       };
 
-      await axios.post(`${backendUrl}/api/cart/add`, { prodCart }, { headers: { token } });
+      await axios.post(
+        `${backendUrl}/api/cart/add`,
+        { prodCart },
+        { headers: { token } }
+      );
       getCart(); // Refresh cart
     } catch (error) {
       console.error("Error adding to cart:", error.message);
