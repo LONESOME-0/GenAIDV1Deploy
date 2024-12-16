@@ -11,6 +11,7 @@ const CartProvider = ({ children }) => {
   const cartItems = Object.values(cartData);
   const [update, setUpdate] = useState(false);
   const [addresses, setAddresses] = useState({});
+  const [toCheckout, setToCheckout] = useState([]);
 
   const getCart = async () => {
     try {
@@ -101,6 +102,7 @@ const CartProvider = ({ children }) => {
       //const newCart = cartItems.filter((item) => item.productid !== pid);
       setCartData(cartItems.filter((item) => item.productid !== pid));
       console.log(response);
+      setToCheckout(cartItems.filter((item) => item.productid !== pid));
     } catch (error) {
       console.log(error);
     }
@@ -115,7 +117,7 @@ const CartProvider = ({ children }) => {
 
       if (response.data.success) {
         setAddresses(response.data.addresses);
-        console.log("Addresses:",addresses);
+        console.log("Addresses:", addresses);
       } else {
         console.error("Error message from getAddress:", response.data.message);
       }
@@ -133,7 +135,6 @@ const CartProvider = ({ children }) => {
       console.log("Token is missing or invalid");
       setLoading(false);
     }
-   
   }, [token]);
 
   useEffect(() => {
@@ -145,7 +146,16 @@ const CartProvider = ({ children }) => {
   }
   return (
     <CartContext.Provider
-      value={{ cartItems, loading, getCart, addToCart, delCart,addresses }}
+      value={{
+        cartItems,
+        loading,
+        getCart,
+        addToCart,
+        delCart,
+        addresses,
+        toCheckout,
+        setToCheckout,
+      }}
     >
       {children}
     </CartContext.Provider>

@@ -9,13 +9,24 @@ import { AuthContext } from "../context/AuthProvider";
 import { ProductContext } from "../context/ProductProvider";
 import { CartContext } from "../context/CartProvider";
 const Cart = () => {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems, toCheckout, setToCheckout } = useContext(CartContext);
   const [total, setTotal] = useState(0);
   console.log(total);
 
   const updateTotal = (newTotal) => {
     setTotal(newTotal);
+    console.log("total is ",total)
   };
+
+  useEffect(() => {
+    // setToCheckout(cartItems);
+    updateTotal();
+  }, [toCheckout]);
+
+  // useEffect(() => {
+  //   setToCheckout([]);
+  // }, [total]);
+
   return (
     <>
       <Nav back title="รถเข็น" />
