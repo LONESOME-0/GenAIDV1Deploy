@@ -26,10 +26,10 @@ const Home = () => {
           className="flex h-[240px] ml-28"
         />
         <div className="text-white text-6xl ">
-          ร้านขายยาคุณภาพดีต้องมีแต่ยาดีๆ
+        "ให้คำปรึกษาด้านสุขภาพ ส่งยาถึงที่" 
         </div>
         <div className="absolute left-[54%] text-white text-6xl pt-36">
-          แต่ยาดีๆ ไม่ได้อยู่ในร้านเรา
+          แม้อยู่ไกลก็สบายใจได้
         </div>
       </div>
       </div>
