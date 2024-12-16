@@ -27,10 +27,11 @@ const CardOrder = ({ order }) => {
           <div>รหัสคำสั่งซื้อ : {order.orderId}</div>
           <div className="hidden sm:block"> วิธีชําระ : {order.paymentMethod}</div>
         </div>
-
+      
         <div className="  p-3 flex justify-end ">
           <FaChevronRight  size={25} />
         </div>
+        
       </div>
     </div>
   );
