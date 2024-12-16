@@ -4,14 +4,19 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { AuthContext } from "../../context/AuthProvider";
 import { CartContext } from "../../context/CartProvider";
 import axios from "axios";
-const CardDetail = ({ product }) => {
+const CardDetail = ({ product,setQuantity }) => {
   const { backendUrl, token } = useContext(AuthContext);
   const { cartItems, loading, addToCart } = useContext(CartContext);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantityState] = useState(1);
 
   // Callback function to handle quantity change
+  // const handleQuantityChange = (newQuantity) => {
+  //   setQuantity(newQuantity);
+  //   // quantityValue ={quantity};
+  // };
   const handleQuantityChange = (newQuantity) => {
-    setQuantity(newQuantity);
+    setQuantityState(newQuantity);
+    setQuantity(newQuantity); // Call the callback function
   };
  
  
