@@ -61,7 +61,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
     <>
       {/* Mobile Navigation */}
       {(logo || back || search || title || cart) && (
-        <nav className="nav shadow-lg rounded-b-xl lg:hidden flex justify-between items-center h-[60px] p-3 space-x-6 bg-white fixed top-0 w-full z-50">
+        <nav className="nav shadow-lg rounded-b-2xl lg:hidden flex justify-between items-center h-[60px] p-3 space-x-6 bg-white fixed top-0 w-full z-50">
           {back && (
             <Link to={-1}>
               <button className="nav-back">
@@ -99,7 +99,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
       )}
 
       {/* Desktop Navigation */}
-      <nav className="hidden lg:block bg-white shadow-xl w-full fixed top-0 z-50">
+      <nav className="hidden rounded-b-3xl lg:block bg-white shadow-xl w-full fixed top-0 z-50">
         <div className="container mx-auto">
           {/* Top Section */}
           <div className="flex items-center justify-between p-4">
