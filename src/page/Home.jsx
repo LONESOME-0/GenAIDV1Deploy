@@ -6,7 +6,7 @@ import CardProduct from "../components/Product/CardProduct";
 import { Link } from "react-router-dom";
 import { CategoryContext } from "../context/CategoryProvider";
 import { ProductContext } from "../context/ProductProvider";
-import About from "../components/footer/About";
+import About from "../components/footer/about";
 
 const Home = () => {
   const { category } = useContext(CategoryContext);
@@ -40,9 +40,31 @@ const Home = () => {
             <CardCategry key={index} data={cat} />
           ))}
         </div>
-        <section id="bestselling">
-          <p className="flex text-3xl px-5 py-8 justify-self-end">สินค้าแนะนำ</p>
-        </section>
+        <div className="grid grid-flow-col justify-items-stretch ">
+          <section id="bestselling">
+            <p className="flex text-3xl px-5 py-3 justify-self-end">
+              สินค้าแนะนำ
+            </p>
+          </section>
+          <Link
+            to="#"
+            className="flex px-5 underline justify-self-end items-center"
+          >
+            เพิ่มเติม
+          </Link>
+        </div>
+        <div className="p-2 grid grid-cols-2 gap-3 lg:grid-cols-6 lg:grid-rows-2 lg:gap-3">
+          {product
+            .filter((product) => product.rating >= 4)
+            .slice(0, 12)
+            .map((product) => (
+              <CardProduct key={product.id} product={product} />
+            ))}
+        </div>
+     
+      <section id="discounted">
+        <p>สินค้าลดราคา</p>
+      </section>
         <div id="about">
           <p className="text-center text-3xl">เกี่ยวกับเรา</p>
           <hr />

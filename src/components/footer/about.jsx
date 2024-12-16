@@ -63,4 +63,4 @@ const about = () => {
   );
 };
 
-export default About;
+export default about;
