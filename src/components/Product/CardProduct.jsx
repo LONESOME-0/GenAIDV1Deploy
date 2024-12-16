@@ -17,7 +17,6 @@ const CardProduct = ({ product }) => {
     }
     return stars;
   };
-  //console.log("Card", product);
 
   return (
     <>
@@ -31,7 +30,8 @@ const CardProduct = ({ product }) => {
           />
 
           {/* Product Details */}
-          <div className="p-4 flex flex-col ">
+          <div className="p-4 flex flex-col">
+
             {/* Product Name */}
             <h2 className="text-lg font-semibold text-gray-800 truncate">
               {product.productname || "Unknown Product"}
@@ -40,11 +40,6 @@ const CardProduct = ({ product }) => {
             {/* Product Description */}
             <p className="text-sm text-gray-600 mt-2 line-clamp-2">
               {product.description || "No description available."}
-            </p>
-
-            {/* Product Tags */}
-            <p className="text-xs text-blue-500 mt-2 line-clamp-1">
-              {product.tags || "#NoTags"}
             </p>
 
             {/* Price Section */}
