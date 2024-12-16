@@ -39,6 +39,7 @@ const CartProvider = ({ children }) => {
     if (update) {
       getCart();
       setUpdate(false);
+      setLoading(false);
     }
   }, [update]);
 
@@ -130,7 +131,9 @@ const CartProvider = ({ children }) => {
       getAddress();
     } else {
       console.log("Token is missing or invalid");
+      setLoading(false);
     }
+   
   }, [token]);
 
   useEffect(() => {
