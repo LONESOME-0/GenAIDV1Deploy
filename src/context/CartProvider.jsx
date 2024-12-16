@@ -9,6 +9,7 @@ const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]); // ตรงๆ เลยเป็น Array
   const [loading, setLoading] = useState(true);
   const [addresses, setAddresses] = useState({});
+  const [toCheckout, setToCheckout] = useState([]);
 
   const getCart = async () => {
     try {
@@ -57,7 +58,13 @@ const CartProvider = ({ children }) => {
         { productId: pid },
         { headers: { token } }
       );
-      setCartItems(cartItems.filter((item) => item.productid !== pid));
+      // console.log("del ", product);
+      //setUpdate(true);
+      //getCart();
+      //const newCart = cartItems.filter((item) => item.productid !== pid);
+      setCartData(cartItems.filter((item) => item.productid !== pid));
+      console.log(response);
+      setToCheckout(cartItems.filter((item) => item.productid !== pid));
     } catch (error) {
       console.error("Error deleting cart item:", error.message);
     }
@@ -70,6 +77,7 @@ const CartProvider = ({ children }) => {
       });
       if (response.data.success) {
         setAddresses(response.data.addresses);
+        console.log("Addresses:", addresses);
       } else {
         console.error("Failed to fetch addresses:", response.data.message);
       }
@@ -96,6 +104,8 @@ const CartProvider = ({ children }) => {
         addToCart,
         delCart,
         addresses,
+        toCheckout,
+        setToCheckout,
       }}
     >
       {children}

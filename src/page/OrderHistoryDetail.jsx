@@ -58,13 +58,10 @@ function OrderHistoryDetail() {
         <div className="flex items-center flex-col lg:flex-row lg:w-[80%] lg:place-self-center lg:gap-7">
           <div id="cardProduct" className="lg:w-[70%]">
             {orderData.Item && orderData.Item.length > 0 ? (
-              orderData.Item.map((itemId) => (
+              orderData.Item.map((item) => (
                 <CardCart
-                  key={itemId}
-                  cartData={{
-                    productid: itemId, // ส่งเฉพาะ ID หรือข้อมูลอื่น ๆ ที่จำเป็น
-                    ...orderData, // ส่งข้อมูลเพิ่มเติมถ้าจำเป็น เช่น address หรือ status
-                  }}
+                  key={item.productid}
+                  cartData={item}
                   isCheckOut={true}
                 />
               ))
@@ -78,17 +75,57 @@ function OrderHistoryDetail() {
             </div>
             <div className="payment-info lg:w-[30%] lg:p-6 text-center mt-5">
               <div className="flex justify-between flex-col w-72 m bg-white p-3 rounded-xl mx-auto">
-                <div className="flex justify-between">
-                  <span>Paid by </span>
-                  <span>QA Promtpay</span>
+              <div className="flex justify-between">
+                  <span>รหัสคำสั่งซื้อ </span>
+                  <span>{orderData.orderId || "0"}</span>
                 </div>
                 <div className="flex justify-between">
+                  <span>วันที่สั่งซื้อ </span>
+                  <span>
+                    {orderData.date
+                      ? new Date(orderData.date).toLocaleString("th-TH", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })
+                      : "N/A"}
+                  </span>
+                </div>
+                
+                <div className="flex justify-between">
+                  <span>ส่วนลด </span>
+                  <span>{orderData.discount || "0"}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>ค่าจัดส่ง </span>
+                  <span>{orderData.deliveryCharge || "0"}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>VAT</span>
+                  <span>{orderData.vat}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>รวม</span>
+                  <span>{orderData.totalPrice}</span>
+                </div>
+                <hr className="m-3"/>
+                <div className="flex justify-between">
                   <span>วิธีชําระ </span>
-                  <span>QA Promtpay</span>
+                  <span>{orderData.paymentMethod || "N/A"}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>เวลาชำระ </span>
+                  <span>{orderData.paymentTime || "N/A"}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>เวลาส่ง </span>
-                  <span>QA Promtpay</span>
+                  <span>{orderData.shippingTime || "N/A"}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>ที่อยู่จัดส่ง </span>
+                  <span>{orderData.address || "N/A"}</span>
                 </div>
               </div>
             </div>

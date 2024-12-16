@@ -49,8 +49,16 @@ function QuantityInput({ value = 1, onChange }) {
       <input
         type="text"
         value={quantity}
-        readOnly
         className="w-12 text-center border border-gray-300 py-2"
+        onChange={(e) => {
+          const newQuantity = parseInt(e.target.value, 10);
+          if (!isNaN(newQuantity) && newQuantity > 0) {
+            setQuantity(newQuantity);
+            if (onChange) {
+              onChange(newQuantity);
+            }
+          }
+        }}
       />
       <button
         className="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-r hover:bg-gray-400 border border-gray-300"
