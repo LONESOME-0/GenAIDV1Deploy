@@ -87,7 +87,7 @@ function CheckOut() {
 
           {/* Checkout Button */}
           <button
-            onClick={() => checkout(cartItems)}
+            onClick={() => checkout()}
             className="bg-blue-600 hover:bg-blue-700 text-white rounded-md py-3 w-full text-lg mt-6 transition duration-300"
           >
             สั่งสินค้า

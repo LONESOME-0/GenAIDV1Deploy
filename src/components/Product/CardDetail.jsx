@@ -3,10 +3,12 @@ import QuantityInput from "./QuantityInput";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { AuthContext } from "../../context/AuthProvider";
 import { CartContext } from "../../context/CartProvider";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
-const CardDetail = ({ product,setQuantity }) => {
+const CardDetail = ({ product, setQuantity }) => {
+  const navigate = useNavigate();
   const { backendUrl, token } = useContext(AuthContext);
-  const { cartItems, loading, addToCart } = useContext(CartContext);
+  const { cartItems, loading, addToCart,setToCheckout } = useContext(CartContext);
   const [quantity, setQuantityState] = useState(1);
 
   // Callback function to handle quantity change
@@ -18,8 +20,31 @@ const CardDetail = ({ product,setQuantity }) => {
     setQuantityState(newQuantity);
     setQuantity(newQuantity); // Call the callback function
   };
- 
- 
+
+  const buyNow = async (product) => {
+    // Clear toCheckout variable
+    setToCheckout([]);
+
+    // Add product to cart
+    await addToCart(product, quantity);
+
+    // Add product to toCheckout variable
+    setToCheckout([{
+        productid: product.id,
+        productname: product.productname,
+        image: product.image,
+        price: product.price,
+        quantity,
+        totalPrice: product.price * quantity
+    }]);
+
+    // Navigate to checkout page
+    navigate("/checkout");
+  };
+
+  const handleBuyNow = () => {
+    buyNow(product);
+  };
   const renderStars = (rating) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
@@ -41,13 +66,13 @@ const CardDetail = ({ product,setQuantity }) => {
         className="flex flex-col w-full  flex-1 lg:w-auto lg:mx-10 p-3 bg-white lg:flex-row "
       >
         <div className="justify-items-center">
-        <div id="productImg">
-        <img
-          src={product?.image || "https://via.placeholder.com/150"}
-          alt={product?.productname || "No Image"}
-          className="lg:h-96"
-        />
-      </div>
+          <div id="productImg">
+            <img
+              src={product?.image || "https://via.placeholder.com/150"}
+              alt={product?.productname || "No Image"}
+              className="lg:h-96"
+            />
+          </div>
         </div>
         {/* <div id="productName" className='my-3'><span className='text-2xl'>ยาธาตุน้ำขาวตรากระต่ายบิน</span></div> */}
 
@@ -74,12 +99,17 @@ const CardDetail = ({ product,setQuantity }) => {
           </div>
           <div className="hidden lg:flex mt-3 space-x-4">
             <button
+              id="addToCart"
               onClick={() => addToCart(product, quantity)}
               className="bg-ga-primary text-white rounded-md p-2 w-40 text-xl"
             >
               เพิ่มลงรถเข็น
             </button>
-            <button className="bg-ga-secondary text-white rounded-md p-2 w-40 text-xl">
+            <button
+              id="buyNow"
+              onClick={handleBuyNow}
+              className="bg-ga-secondary text-white rounded-md p-2 w-40 text-xl"
+            >
               ซื้อเลย
             </button>
           </div>
