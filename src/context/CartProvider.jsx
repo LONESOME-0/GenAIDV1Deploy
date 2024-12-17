@@ -124,6 +124,7 @@ const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         cartItems,
+        setCartItems,
         loading,
         getCart,
         addToCart,

@@ -10,8 +10,10 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 import { useSearchProduct } from "../../context/SearchProductProvider.jsx";
 import { CartContext } from "../../context/CartProvider.jsx";
 import genaid from "/public/img/logo-genaid.png";
+import { AuthContext } from "../../context/AuthProvider.jsx";
 const Nav = ({ logo, back, search, title, cart }) => {
-  const { cartItems, cartItemCount } = useContext(CartContext);
+  const { backendUrl,token,setToken } = useContext(AuthContext);
+  const { cartItems,setCartItems, cartItemCount } = useContext(CartContext);
   const [searchTerm, setSearchTerm] = useState("");
   const { searchResults, loading, error, searchProducts } = useSearchProduct();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,10 +34,13 @@ const Nav = ({ logo, back, search, title, cart }) => {
     }
   };
 
+
   const handleLogout = () => {
+    setToken(null);
+    setCartItems([]);
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    navigate("/login");
+    navigate("/login").then(() => window.location.reload());
   };
 
   const renderSearchResults = () => {
@@ -196,7 +201,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
 
               <div className="group relative">
                 <NavLink
-                  to={isLoggedIn ? null : "/login"}
+                  to={token ? null : "/login"}
                   className={({ isActive }) => `
                     flex items-center space-x-2 cursor-pointer hover:text-ga-primary 
                     ${isLoggedIn ? "" : isActive ? "text-ga-primary" : ""}
