@@ -44,11 +44,17 @@ const Cart = () => {
           <CardSum onTotalUpdate={updateTotal} />
           <div className="hidden lg:block ">
             
-            <Link to="/checkout">
-              <button className="bg-ga-primary  text-white rounded-md p-2 w-40 text-xl mt-7">
-                สั่งสินค้า
-              </button>
-            </Link>
+            {!toCheckout.length ? (
+              <p className="text-lg text-gray-500 my-5">
+                กรุณาเลือกสินค้าในรถเข็น
+              </p>
+            ) : (
+              <Link to="/checkout">
+                <button className="bg-ga-primary  text-white rounded-md p-2 w-40 text-xl mt-7">
+                  สั่งสินค้า
+                </button>
+              </Link>
+            )}
           </div>
         </div>
         <NavMobile checkout total={total} />
