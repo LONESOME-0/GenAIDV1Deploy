@@ -1,6 +1,5 @@
-
 import { IoMdArrowRoundBack } from "react-icons/io";
-import {  useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { FaCartShopping, FaFire, FaUser } from "react-icons/fa6";
 import { FaHome } from "react-icons/fa";
 import { BiSolidCategory } from "react-icons/bi";
@@ -9,13 +8,16 @@ import { PiPillFill } from "react-icons/pi";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { useSearchProduct } from "../../context/SearchProductProvider.jsx";
+import { CartContext } from "../../context/CartProvider.jsx";
 import genaid from "/public/img/logo-genaid.png";
 const Nav = ({ logo, back, search, title, cart }) => {
+  const { cartItems, cartItemCount } = useContext(CartContext);
   const [searchTerm, setSearchTerm] = useState("");
   const { searchResults, loading, error, searchProducts } = useSearchProduct();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
+  console.log("cartItems count", cartItemCount);
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
@@ -24,7 +26,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
   const handleSearchChange = (e) => {
     const term = e.target.value.trim();
     setSearchTerm(term);
-  
+
     if (term) {
       searchProducts({ search: term }); // ส่งเป็น 'search' แทน 'query'
     }
@@ -38,19 +40,19 @@ const Nav = ({ logo, back, search, title, cart }) => {
 
   const renderSearchResults = () => {
     if (!searchTerm.trim()) return null;
-  
+
     if (loading) {
       return <p className="p-2 text-gray-600"></p>;
     }
-  
+
     if (error) {
       return <p className="p-2 text-red-500">{error}</p>;
     }
-  
+
     if (searchResults.length === 0) {
       return <p className="p-2 text-gray-600">No results found.</p>;
     }
-  
+
     return (
       <div className="absolute top-full left-0 right-0 bg-white shadow-lg border mt-1 max-h-60 overflow-y-auto z-10 rounded-lg">
         {searchResults.map((item) => (
@@ -58,7 +60,9 @@ const Nav = ({ logo, back, search, title, cart }) => {
             key={item._id}
             className="flex items-center p-2 hover:bg-blue-50 cursor-pointer transition duration-200"
             //onClick={() => navigate(`/search?search=${encodeURIComponent(item.productname)}`)} // Update path
-            onClick={() => navigate(`/productdetail/${encodeURIComponent(item.id)}`)} // Update path
+            onClick={() =>
+              navigate(`/productdetail/${encodeURIComponent(item.id)}`)
+            } // Update path
           >
             <img
               src={item.image || "https://via.placeholder.com/150"}
@@ -70,7 +74,8 @@ const Nav = ({ logo, back, search, title, cart }) => {
                 {item.productname}
               </p>
               <p className="text-xs text-gray-500">
-                {item.description?.slice(0, 50) || "No description available."}...
+                {item.description?.slice(0, 50) || "No description available."}
+                ...
               </p>
             </div>
           </div>
@@ -78,8 +83,7 @@ const Nav = ({ logo, back, search, title, cart }) => {
       </div>
     );
   };
-  
-  
+
   return (
     <>
       {/* Mobile Navigation */}
@@ -98,7 +102,9 @@ const Nav = ({ logo, back, search, title, cart }) => {
             </div>
           )}
           <div className="flex-grow flex justify-center   relative">
-            {title && <div className="nav-title font-bold  text-2xl">{title}</div>}
+            {title && (
+              <div className="nav-title font-bold  text-2xl">{title}</div>
+            )}
             {search && (
               <div className="w-full relative ">
                 <input
@@ -108,7 +114,11 @@ const Nav = ({ logo, back, search, title, cart }) => {
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
-                {error && <p className="text-sm text-red-500 absolute top-full mt-1">{error}</p>}
+                {error && (
+                  <p className="text-sm text-red-500 absolute top-full mt-1">
+                    {error}
+                  </p>
+                )}
                 {renderSearchResults()}
               </div>
             )}
@@ -139,12 +149,16 @@ const Nav = ({ logo, back, search, title, cart }) => {
                 value={searchTerm}
                 onChange={handleSearchChange}
               />
-              {error && <p className="text-sm text-red-500 absolute top-full mt-1">{error}</p>}
+              {error && (
+                <p className="text-sm text-red-500 absolute top-full mt-1">
+                  {error}
+                </p>
+              )}
               {renderSearchResults()}
             </div>
 
             <div className="flex items-center space-x-6">
-              <NavLink
+              {/* <NavLink
                 to="/cart"
                 className={({ isActive }) =>
                   isActive
@@ -156,13 +170,36 @@ const Nav = ({ logo, back, search, title, cart }) => {
                   <FaCartShopping className="text-2xl mb-1" />
                   <span className="text-sm">รถเข็น</span>
                 </div>
+              </NavLink> */}
+              <NavLink
+                to="/cart"
+                className={({ isActive }) =>
+                  isActive
+                    ? "cursor-pointer text-ga-primary relative"
+                    : "flex items-center space-x-2 cursor-pointer hover:text-ga-primary relative"
+                }
+              >
+                <div className="flex flex-col items-center cursor-pointer hover:text-ga-primary relative">
+                  {/* Cart Icon */}
+                  <FaCartShopping className="text-2xl mb-1" />
+
+                  {/* Badge */}
+                  {cartItemCount > 0 && (
+                    <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                      {cartItemCount}
+                    </span>
+                  )}
+
+                  <span className="text-sm">รถเข็น</span>
+                </div>
               </NavLink>
+
               <div className="group relative">
                 <NavLink
                   to={isLoggedIn ? null : "/login"}
                   className={({ isActive }) => `
                     flex items-center space-x-2 cursor-pointer hover:text-ga-primary 
-                    ${isLoggedIn ? "" : (isActive ? 'text-ga-primary' : '')}
+                    ${isLoggedIn ? "" : isActive ? "text-ga-primary" : ""}
                   `}
                 >
                   <div className="flex flex-col items-center cursor-pointer hover:text-ga-primary">
@@ -205,12 +242,12 @@ const Nav = ({ logo, back, search, title, cart }) => {
               </div>
             </NavLink>
 
-            <NavLink 
-              to="/category" 
-              className={({ isActive }) => 
-                isActive 
-                  ? 'flex items-center space-x-2 cursor-pointer text-ga-primary' 
-                  : 'flex items-center space-x-2 cursor-pointer hover:text-ga-primary'
+            <NavLink
+              to="/category"
+              className={({ isActive }) =>
+                isActive
+                  ? "flex items-center space-x-2 cursor-pointer text-ga-primary"
+                  : "flex items-center space-x-2 cursor-pointer hover:text-ga-primary"
               }
             >
               <div className="flex space-x-2">
@@ -235,7 +272,9 @@ const Nav = ({ logo, back, search, title, cart }) => {
 
             <div className="flex items-center space-x-2 cursor-pointer hover:text-ga-primary">
               <PiPillFill className="text-lg" />
-              <AnchorLink offset='200' href="#about">เกี่ยวกับเรา</AnchorLink>
+              <AnchorLink offset="200" href="#about">
+                เกี่ยวกับเรา
+              </AnchorLink>
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CartContext } from "../../context/CartProvider.jsx";
+import { AuthContext } from "../../context/AuthProvider.jsx";
 
 const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
   const iconSize = "1.6rem ";
@@ -15,7 +16,8 @@ const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
   const navigate = useNavigate();
   const { addToCart } = useContext(CartContext);
   const [newQuantity, setNewQuantity] = useState(0);
-
+  const { token } = useContext(AuthContext);
+  const { cartItemCount } = useContext(CartContext);
   // const onTotalUpdate = ( total ) => {
   //   setTotalOrder(total);
   // };
@@ -24,15 +26,15 @@ const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
   };
   console.log(quantity);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     setIsLoggedIn(true);
+  //   }
+  // }, [token]);
 
   return (
-    <div className="" >
+    <div className="">
       {/* main nav */}
       {!product && !checkout && (
         <div>
@@ -70,7 +72,7 @@ const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
                 <IoChatbubbleEllipses size={iconSize} /> ติดต่อเภสัช
               </div>
 
-              <NavLink
+              {/* <NavLink
                 to="/cart"
                 className={({ isActive }) =>
                   isActive
@@ -82,10 +84,31 @@ const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
                   <FaCartShopping size={iconSize} />
                   รถเข็น
                 </div>
+              </NavLink> */}
+              <NavLink
+                to="/cart"
+                className={({ isActive }) =>
+                  isActive
+                    ? "cursor-pointer text-ga-primary"
+                    : "flex items-center space-x-2 cursor-pointer hover:text-ga-primary"
+                }
+              >
+                <div className="relative place-items-center hover:text-ga-primary">
+                  {/* Cart Icon */}
+                  <FaCartShopping size={iconSize} />
+
+                  {/* Cart Badge */}
+                  {cartItemCount > 0 && (
+                    <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                      {cartItemCount}
+                    </span>
+                  )}
+                  <span className="text-sm">รถเข็น</span>
+                </div>
               </NavLink>
 
               <NavLink
-                to={isLoggedIn ? "/profile" : "/login"}
+                to={token ? "/profile" : "/login"}
                 className={({ isActive }) =>
                   isActive
                     ? " cursor-pointer text-ga-primary"

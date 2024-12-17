@@ -23,6 +23,7 @@ const Home = () => {
 
       {/* Banner Section */}
       <div className="hidden md:block  ">
+
         <div className="flex  bg-ga-primary w-full h-72 mt-28 items-center">
           <img
             src="/img/CartmainGenAID.png"
@@ -35,6 +36,7 @@ const Home = () => {
           <div className="absolute left-[54%] text-white text-6xl pt-36">
             แม้อยู่ไกลก็สบายใจได้
           </div>
+
         </div>
       </div>
 

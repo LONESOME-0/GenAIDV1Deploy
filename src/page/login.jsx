@@ -23,9 +23,9 @@ const Login = () => {
   const [submittedData, setSubmittedData] = useState([]);
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
-  const [token, setToken] = useState(null);
+  // const [token, setToken] = useState(null);
   const navigate = useNavigate();
-  const { backendUrl } = useContext(AuthContext);
+  const { backendUrl,token,setToken } = useContext(AuthContext);
 
   useEffect(() => {
     const validateEmail = () => {
@@ -102,7 +102,8 @@ const Login = () => {
 
   useEffect(() => {
     if (token) {
-      navigate("/");
+      // navigate("/");
+      navigate("/", { replace: true });
     }
 
   }, [token]);
