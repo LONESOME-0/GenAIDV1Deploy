@@ -6,6 +6,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CartContext } from "../../context/CartProvider.jsx";
+import { AuthContext } from "../../context/AuthProvider.jsx";
 
 const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
   const iconSize = "1.6rem ";
@@ -15,6 +16,7 @@ const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
   const navigate = useNavigate();
   const { addToCart } = useContext(CartContext);
   const [newQuantity, setNewQuantity] = useState(0);
+  const { token } = useContext(AuthContext);
 
   // const onTotalUpdate = ( total ) => {
   //   setTotalOrder(total);
@@ -24,12 +26,12 @@ const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
   };
   console.log(quantity);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     setIsLoggedIn(true);
+  //   }
+  // }, [token]);
 
   return (
     <div className="" >
@@ -85,7 +87,7 @@ const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
               </NavLink>
 
               <NavLink
-                to={isLoggedIn ? "/profile" : "/login"}
+                to={token ? "/profile" : "/login"}
                 className={({ isActive }) =>
                   isActive
                     ? " cursor-pointer text-ga-primary"
