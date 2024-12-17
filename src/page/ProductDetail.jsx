@@ -3,7 +3,7 @@ import NavMobile from "../components/Navbar/NavMobile";
 import CardDetail from "../components/Product/CardDetail";
 import CardDesc from "../components/Product/CardDesc";
 import CardProduct from "../components/Product/CardProduct";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ProductContext } from "../context/ProductProvider";
 
@@ -13,6 +13,10 @@ const ProductDetail = () => {
   const productDetail = product.find((product) => product.id === Number(id));
   const [quantity, setQuantity] = useState(1);
   // console.log(productDetail);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
