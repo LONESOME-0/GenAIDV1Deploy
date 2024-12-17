@@ -128,10 +128,10 @@ const Login = () => {
           onSubmit={handleSubmit}
           autoComplete="off"
         >
-          <h1 className="mb-4 text-3xl font-bold  ">Login Details</h1>
+          <h1 className="mb-4 text-3xl font-bold  ">ระบบสมาชิก</h1>
           <div className=" mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Email
+              อีเมล
             </label>
             <div className=" relative mb-4">
               <input
@@ -154,7 +154,7 @@ const Login = () => {
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Password
+            พาสเวิร์ด
             </label>
             <div className=" relative mb-4">
               <input
@@ -178,7 +178,7 @@ const Login = () => {
               >
                 {hidePassword ? "Show Password" : "Hide Password"}
               </button>
-              <button className=" text-sm"> Foget password ?</button>
+              <button className=" text-sm pl-6"> ลืมรหัสผ่าน?</button>
             </div>
             {passwordError && passwordTouched && (
               <p className="text-red-500 text-xs italic mt-2">
@@ -193,21 +193,21 @@ const Login = () => {
               className="w-full bg-ga-primary
            hover:bg-ga-secondary text-white font-bold py-2 px-4  focus:outline-none focus:shadow-outline rounded-md text-2xl  h-16"
             >
-              Login
+              เข้าสู่ระบบ
             </button>
           </div>
-          <p className="m-4 text-center">Or Sign in With</p>
+          <p className="m-4 text-center">หรือเข้าสู่ระบบผ่าน</p>
 
           <div className=" flex justify-center gap-6 text-3xl ">
             <IoLogoGoogle />
             <FaFacebookF />
             <FaApple />
           </div>
-          <div className="flex">
+          <div className="flex pl-8">
             <p className="m-4">
-              Don't have an account?{" "}
-              <Link to="/register" className="text-blue-700">
-                Register Now
+              ถ้ายังไม่เป็นสมาชิก?{" "}
+              <Link to="/register" className="text-blue-700 ">
+                สมัครสมาชิก
               </Link>
             </p>
             {/* <button className="text-sky-600">Register Now</button> */}
