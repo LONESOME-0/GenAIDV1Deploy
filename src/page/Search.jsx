@@ -12,10 +12,19 @@ const Search = () => {
 
   const query = new URLSearchParams(search); // Parse query string
   const searchTerm = query.get("search");
+  console.log("Search term:", searchTerm);
 
   // Fetch data from contexts
-  const { categories, loading: loadingCategories, error: categoryError } = useCategoryContext();
-  const { product: allProducts, loading: loadingProducts, error: productError } = useContext(ProductContext);
+  const {
+    categories,
+    loading: loadingCategories,
+    error: categoryError,
+  } = useCategoryContext();
+  const {
+    product: allProducts,
+    loading: loadingProducts,
+    error: productError,
+  } = useContext(ProductContext);
 
   // State สำหรับสินค้าที่แสดง
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -23,9 +32,25 @@ const Search = () => {
   useEffect(() => {
     if (searchTerm) {
       // ค้นหาสินค้าจากชื่อ
-      const filtered = allProducts.filter((product) =>
-        product.productname.toLowerCase().includes(searchTerm.toLowerCase())
+      const filtered = allProducts.filter(
+        (product) =>
+          (product.productname?.toLowerCase() || "").includes(
+            searchTerm.toLowerCase()
+          ) ||
+          (product.description?.toLowerCase() || "").includes(
+            searchTerm.toLowerCase()
+          ) ||
+          (product.tags?.[0]?.toLowerCase() || "").includes(
+            searchTerm.toLowerCase()
+          ) ||
+          (product.activeIngredient?.toLowerCase() || "").includes(
+            searchTerm.toLowerCase()
+          )
       );
+
+      // const filtered = allProducts.filter((product) =>
+      //   product.productname.toLowerCase().includes(searchTerm.toLowerCase())
+      // );
       setFilteredProducts(filtered);
     } else if (categoryName) {
       // ค้นหาจากหมวดหมู่
@@ -61,10 +86,13 @@ const Search = () => {
       <div className="flex">
         {/* Sidebar */}
         <div className="hidden md:block w-[25%] bg-white ml-3 p-4 border-r border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-700 mb-4"> <a href="/" className="text-blue-500 hover:underline">
-            Home
-          </a>{" "}
-          / {categoryName || searchTerm || "All Products"}</h3>
+          <h3 className="text-lg font-semibold text-gray-700 mb-4">
+            {" "}
+            <a href="/" className="text-blue-500 hover:underline">
+              Home
+            </a>{" "}
+            / {categoryName || searchTerm || "All Products"}
+          </h3>
           {loadingCategories ? (
             <p>Loading categories...</p>
           ) : categoryError ? (
@@ -102,9 +130,13 @@ const Search = () => {
         {/* Main Content */}
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4 p-3 w-full">
           {loadingProducts ? (
-            <p className="text-gray-600 col-span-2 text-center">Loading products...</p>
+            <p className="text-gray-600 col-span-2 text-center">
+              Loading products...
+            </p>
           ) : productError ? (
-            <p className="text-red-500 col-span-2 text-center">{productError}</p>
+            <p className="text-red-500 col-span-2 text-center">
+              {productError}
+            </p>
           ) : filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <div key={product._id}>
