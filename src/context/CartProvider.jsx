@@ -69,6 +69,10 @@ const CartProvider = ({ children }) => {
   }
 };
 
+
+  const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+
   const delCart = async (pid) => {
     try {
       if (!token) return;
@@ -127,6 +131,7 @@ const CartProvider = ({ children }) => {
         addresses,
         toCheckout,
         setToCheckout,
+        cartItemCount
       }}
     >
       {children}
