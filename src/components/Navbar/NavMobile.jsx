@@ -14,10 +14,10 @@ const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
   // const iConColor='#00A4B6'
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, cartItemCount, toCheckout,setToCheckout } = useContext(CartContext);
   const [newQuantity, setNewQuantity] = useState(0);
   const { token } = useContext(AuthContext);
-  const { cartItemCount } = useContext(CartContext);
+
   // const onTotalUpdate = ( total ) => {
   //   setTotalOrder(total);
   // };
@@ -25,6 +25,33 @@ const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
     setQuantity(newQuantity);
   };
   console.log(quantity);
+
+  const handleBuyNow = () => {
+    buyNow(product);
+  };
+
+  const buyNow = async (product) => {
+    // Clear toCheckout variable
+    setToCheckout([]);
+
+    // Add product to cart
+    await addToCart(product, quantity);
+
+    // Add product to toCheckout variable
+    setToCheckout([
+      {
+        productid: product.id,
+        productname: product.productname,
+        image: product.image,
+        price: product.price,
+        quantity,
+        totalPrice: product.price * quantity,
+      },
+    ]);
+
+    // Navigate to checkout page
+    navigate("/checkout");
+  };
 
   // useEffect(() => {
   //   const token = localStorage.getItem("token");
@@ -134,7 +161,10 @@ const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
             <FaCartShopping size={20} />
             เพิ่มลงรถเข็น
           </button>
-          <div className=" bg-ga-secondary w-[50%]  mb-2 p-5  flex justify-center items-center rounded-lg ">
+          <div
+            onClick={handleBuyNow}
+            className=" bg-ga-secondary w-[50%]  mb-2 p-5  flex justify-center items-center rounded-lg "
+          >
             <span className="text-white text-xl ">ซื้อเลย</span>
           </div>
         </div>
@@ -145,10 +175,21 @@ const NavMobile = ({ product, checkout, total, setQuantity, quantity }) => {
           <div className="bg-white h-20  p-4 rounded-2xl border-2 flex justify-around  fixed bottom-0 w-full  shadow-[0px_-3px_12px_-3px_rgba(0,0,0,0.71)] lg:hidden">
             <div className=" place-items-center  p-1  ">
               <span className="text-xl text-ga-secondary  font-bold ">
-                ยอดรวมคำสั่งซื้อ : {total}
+                ยอดรวม : {total}
               </span>
             </div>
-            <div className=" bg-ga-primary w-[50%]   mb-2 p-5  flex justify-center items-center rounded-lg ">
+
+            <div
+              onClick={() => {
+                if (toCheckout.length === 0) {
+                  alert("กรุณาเลือกสินค้าในรถเข็น");
+                } else {
+                  // Add your checkout logic here
+                  navigate("/checkout");
+                }
+              }}
+              className="bg-ga-primary w-[50%] mb-2 p-5 flex justify-center items-center rounded-lg"
+            >
               <span className="text-white text-xl">ซื้อเลย</span>
             </div>
           </div>

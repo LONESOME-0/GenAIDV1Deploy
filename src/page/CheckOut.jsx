@@ -96,7 +96,7 @@ function CheckOut() {
 
         {/* Left Section: Cart Items */}
         <div className="w-full lg:w-2/3">
-          <h2 className="text-2xl font-bold mb-4">รายการสินค้าในตะกร้า</h2>
+          <h2 className="text-2xl font-bold mb-4">รายการสินค้า</h2>
           <div className="space-y-4">
             {toCheckout.length > 0 ? (
               toCheckout.map((item) => (
@@ -107,7 +107,7 @@ function CheckOut() {
                 />
               ))
             ) : (
-              <p className="text-gray-500">ไม่มีสินค้าในตะกร้า</p>
+              <p className="text-gray-500">ไม่มีสินค้า</p>
             )}
           </div>
         </div>
