@@ -218,19 +218,19 @@ const Nav = ({ logo, back, search, title, cart }) => {
                       to="/profile"
                       className="cursor-pointer rounded-md text-gray-800 hover:bg-neutral-400 block px-4 py-2"
                     >
-                      My Profile
+                      โปรไฟล์
                     </Link>
                     <Link
                       to="/orderhistory"
                       className="block px-4 py-2 rounded-md text-gray-800 hover:bg-neutral-400"
                     >
-                      My Orders
+                     ประวัติการสั่งซื้อ
                     </Link>
                     <button
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 rounded-md text-gray-800 hover:bg-neutral-400"
                     >
-                      Logout
+                      ออกจากระบบ
                     </button>
                   </div>
                 )}

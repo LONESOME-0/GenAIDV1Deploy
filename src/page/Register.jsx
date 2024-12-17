@@ -169,17 +169,17 @@ const Register = () => {
           onSubmit={handleSubmit}
           autoComplete="off"
         >
-           <h1 className="mb-2 text-3xl font-bold text-center ">Lets Register Account</h1>
+           <h1 className="mb-2 text-3xl font-bold text-center ">ลงทะเบียนบัญชีกับเรา</h1>
           <p className="mb-1 text-2xl font-medium text-center">
-            Hello User, you have a greatful journey
+            ยินดีต้อนรับเป็นสมาชิกกับเรา
           </p>
 
-          <h1 className="m-7 font-bold text-2xl ml-2">Register</h1>
+          <h1 className="m-7 font-bold text-2xl ml-2">ลงทะเบียน</h1>
 
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2 ml-6">
-              Name
+              ชื่อ
             </label>
             <div className="relative mb-4 w-[85%] mx-auto">
               <input
@@ -201,7 +201,7 @@ const Register = () => {
 
           <div className="mb-4 ">
             <label className="block text-gray-700 text-sm font-bold mb-2 ml-6">
-              Email
+              อีเมล
             </label>
             <div className="relative w-[85%] mx-auto">
               <input
@@ -223,7 +223,7 @@ const Register = () => {
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2 ml-6">
-              Phone Number
+              เบอร์โทร
             </label>
             <div className="relative w-[85%] mx-auto">
               <input
@@ -247,7 +247,8 @@ const Register = () => {
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2 ml-6 ">
-              Password
+              
+            พาสเวิร์ด
             </label>
             <div className="relative w-[85%] mx-auto">
               <input        
@@ -277,7 +278,8 @@ const Register = () => {
 
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2 ml-6">
-            Confirm Password
+            
+              ยืนยัน  พาสเวิร์ด
           </label>
           <div className="relative w-[85%] mx-auto">
             <input
@@ -310,7 +312,7 @@ const Register = () => {
             type="submit"
             className="w-full bg-ga-primary hover:bg-ga-secondary text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline rounded-md text-2xl h-16"
           >
-            Register
+            สมัครสมาชิก
           </button>
         </div>
 
