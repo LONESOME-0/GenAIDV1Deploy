@@ -70,7 +70,7 @@ const CartProvider = ({ children }) => {
 };
 
 
-  const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const cartItemCount = cartItems.length;
 
 
   const delCart = async (pid) => {
