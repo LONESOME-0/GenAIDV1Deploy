@@ -1,6 +1,6 @@
 import React from "react";
 import Tag from "../Tag/Tag";
-
+import { Link } from "react-router-dom";
 const CardDesc = ({ product }) => {
   return (
     <div className="bg-white my-8 min-h-96 p-4 lg:mx-10">
@@ -12,7 +12,9 @@ const CardDesc = ({ product }) => {
 
       <div id="section-tag" className="justify-self-end flex">
         {product.tags[0].split(', ').map((tag, index) => (
-          <Tag key={index} tag={tag} />
+          <Link key={index} to={`/search/?search=${encodeURIComponent(tag)}`}>
+            <Tag tag={tag} />
+          </Link>
         ))}
       </div>
     </div>
