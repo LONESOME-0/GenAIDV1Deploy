@@ -27,10 +27,10 @@ const Home = () => {
           className="flex h-[240px] ml-28"
         />
         <div className="text-white text-6xl ">
-        "ให้คำปรึกษาด้านสุขภาพ ส่งยาถึงที่" 
+        "ให้คำปรึกษาด้านสุขภาพ ส่งยาถึงที่ 
         </div>
         <div className="absolute left-[54%] text-white text-6xl pt-36">
-          แม้อยู่ไกลก็สบายใจได้
+          แม้อยู่ไกลก็สบายใจได้"
          </div>
 
         </div>
