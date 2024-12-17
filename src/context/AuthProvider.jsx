@@ -5,7 +5,9 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
     const [token, setToken] = useState(localStorage.getItem("token"));
+    console.log("from auth",token)
     // useEffect(() => {
     //     if (!token && localStorage.getItem("token")) {
     //       setToken(localStorage.getItem("token"));
@@ -20,8 +22,9 @@ const AuthProvider = ({ children }) => {
   const value = {
     backendUrl,
     token,
+    setToken,
   };
-  //   console.log("token is ",value.token)
+     console.log("auth token is ",value.token)
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
